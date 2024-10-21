@@ -83,6 +83,8 @@ namespace ET
             // 挂上这个组件，5秒就会删除session，所以客户端验证完成要删除这个组件。该组件的作用就是防止外挂一直连接不发消息也不进行权限验证
             session.AddComponent<SessionAcceptTimeoutComponent>();
             // 客户端连接，2秒检查一次recv消息，10秒没有消息则断开
+            // (ping 心跳组件 每隔2秒就会收发一次消息，检测连接状态
+            // SessionIdleCheckerComponent 每隔2秒检测一次 30秒内有没有收发一次消息，如果30秒内没有的话就会断开连接 )
             session.AddComponent<SessionIdleCheckerComponent, int>(NetThreadComponent.checkInteral);
         }
 

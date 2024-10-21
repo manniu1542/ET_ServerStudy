@@ -116,12 +116,14 @@ namespace ET
 		}
 
 		protected override void Get(long id, IPEndPoint address)
-		{
-			if (this.idChannels.TryGetValue(id, out TChannel _))
+        {
+          
+            if (this.idChannels.TryGetValue(id, out TChannel _))
 			{
 				return;
 			}
-			this.Create(address, id);
+     
+            this.Create(address, id);
 		}
 		
 		private TChannel Get(long id)

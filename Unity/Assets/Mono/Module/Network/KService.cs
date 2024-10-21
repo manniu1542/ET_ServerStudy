@@ -392,11 +392,12 @@ namespace ET
 
         protected override void Get(long id, IPEndPoint address)
         {
+          
             if (this.idChannels.TryGetValue(id, out KChannel kChannel))
             {
                 return;
             }
-
+          
             try
             {
                 // 低32bit是localConn
