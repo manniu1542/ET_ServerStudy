@@ -539,4 +539,53 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.G2C_ForcePlayerDisconnect)]
+	[ProtoContract]
+	public partial class G2C_ForcePlayerDisconnect: Object, IMessage
+	{
+		[ProtoMember(1)]
+		public int Error { get; set; }
+
+	}
+
+	[Message(OuterOpcode.MServerInfo)]
+	[ProtoContract]
+	public partial class MServerInfo: Object
+	{
+		[ProtoMember(1)]
+		public long ServerId { get; set; }
+
+		[ProtoMember(2)]
+		public string Name { get; set; }
+
+	}
+
+	[ResponseType(nameof(A2C_GetServerInfo))]
+	[Message(OuterOpcode.C2A_GetServerInfo)]
+	[ProtoContract]
+	public partial class C2A_GetServerInfo: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.A2C_GetServerInfo)]
+	[ProtoContract]
+	public partial class A2C_GetServerInfo: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public List<MServerInfo> ListServerInfo = new List<MServerInfo>();
+
+	}
+
 }

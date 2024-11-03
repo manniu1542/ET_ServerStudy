@@ -4,7 +4,7 @@ using System.IO;
 namespace ET
 {
     [Timer(TimerType.ActorMessageSenderChecker)]
-    public class ActorMessageSenderChecker: ATimer<ActorMessageSenderComponent>
+    public class ActorMessageSenderChecker : ATimer<ActorMessageSenderComponent>
     {
         public override void Run(ActorMessageSenderComponent self)
         {
@@ -18,9 +18,9 @@ namespace ET
             }
         }
     }
-    
+
     [ObjectSystem]
-    public class ActorMessageSenderComponentAwakeSystem: AwakeSystem<ActorMessageSenderComponent>
+    public class ActorMessageSenderComponentAwakeSystem : AwakeSystem<ActorMessageSenderComponent>
     {
         public override void Awake(ActorMessageSenderComponent self)
         {
@@ -31,7 +31,7 @@ namespace ET
     }
 
     [ObjectSystem]
-    public class ActorMessageSenderComponentDestroySystem: DestroySystem<ActorMessageSenderComponent>
+    public class ActorMessageSenderComponentDestroySystem : DestroySystem<ActorMessageSenderComponent>
     {
         public override void Destroy(ActorMessageSenderComponent self)
         {
@@ -61,7 +61,7 @@ namespace ET
 
             self.Tcs.SetResult(response);
         }
-        
+
         public static void Check(this ActorMessageSenderComponent self)
         {
             long timeNow = TimeHelper.ServerNow();
@@ -100,19 +100,19 @@ namespace ET
             {
                 throw new Exception($"actor id is 0: {message}");
             }
-            
+
             ProcessActorId processActorId = new ProcessActorId(actorId);
             Session session = NetInnerComponent.Instance.Get(processActorId.Process);
             session.Send(processActorId.ActorId, message);
         }
-        
+
         public static void Send(this ActorMessageSenderComponent self, long actorId, MemoryStream memoryStream)
         {
             if (actorId == 0)
             {
                 throw new Exception($"actor id is 0: {memoryStream.ToActorMessage()}");
             }
-            
+
             ProcessActorId processActorId = new ProcessActorId(actorId);
             Session session = NetInnerComponent.Instance.Get(processActorId.Process);
             session.Send(processActorId.ActorId, memoryStream);
@@ -132,7 +132,7 @@ namespace ET
         )
         {
             request.RpcId = self.GetRpcId();
-            
+
             if (actorId == 0)
             {
                 throw new Exception($"actor id is 0: {request}");
@@ -142,7 +142,7 @@ namespace ET
 
             return await self.Call(actorId, request.RpcId, stream, needException);
         }
-        
+
         public static async ETTask<IActorResponse> Call(
                 this ActorMessageSenderComponent self,
                 long actorId,
@@ -157,9 +157,9 @@ namespace ET
             }
 
             var tcs = ETTask<IActorResponse>.Create(true);
-            
+
             self.requestCallback.Add(rpcId, new ActorMessageSender(actorId, memoryStream, tcs, needException));
-            
+
             self.Send(actorId, memoryStream);
 
             long beginTime = TimeHelper.ServerFrameTime();
@@ -171,7 +171,7 @@ namespace ET
             {
                 Log.Warning("actor rpc time > 200: {0} {1}", costTime, memoryStream.ToActorMessage());
             }
-            
+
             return response;
         }
 
@@ -184,7 +184,7 @@ namespace ET
             }
 
             self.requestCallback.Remove(response.RpcId);
-            
+
             Run(actorMessageSender, response);
         }
     }

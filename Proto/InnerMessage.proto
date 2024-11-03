@@ -154,3 +154,32 @@ message G2M_SessionDisconnect // IActorLocationMessage
 {
 	int32 RpcId = 90;
 }
+
+//ResponseType L2A_ForcePlayerLogOut
+message A2L_ForcePlayerLogOut // IActorRequest
+{
+	int32 RpcId = 90;
+	long AccountID = 1;
+}
+
+message L2A_ForcePlayerLogOut // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//ResponseType G2L_ForcePlayerDisconnect
+message L2G_ForcePlayerDisconnect // IActorRequest
+{
+	int32 RpcId = 90;
+	long AccountID = 1;
+}
+
+message G2L_ForcePlayerDisconnect // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}

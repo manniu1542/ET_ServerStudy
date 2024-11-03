@@ -261,3 +261,30 @@ message A2C_Disconnect // IMessage
 {
 	int32 Error = 1;
 }
+
+message G2C_ForcePlayerDisconnect // IMessage
+{
+	int32 Error = 1;
+}
+
+message MServerInfo 
+{
+	int64 ServerId = 1;
+	string Name = 2;
+}
+
+//ResponseType A2C_GetServerInfo
+message C2A_GetServerInfo // IRequest
+{
+	int32 RpcId = 90;
+
+}
+
+message A2C_GetServerInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated MServerInfo ListServerInfo = 1;
+
+}

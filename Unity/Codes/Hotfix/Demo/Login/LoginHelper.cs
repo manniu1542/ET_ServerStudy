@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 
 namespace ET
@@ -32,8 +33,12 @@ namespace ET
                 return result.Error;
             }
 
+
+            Game.Scene.GetComponent<AccountInfoComponent>().ReadAccountInfo(result.AccountId, result.Token);
             zoneScene.AddComponent<SessionComponent>().Session = session;
             session.AddComponent<PingComponent>();
+
+        
 
             return ErrorCode.ERR_Success;
 

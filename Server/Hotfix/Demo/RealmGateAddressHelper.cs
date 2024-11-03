@@ -3,15 +3,16 @@
 
 namespace ET
 {
-	public static class RealmGateAddressHelper
-	{
-		public static StartSceneConfig GetGate(int zone)
-		{
-			List<StartSceneConfig> zoneGates = StartSceneConfigCategory.Instance.Gates[zone];
-			
-			int n = RandomHelper.RandomNumber(0, zoneGates.Count);
+    public static class RealmGateAddressHelper
+    {
+        public static StartSceneConfig GetGate(long accountID, int zone)
+        {
+            List<StartSceneConfig> zoneGates = StartSceneConfigCategory.Instance.Gates[zone];
 
-			return zoneGates[n];
-		}
-	}
+
+            int n = (int)(accountID % zoneGates.Count);// RandomHelper.RandomNumber(0, zoneGates.Count);
+
+            return zoneGates[n];
+        }
+    }
 }

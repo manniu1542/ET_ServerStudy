@@ -325,4 +325,60 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(L2A_ForcePlayerLogOut))]
+	[Message(InnerOpcode.A2L_ForcePlayerLogOut)]
+	[ProtoContract]
+	public partial class A2L_ForcePlayerLogOut: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountID { get; set; }
+
+	}
+
+	[Message(InnerOpcode.L2A_ForcePlayerLogOut)]
+	[ProtoContract]
+	public partial class L2A_ForcePlayerLogOut: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[ResponseType(nameof(G2L_ForcePlayerDisconnect))]
+	[Message(InnerOpcode.L2G_ForcePlayerDisconnect)]
+	[ProtoContract]
+	public partial class L2G_ForcePlayerDisconnect: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountID { get; set; }
+
+	}
+
+	[Message(InnerOpcode.G2L_ForcePlayerDisconnect)]
+	[ProtoContract]
+	public partial class G2L_ForcePlayerDisconnect: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 }

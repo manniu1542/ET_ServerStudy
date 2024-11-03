@@ -57,7 +57,7 @@ namespace ET
 
 
                 //防止多个 客户端，同一时刻 请求同一个账号（注册）登录。  TODO:不知道为什么用第二个相同账号的session登录 没有等待，答：因为using 执行完就把他释放了
-                using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginCommonAccount, ahc, 999999999))
+                using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginCommonAccount, ahc))
                 {
 
                     //请求的数据库内容
@@ -94,8 +94,31 @@ namespace ET
 
                     }
                     string token = TimeHelper.ServerNow().ToString() + RandomHelper.RandomNumber(int.MinValue, int.MaxValue).ToString();
-                    //踢下线功能
 
+
+                    #region 给账号中心服务器，发送通知给已经登录的该账号踢下线
+                    //获取该账号用了那个网关
+                    StartSceneConfig config = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "LoginCenter");
+                    //给那个网关发送,强制下线的消息
+                    L2A_ForcePlayerLogOut forcePlayerLogOut = (L2A_ForcePlayerLogOut)await ActorMessageSenderComponent.Instance.Call(
+                     config.InstanceId, new A2L_ForcePlayerLogOut() { AccountID = acount.Id });
+                    if (forcePlayerLogOut.Error != ErrorCode.ERR_Success)
+                    {
+                        response.Error = forcePlayerLogOut.Error;
+                        reply();
+                        session.Disconnect().Coroutine();
+                        acount?.Dispose();
+                        return;
+                    }
+
+
+
+                    #endregion
+
+
+
+
+                    //在账号服务器连接的用户踢下线功能
                     AccountLoginSessionComponent scrAcountSession = session.DomainScene().GetComponent<AccountLoginSessionComponent>();
                     Session lastLoginSession = scrAcountSession.Get(acount.Id);
                     // Game.EventSystem.Get(lastLoginAccountId) as Session;

@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 namespace ET
 {
     [ComponentOf(typeof(Scene))]
-    public class AccountInfoComponent:Entity,IAwake,IDestroy
+    public class ServerInfoComponent : Entity, IAwake, IDestroy
     {
-        public long AccountId;
-        public string Token;
 
+        public List<ServerInfo> ServerInfoList;
 
     }
 }
