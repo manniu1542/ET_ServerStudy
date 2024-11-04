@@ -28,12 +28,19 @@ namespace ET
     public static class ServerInfoSystem
     {
 
-        public static void ReadAccountInfo(this ServerInfo self, long accountId, string token)
+        public static void FromMessage(this ServerInfo self, MServerInfo m)
         {
+            self.ServerId = m.ServerId;
+            self.Name = m.Name;
+        }
 
-
-
-
+        public static MServerInfo ToMessage(this ServerInfo self)
+        {
+            return new MServerInfo()
+            {
+                ServerId = self.ServerId,
+                Name = self.Name,   
+            };
         }
 
 

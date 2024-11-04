@@ -40,8 +40,9 @@ namespace ET
                     scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort, SessionStreamDispatcherType.SessionStreamDispatcherServerOuter);
                     scene.AddComponent<TokenComponent>();
                     scene.AddComponent<AccountLoginSessionComponent>();
-
                     scene.AddComponent<ServerInfoManager>();
+
+
 
                     break;
                 case SceneType.LoginCenter:

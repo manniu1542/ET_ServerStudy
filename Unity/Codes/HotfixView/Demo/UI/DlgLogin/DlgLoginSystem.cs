@@ -8,6 +8,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace ET
 {
+    [FriendClass(typeof(AccountInfoComponent))]
     public static class DlgLoginSystem
     {
 
@@ -40,8 +41,8 @@ namespace ET
             {
                 self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
                 self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Lobby);
-
-                A2C_GetServerInfo info = await self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2A_GetServerInfo()) as A2C_GetServerInfo;
+                long aid = Game.Scene.GetComponent<AccountInfoComponent>().AccountId;
+                A2C_GetServerInfo info = await self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2A_GetServerInfo() { AccountId = aid }) as A2C_GetServerInfo;
 
                 //4.服务器写 游戏服务器管理类， 在数据库读取 游戏服务器这个共享类 列表。
                 //info.ListServerInfo

@@ -25,5 +25,8 @@ namespace ET
         public const int ERR_LoginPassword = 200005;
         /// <summary> 重复点击的登录 </summary>
         public const int ERR_LoginRepaetReq = 200006;
+        /// <summary> 该账号服务器上已经下线 </summary>
+        public const int ERR_TokenError = 200007;
+
     }
 }

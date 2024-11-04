@@ -277,7 +277,8 @@ message MServerInfo
 message C2A_GetServerInfo // IRequest
 {
 	int32 RpcId = 90;
-
+	int64 AccountId = 1;
+	string Token = 2;
 }
 
 message A2C_GetServerInfo // IResponse

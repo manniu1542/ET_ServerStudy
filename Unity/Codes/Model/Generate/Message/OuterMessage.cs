@@ -568,6 +568,12 @@ namespace ET
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(1)]
+		public long AccountId { get; set; }
+
+		[ProtoMember(2)]
+		public string Token { get; set; }
+
 	}
 
 	[Message(OuterOpcode.A2C_GetServerInfo)]
