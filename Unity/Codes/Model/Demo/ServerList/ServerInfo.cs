@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace ET
 {
+    public enum ServerInfoState
+    {
+        Normal,
+        Off_The_Line,
+    }
+
     [ComponentOf()]
     public class ServerInfo : Entity, IAwake, IDestroy
     {
-        public long ServerId;
+
         public string Name;
 
-
+        public ServerInfoState State;
     }
 }

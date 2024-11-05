@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7614170753988782843}
   - component: {fileID: 9007337220414017430}
   m_Layer: 5
-  m_Name: DlgLobby
+  m_Name: DlgServerList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

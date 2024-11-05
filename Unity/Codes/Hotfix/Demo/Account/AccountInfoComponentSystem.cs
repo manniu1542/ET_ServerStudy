@@ -31,7 +31,8 @@ namespace ET
         public static void ReadAccountInfo(this AccountInfoComponent self,long accountId,string token)
         {
 
-
+            self.AccountId = accountId;
+            self.Token = token;
 
 
         }

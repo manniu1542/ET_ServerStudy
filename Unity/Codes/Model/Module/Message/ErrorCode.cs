@@ -16,7 +16,8 @@ namespace ET
 
 
         // 200001以上不抛异常
-        public const int ERR_NetReqLoginTimeOut = 200002;
+        /// <summary> 请求超时 </summary>
+        public const int ERR_NetReqTimeOut = 200002;
         /// <summary> 客户端发送的请求的地址 ：场景服务器错误 </summary>
         public const int ERR_LoginSceneSever = 200003;
         /// <summary> 账号不存在 </summary>
@@ -27,6 +28,8 @@ namespace ET
         public const int ERR_LoginRepaetReq = 200006;
         /// <summary> 该账号服务器上已经下线 </summary>
         public const int ERR_TokenError = 200007;
+        /// <summary> 角色已经在数据库上了 </summary>
+        public const int ERR_RoleInfoInDBAlready = 200007;
 
     }
 }

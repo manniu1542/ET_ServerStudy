@@ -9,7 +9,11 @@ namespace ET
 	{
 		protected override async ETTask Run(Session session, C2G_LoginGate request, G2C_LoginGate response, Action reply)
 		{
-			Scene scene = session.DomainScene();
+
+            session.RemoveComponent<SessionAcceptTimeoutComponent>();
+
+
+            Scene scene = session.DomainScene();
 			string account = scene.GetComponent<GateSessionKeyComponent>().Get(request.Key);
 			if (account == null)
 			{
@@ -18,8 +22,7 @@ namespace ET
 				reply();
 				return;
 			}
-			
-			session.RemoveComponent<SessionAcceptTimeoutComponent>();
+	
 
 			PlayerComponent playerComponent = scene.GetComponent<PlayerComponent>();
 			Player player = playerComponent.AddChild<Player, string>(account);

@@ -93,9 +93,7 @@
         </Compile>
     </ItemGroup>
     
-    <ItemGroup>
-      <Compile Remove="..\..\Unity\Codes\Hotfix\Demo\ServerList\**" />
-    </ItemGroup>
+   
     
     <ItemGroup>
       <Folder Include="Server" />

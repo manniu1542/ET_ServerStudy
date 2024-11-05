@@ -271,6 +271,7 @@ message MServerInfo
 {
 	int64 ServerId = 1;
 	string Name = 2;
+	int32 State = 3;
 }
 
 //ResponseType A2C_GetServerInfo
@@ -287,5 +288,38 @@ message A2C_GetServerInfo // IResponse
 	int32 Error = 91;
 	string Message = 92;
 	repeated MServerInfo ListServerInfo = 1;
+}
 
+message MRoleInfo
+{
+	int64 AccountId = 1;
+
+	int64 ServerId = 2;
+   
+	string Name = 3;
+   
+	int32 State = 4;
+   
+	int64 LastLoginTime = 5;
+   
+	int64 CreateRoleTime = 6;
+   
+}
+
+//ResponseType A2C_GetRoleInfo
+message C2A_GetRoleInfo // IRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+	string Token = 2;
+	string Name = 3;
+	int64  ServerId = 4;
+}
+
+message A2C_GetRoleInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	MRoleInfo RoleInfo = 1;
 }

@@ -4,6 +4,8 @@ using System.Threading;
 
 namespace ET
 {
+    [FriendClass(typeof(ServerInfoComponent))]
+    [FriendClass(typeof(AccountInfoComponent))]
     public static class LoginHelper
     {
         public static async ETTask<int> Login(Scene zoneScene, string address, string account, string password)
@@ -24,7 +26,7 @@ namespace ET
             catch (Exception e)
             {
                 session?.Dispose();
-                return ErrorCode.ERR_NetReqLoginTimeOut;
+                return ErrorCode.ERR_NetReqTimeOut;
 
 
             }
@@ -38,11 +40,84 @@ namespace ET
             zoneScene.AddComponent<SessionComponent>().Session = session;
             session.AddComponent<PingComponent>();
 
-        
+
 
             return ErrorCode.ERR_Success;
 
 
         }
+
+        public static async ETTask<int> GetServerInfo(Scene zoneScene)
+        {
+            var scrAccountInfo = Game.Scene.GetComponent<AccountInfoComponent>();
+            var scrServerInfo = Game.Scene.GetComponent<ServerInfoComponent>();
+            A2C_GetServerInfo info;
+            try
+            {
+                info = await zoneScene.GetComponent<SessionComponent>().Session.Call(
+                           new C2A_GetServerInfo()
+                           {
+                               AccountId = scrAccountInfo.AccountId,
+                               Token = scrAccountInfo.Token
+                           }) as A2C_GetServerInfo;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return ErrorCode.ERR_NetReqTimeOut;
+            }
+            if (info.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("获取大区列表失败！错误码：" + info.Error);
+                return info.Error;
+            }
+
+            scrServerInfo.SetServerInfoList(info.ListServerInfo);
+            return ErrorCode.ERR_Success;
+        }
+
+        public static async ETTask<int> GetRoleInfo(Scene zoneScene, string name,long serverId)
+        {
+            var scrAccountInfo = Game.Scene.GetComponent<AccountInfoComponent>();
+            A2C_GetRoleInfo info;
+
+            try
+            {
+                info = await zoneScene.GetComponent<SessionComponent>().Session.Call(
+                        new C2A_GetRoleInfo()
+                        {
+                            AccountId = scrAccountInfo.AccountId,
+                            Token = scrAccountInfo.Token,
+                            ServerId = serverId,
+                            Name = name,
+
+                        }) as A2C_GetRoleInfo;
+
+
+            }
+            catch (Exception e)
+            {
+
+                Log.Error(e);
+                return ErrorCode.ERR_NetReqTimeOut;
+            }
+
+            if (info.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("获取角色信息失败！错误码：" + info.Error);
+                return info.Error;
+            }
+
+            //添加自己的信息
+            //RoleInfo ri = zoneScene.AddChild<RoleInfo>();
+            //ri.FromMessage(info.RoleInfo);
+
+
+
+
+            return info.Error;
+
+        }
+
     }
 }

@@ -30,16 +30,19 @@ namespace ET
 
         public static void FromMessage(this ServerInfo self, MServerInfo m)
         {
-            self.ServerId = m.ServerId;
+          
+            self.Id = m.ServerId;
             self.Name = m.Name;
+            self.State = (ServerInfoState)m.State;
         }
 
         public static MServerInfo ToMessage(this ServerInfo self)
         {
             return new MServerInfo()
             {
-                ServerId = self.ServerId,
-                Name = self.Name,   
+                ServerId = self.Id,
+                Name = self.Name,
+                State = (int)self.State
             };
         }
 

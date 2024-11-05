@@ -1,14 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
-using static System.Collections.Specialized.BitVector32;
+﻿using UnityEngine.UI;
 
 namespace ET
 {
-    [FriendClass(typeof(AccountInfoComponent))]
+
     public static class DlgLoginSystem
     {
 
@@ -41,11 +35,7 @@ namespace ET
             {
                 self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
                 self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Lobby);
-                long aid = Game.Scene.GetComponent<AccountInfoComponent>().AccountId;
-                A2C_GetServerInfo info = await self.ZoneScene().GetComponent<SessionComponent>().Session.Call(new C2A_GetServerInfo() { AccountId = aid }) as A2C_GetServerInfo;
 
-                //4.服务器写 游戏服务器管理类， 在数据库读取 游戏服务器这个共享类 列表。
-                //info.ListServerInfo
 
             }
 
@@ -54,6 +44,7 @@ namespace ET
 
         public static void HideWindow(this DlgLogin self)
         {
+
 
         }
 

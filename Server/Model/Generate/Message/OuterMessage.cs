@@ -558,6 +558,9 @@ namespace ET
 		[ProtoMember(2)]
 		public string Name { get; set; }
 
+		[ProtoMember(3)]
+		public int State { get; set; }
+
 	}
 
 	[ResponseType(nameof(A2C_GetServerInfo))]
@@ -591,6 +594,70 @@ namespace ET
 
 		[ProtoMember(1)]
 		public List<MServerInfo> ListServerInfo = new List<MServerInfo>();
+
+	}
+
+	[Message(OuterOpcode.MRoleInfo)]
+	[ProtoContract]
+	public partial class MRoleInfo: Object
+	{
+		[ProtoMember(1)]
+		public long AccountId { get; set; }
+
+		[ProtoMember(2)]
+		public long ServerId { get; set; }
+
+		[ProtoMember(3)]
+		public string Name { get; set; }
+
+		[ProtoMember(4)]
+		public int State { get; set; }
+
+		[ProtoMember(5)]
+		public long LastLoginTime { get; set; }
+
+		[ProtoMember(6)]
+		public long CreateRoleTime { get; set; }
+
+	}
+
+	[ResponseType(nameof(A2C_GetRoleInfo))]
+	[Message(OuterOpcode.C2A_GetRoleInfo)]
+	[ProtoContract]
+	public partial class C2A_GetRoleInfo: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountId { get; set; }
+
+		[ProtoMember(2)]
+		public string Token { get; set; }
+
+		[ProtoMember(3)]
+		public string Name { get; set; }
+
+		[ProtoMember(4)]
+		public long ServerId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.A2C_GetRoleInfo)]
+	[ProtoContract]
+	public partial class A2C_GetRoleInfo: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public MRoleInfo RoleInfo { get; set; }
 
 	}
 

@@ -26,6 +26,8 @@
       <Link>Core\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Codes\Model\Demo\RoleInfo\RoleInfo.cs" Link="Demo\RoleInfo\RoleInfo.cs" />
+
     <Compile Include="..\..\Unity\Codes\Model\Demo\ServerList\ServerInfo.cs" Link="Demo\ServerList\ServerInfo.cs" />
 
     <Compile Include="..\..\Unity\Codes\Model\Demo\Unit\UnitType.cs">
@@ -118,5 +120,8 @@
     <ProjectReference Include="..\..\ThirdParty\ShareLib\ShareLib.csproj" />
     <ProjectReference Include="..\..\ThirdParty\UnityEngine\UnityEngine.csproj" />
     <ProjectReference Include="..\..\Tools\Analyzer\Analyzer.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Demo\RoleInfo\" />
   </ItemGroup>
 </Project>

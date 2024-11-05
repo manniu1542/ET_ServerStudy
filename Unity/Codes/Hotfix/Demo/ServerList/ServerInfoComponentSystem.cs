@@ -11,7 +11,7 @@ namespace ET
     {
         public override void Awake(ServerInfoComponent self)
         {
-
+            self.ServerInfoList = new();
         }
     }
 
@@ -28,9 +28,20 @@ namespace ET
     public static class ServerInfoComponentSystem
     {
 
-        public static void ReadAccountInfo(this ServerInfoComponent self)
+        public static void SetServerInfoList(this ServerInfoComponent self, List<MServerInfo> ListServerInfo)
         {
+            foreach (var item in self.ServerInfoList)
+            {
+                item.Dispose();
+            }
+            self.ServerInfoList.Clear();
 
+            foreach (var item in ListServerInfo)
+            {
+                ServerInfo si = self.AddChildWithId<ServerInfo>(item.ServerId);
+                si.FromMessage(item);
+                self.ServerInfoList.Add(si);
+            }
 
 
 

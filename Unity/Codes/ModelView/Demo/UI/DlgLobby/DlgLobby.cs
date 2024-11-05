@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace ET
 {
@@ -9,6 +11,8 @@ namespace ET
 		public DlgLobbyViewComponent View { get => this.Parent.GetComponent<DlgLobbyViewComponent>();}
 
 	
-
+		public List<GameObject> listGOServerList = new List<GameObject>();
+		public Image imgCurChoose;
+		public long serverId;
 	}
 }
