@@ -30,6 +30,10 @@ namespace ET
         public const int ERR_TokenError = 200007;
         /// <summary> 角色已经在数据库上了 </summary>
         public const int ERR_RoleInfoInDBAlready = 200007;
+        /// <summary> 角色不存在数据库 </summary>
+        public const int ERR_RoleInfoNotExistDB = 200008;
+        /// <summary> 数据库没有角色表 </summary>
+        public const int ERR_DBNotExistRoleInfo = 200008;
 
     }
 }

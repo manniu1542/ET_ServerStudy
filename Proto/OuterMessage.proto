@@ -306,8 +306,8 @@ message MRoleInfo
    
 }
 
-//ResponseType A2C_GetRoleInfo
-message C2A_GetRoleInfo // IRequest
+//ResponseType A2C_CreateRoleInfo
+message C2A_CreateRoleInfo // IRequest
 {
 	int32 RpcId = 90;
 	int64 AccountId = 1;
@@ -316,10 +316,45 @@ message C2A_GetRoleInfo // IRequest
 	int64  ServerId = 4;
 }
 
-message A2C_GetRoleInfo // IResponse
+message A2C_CreateRoleInfo // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
 	MRoleInfo RoleInfo = 1;
+}
+
+//ResponseType A2C_GetListRoleInfo
+message C2A_GetListRoleInfo // IRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+	string Token = 2;
+	int64  ServerId = 4;
+}
+
+message A2C_GetListRoleInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+    repeated MRoleInfo RoleInfo = 1;
+}
+
+
+//ResponseType A2C_DeleRoleInfo
+message C2A_DeleRoleInfo // IRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+	string Token = 2;
+	string Name = 3;
+	int64  ServerId = 4;
+}
+
+message A2C_DeleRoleInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
 }

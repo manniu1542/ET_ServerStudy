@@ -3,13 +3,12 @@
 namespace ET
 {
     [FriendClass(typeof(RoleInfo))]
-    public class GetRoleInfoHandler : AMRpcHandler<C2A_GetRoleInfo, A2C_GetRoleInfo>
+    public class GetListRoleInfoHandler : AMRpcHandler<C2A_GetListRoleInfo, A2C_GetListRoleInfo>
     {
-        protected override async ETTask Run(Session session, C2A_GetRoleInfo request, A2C_GetRoleInfo response, Action reply)
+        protected override async ETTask Run(Session session, C2A_GetListRoleInfo request, A2C_GetListRoleInfo response, Action reply)
         {
 
-            //移除超时 还未响应的 组件
-            session.RemoveComponent<SessionAcceptTimeoutComponent>();
+
             //请求的服务器类型
             SceneType st = session.DomainScene().SceneType;
             if (st != SceneType.Account)
@@ -51,35 +50,31 @@ namespace ET
             using (session.AddComponent<RepeatClickServerComponent>())
             {
 
-                using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.AccountGetRoleInfo, request.AccountId))
+                using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.AccountCreateRoleInfo, request.AccountId))
                 {
 
 
                     var dbc = DBManagerComponent.Instance.GetZoneDB(session.DomainZone());
 
-                    var list = await dbc.Query<RoleInfo>(d => d.AccountId == request.AccountId && d.ServerId == request.ServerId);
-                    if (list != null && list.Count > 0)
+                    var list = await dbc.Query<RoleInfo>(d => d.ServerId == request.ServerId && d.State == RoleInfoState.Normal);
+                    if (list == null)
                     {
 
-                        response.Error = ErrorCode.ERR_RoleInfoInDBAlready;
+                        response.Error = ErrorCode.ERR_DBNotExistRoleInfo;
                         reply();
-                        Log.Error("角色已经在数据库上存储了！");
+                        Log.Error("数据库没有角色表！");
                         return;
                     }
 
-                    RoleInfo roleInfo = session.AddChildWithId<RoleInfo>(IdGenerater.Instance.GenerateUnitId((int)request.ServerId));
-                    roleInfo.Name = request.Name;
-                    roleInfo.AccountId = request.AccountId;
-                    roleInfo.ServerId = request.ServerId;
-                    roleInfo.CreateRoleTime = TimeHelper.ServerNow(); ;
-                    roleInfo.LastLoginTime = 0;
-                    roleInfo.State = RoleInfoState.Normal;
+                    for (global::System.Int32 i = (list.Count) - 1; i >= 0; i--)
+                    {
 
-                    await dbc.Save(roleInfo);
-                    response.RoleInfo = roleInfo.ToMessage();
+                        response.RoleInfo.Add(list[i].ToMessage());
+                        list[i].Dispose();
+                    }
+
                     reply();
 
-                    roleInfo?.Dispose();
 
                 }
 

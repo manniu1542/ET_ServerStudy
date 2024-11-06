@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace ET
 {
-    [ChildType(typeof(ServerInfo))]
+
+    [ChildType(typeof(RoleInfo))]
     [ComponentOf(typeof(Scene))]
-    public class ServerInfoComponent : Entity, IAwake, IDestroy
+    public class RoleInfoComponent : Entity, IAwake, IDestroy
     {
 
-        public List<ServerInfo> ServerInfoList;
+        public Dictionary<long,RoleInfo> dicRoleInfo;
+        
 
-        public long curServerId;
     }
 }

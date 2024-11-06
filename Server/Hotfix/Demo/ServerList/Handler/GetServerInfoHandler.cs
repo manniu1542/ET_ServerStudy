@@ -8,8 +8,6 @@ namespace ET
         protected override async ETTask Run(Session session, C2A_GetServerInfo request, A2C_GetServerInfo response, Action reply)
         {
 
-            //移除超时 还未响应的 组件
-            session.RemoveComponent<SessionAcceptTimeoutComponent>();
 
             //请求的服务器类型
             SceneType st = session.DomainScene().SceneType;

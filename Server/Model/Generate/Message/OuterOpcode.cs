@@ -40,7 +40,11 @@ namespace ET
 		 public const ushort C2A_GetServerInfo = 10037;
 		 public const ushort A2C_GetServerInfo = 10038;
 		 public const ushort MRoleInfo = 10039;
-		 public const ushort C2A_GetRoleInfo = 10040;
-		 public const ushort A2C_GetRoleInfo = 10041;
+		 public const ushort C2A_CreateRoleInfo = 10040;
+		 public const ushort A2C_CreateRoleInfo = 10041;
+		 public const ushort C2A_GetListRoleInfo = 10042;
+		 public const ushort A2C_GetListRoleInfo = 10043;
+		 public const ushort C2A_DeleRoleInfo = 10044;
+		 public const ushort A2C_DeleRoleInfo = 10045;
 	}
 }

@@ -9,7 +9,7 @@ namespace ET
 	{
 		protected override async ETTask Run(Session session, C2G_LoginGate request, G2C_LoginGate response, Action reply)
 		{
-
+            // 移除超时 还未响应的 组件 (只在这里移除，LoginAccount是Gate服务器的第一个消息，需要移除session超时)
             session.RemoveComponent<SessionAcceptTimeoutComponent>();
 
 

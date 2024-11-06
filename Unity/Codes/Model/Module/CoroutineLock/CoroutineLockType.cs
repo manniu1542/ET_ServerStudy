@@ -14,7 +14,7 @@ namespace ET
 
         public const int LoginCommonAccount = 9;
         public const int LoginCenterPlayerLogOut = 10;
-        public const int AccountGetRoleInfo = 11;
+        public const int AccountCreateRoleInfo = 11;
 
         public const int Max = 100; // 这个必须最大
     }

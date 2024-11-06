@@ -2,8 +2,8 @@
 {
 	[FriendClass(typeof(WindowCoreData))]
 	[FriendClass(typeof(UIBaseWindow))]
-	[AUIEvent(WindowID.WindowID_Lobby)]
-	public  class DlgLobbyEventHandler : IAUIEventHandler
+	[AUIEvent(WindowID.WindowID_ServerList)]
+	public  class DlgServerListEventHandler : IAUIEventHandler
 	{
 
 		public void OnInitWindowCoreData(UIBaseWindow uiBaseWindow)
@@ -13,24 +13,24 @@
 
 		public void OnInitComponent(UIBaseWindow uiBaseWindow)
 		{
-		  uiBaseWindow.AddComponent<DlgLobbyViewComponent>(); 
-		  uiBaseWindow.AddComponent<DlgLobby>(); 
+		  uiBaseWindow.AddComponent<DlgServerListViewComponent>(); 
+		  uiBaseWindow.AddComponent<DlgServerList>(); 
 		}
 
 		public void OnRegisterUIEvent(UIBaseWindow uiBaseWindow)
 		{
-		  uiBaseWindow.GetComponent<DlgLobby>().RegisterUIEvent(); 
+		  uiBaseWindow.GetComponent<DlgServerList>().RegisterUIEvent(); 
 		}
 
 		public void OnShowWindow(UIBaseWindow uiBaseWindow, Entity contextData = null)
 		{
-		    uiBaseWindow.GetComponent<DlgLobby>().ShowWindow(contextData); 
+		  uiBaseWindow.GetComponent<DlgServerList>().ShowWindow(contextData); 
 		}
 
 		public void OnHideWindow(UIBaseWindow uiBaseWindow)
 		{
-			
-		}
+            uiBaseWindow.GetComponent<DlgServerList>().OnHideWindow();
+        }
 
 		public void BeforeUnload(UIBaseWindow uiBaseWindow)
 		{

@@ -8,7 +8,7 @@ namespace ET
         protected override async ETTask Run(Session session, C2A_LoginAccount request, A2C_LoginAccount response, Action reply)
         {
 
-            //移除超时 还未响应的 组件
+            //移除超时 还未响应的 组件 (只在这里移除，LoginAccount是Account服务器的第一个消息，需要移除session超时)
             session.RemoveComponent<SessionAcceptTimeoutComponent>();
             //请求的服务器类型
             SceneType st = session.DomainScene().SceneType;

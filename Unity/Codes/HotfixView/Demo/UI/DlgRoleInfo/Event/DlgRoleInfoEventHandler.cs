@@ -2,8 +2,8 @@
 {
 	[FriendClass(typeof(WindowCoreData))]
 	[FriendClass(typeof(UIBaseWindow))]
-	[AUIEvent(WindowID.WindowID_Lobby)]
-	public  class DlgLobbyEventHandler : IAUIEventHandler
+	[AUIEvent(WindowID.WindowID_RoleInfo)]
+	public  class DlgRoleInfoEventHandler : IAUIEventHandler
 	{
 
 		public void OnInitWindowCoreData(UIBaseWindow uiBaseWindow)
@@ -13,23 +13,22 @@
 
 		public void OnInitComponent(UIBaseWindow uiBaseWindow)
 		{
-		  uiBaseWindow.AddComponent<DlgLobbyViewComponent>(); 
-		  uiBaseWindow.AddComponent<DlgLobby>(); 
+		  uiBaseWindow.AddComponent<DlgRoleInfoViewComponent>(); 
+		  uiBaseWindow.AddComponent<DlgRoleInfo>(); 
 		}
 
 		public void OnRegisterUIEvent(UIBaseWindow uiBaseWindow)
 		{
-		  uiBaseWindow.GetComponent<DlgLobby>().RegisterUIEvent(); 
+		  uiBaseWindow.GetComponent<DlgRoleInfo>().RegisterUIEvent(); 
 		}
 
 		public void OnShowWindow(UIBaseWindow uiBaseWindow, Entity contextData = null)
 		{
-		    uiBaseWindow.GetComponent<DlgLobby>().ShowWindow(contextData); 
+		  uiBaseWindow.GetComponent<DlgRoleInfo>().ShowWindow(contextData); 
 		}
 
 		public void OnHideWindow(UIBaseWindow uiBaseWindow)
 		{
-			
 		}
 
 		public void BeforeUnload(UIBaseWindow uiBaseWindow)

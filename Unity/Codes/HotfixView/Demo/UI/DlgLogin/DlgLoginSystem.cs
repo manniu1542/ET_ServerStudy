@@ -34,7 +34,7 @@ namespace ET
             if (err == ErrorCode.ERR_Success)
             {
                 self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
-                self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Lobby);
+                self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_ServerList);
 
 
             }

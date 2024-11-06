@@ -4,6 +4,8 @@ using System.Threading;
 
 namespace ET
 {
+
+    [FriendClass(typeof(RoleInfo))]
     [FriendClass(typeof(ServerInfoComponent))]
     [FriendClass(typeof(AccountInfoComponent))]
     public static class LoginHelper
@@ -76,22 +78,23 @@ namespace ET
             return ErrorCode.ERR_Success;
         }
 
-        public static async ETTask<int> GetRoleInfo(Scene zoneScene, string name,long serverId)
+        public static async ETTask<int> CreateRoleInfo(Scene zoneScene, string name)
         {
             var scrAccountInfo = Game.Scene.GetComponent<AccountInfoComponent>();
-            A2C_GetRoleInfo info;
+
+            A2C_CreateRoleInfo info;
 
             try
             {
                 info = await zoneScene.GetComponent<SessionComponent>().Session.Call(
-                        new C2A_GetRoleInfo()
+                        new C2A_CreateRoleInfo()
                         {
                             AccountId = scrAccountInfo.AccountId,
                             Token = scrAccountInfo.Token,
-                            ServerId = serverId,
+                            ServerId = Game.Scene.GetComponent<ServerInfoComponent>().curServerId,
                             Name = name,
 
-                        }) as A2C_GetRoleInfo;
+                        }) as A2C_CreateRoleInfo;
 
 
             }
@@ -104,14 +107,12 @@ namespace ET
 
             if (info.Error != ErrorCode.ERR_Success)
             {
-                Log.Error("获取角色信息失败！错误码：" + info.Error);
+                Log.Error("创建角色信息失败！错误码：" + info.Error);
                 return info.Error;
             }
 
-            //添加自己的信息
-            //RoleInfo ri = zoneScene.AddChild<RoleInfo>();
-            //ri.FromMessage(info.RoleInfo);
-
+         
+            Game.Scene.GetComponent<RoleInfoComponent>().Add(info.RoleInfo);
 
 
 
@@ -119,5 +120,89 @@ namespace ET
 
         }
 
+
+        public static async ETTask<int> GetAllRoleInfo(Scene zoneScene)
+        {
+            var scrAccountInfo = Game.Scene.GetComponent<AccountInfoComponent>();
+            A2C_GetListRoleInfo info;
+
+            try
+            {
+                info = await zoneScene.GetComponent<SessionComponent>().Session.Call(
+                        new C2A_GetListRoleInfo()
+                        {
+                            AccountId = scrAccountInfo.AccountId,
+                            Token = scrAccountInfo.Token,
+                            ServerId = Game.Scene.GetComponent<ServerInfoComponent>().curServerId,
+
+                        }) as A2C_GetListRoleInfo;
+
+
+            }
+            catch (Exception e)
+            {
+
+                Log.Error(e);
+                return ErrorCode.ERR_NetReqTimeOut;
+            }
+
+            if (info.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("获取所有角色信息失败！错误码：" + info.Error);
+                return info.Error;
+            }
+
+            //添加自己的信息
+
+            var scrRoleInfoCpt = Game.Scene.GetComponent<RoleInfoComponent>();
+
+     
+            foreach (var item in info.RoleInfo)
+            {
+                scrRoleInfoCpt.Add(item);
+            }
+
+
+
+            return info.Error;
+
+        }
+        public static async ETTask<int> DeleteRoleInfo(Scene zoneScene)
+        {
+            var scrAccountInfo = Game.Scene.GetComponent<AccountInfoComponent>();
+            A2C_DeleRoleInfo info;
+
+            try
+            {
+                info = await zoneScene.GetComponent<SessionComponent>().Session.Call(
+                        new C2A_DeleRoleInfo()
+                        {
+                            AccountId = scrAccountInfo.AccountId,
+                            Token = scrAccountInfo.Token,
+                            ServerId = Game.Scene.GetComponent<ServerInfoComponent>().curServerId,
+
+                        }) as A2C_DeleRoleInfo;
+
+
+            }
+            catch (Exception e)
+            {
+
+                Log.Error(e);
+                return ErrorCode.ERR_NetReqTimeOut;
+            }
+
+            if (info.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("删除角色信息失败！错误码：" + info.Error);
+                return info.Error;
+            }
+
+            Game.Scene.GetComponent<RoleInfoComponent>().Remove(scrAccountInfo.AccountId);
+
+
+            return info.Error;
+
+        }
     }
 }
