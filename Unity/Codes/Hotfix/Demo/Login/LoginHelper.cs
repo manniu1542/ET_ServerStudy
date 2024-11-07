@@ -38,7 +38,7 @@ namespace ET
             }
 
 
-            Game.Scene.GetComponent<AccountInfoComponent>().ReadAccountInfo(result.AccountId, result.Token);
+            zoneScene.GetComponent<AccountInfoComponent>().ReadAccountInfo(result.AccountId, result.Token);
             zoneScene.AddComponent<SessionComponent>().Session = session;
             session.AddComponent<PingComponent>();
 
@@ -51,8 +51,8 @@ namespace ET
 
         public static async ETTask<int> GetServerInfo(Scene zoneScene)
         {
-            var scrAccountInfo = Game.Scene.GetComponent<AccountInfoComponent>();
-            var scrServerInfo = Game.Scene.GetComponent<ServerInfoComponent>();
+            var scrAccountInfo = zoneScene.GetComponent<AccountInfoComponent>();
+            var scrServerInfo = zoneScene.GetComponent<ServerInfoComponent>();
             A2C_GetServerInfo info;
             try
             {
@@ -80,7 +80,7 @@ namespace ET
 
         public static async ETTask<int> CreateRoleInfo(Scene zoneScene, string name)
         {
-            var scrAccountInfo = Game.Scene.GetComponent<AccountInfoComponent>();
+            var scrAccountInfo = zoneScene.GetComponent<AccountInfoComponent>();
 
             A2C_CreateRoleInfo info;
 
@@ -91,7 +91,7 @@ namespace ET
                         {
                             AccountId = scrAccountInfo.AccountId,
                             Token = scrAccountInfo.Token,
-                            ServerId = Game.Scene.GetComponent<ServerInfoComponent>().curServerId,
+                            ServerId = zoneScene.GetComponent<ServerInfoComponent>().curServerId,
                             Name = name,
 
                         }) as A2C_CreateRoleInfo;
@@ -112,7 +112,7 @@ namespace ET
             }
 
          
-            Game.Scene.GetComponent<RoleInfoComponent>().Add(info.RoleInfo);
+            zoneScene.GetComponent<RoleInfoComponent>().Add(info.RoleInfo);
 
 
 
@@ -123,7 +123,7 @@ namespace ET
 
         public static async ETTask<int> GetAllRoleInfo(Scene zoneScene)
         {
-            var scrAccountInfo = Game.Scene.GetComponent<AccountInfoComponent>();
+            var scrAccountInfo = zoneScene.GetComponent<AccountInfoComponent>();
             A2C_GetListRoleInfo info;
 
             try
@@ -133,7 +133,7 @@ namespace ET
                         {
                             AccountId = scrAccountInfo.AccountId,
                             Token = scrAccountInfo.Token,
-                            ServerId = Game.Scene.GetComponent<ServerInfoComponent>().curServerId,
+                            ServerId = zoneScene.GetComponent<ServerInfoComponent>().curServerId,
 
                         }) as A2C_GetListRoleInfo;
 
@@ -169,7 +169,7 @@ namespace ET
         }
         public static async ETTask<int> DeleteRoleInfo(Scene zoneScene)
         {
-            var scrAccountInfo = Game.Scene.GetComponent<AccountInfoComponent>();
+            var scrAccountInfo = zoneScene.GetComponent<AccountInfoComponent>();
             A2C_DeleRoleInfo info;
 
             try
@@ -179,7 +179,7 @@ namespace ET
                         {
                             AccountId = scrAccountInfo.AccountId,
                             Token = scrAccountInfo.Token,
-                            ServerId = Game.Scene.GetComponent<ServerInfoComponent>().curServerId,
+                            ServerId = zoneScene.GetComponent<ServerInfoComponent>().curServerId,
 
                         }) as A2C_DeleRoleInfo;
 
@@ -198,7 +198,7 @@ namespace ET
                 return info.Error;
             }
 
-            Game.Scene.GetComponent<RoleInfoComponent>().Remove(scrAccountInfo.AccountId);
+            zoneScene.GetComponent<RoleInfoComponent>().Remove(scrAccountInfo.AccountId);
 
 
             return info.Error;

@@ -40,7 +40,7 @@ namespace ET
 
             if (err == ErrorCode.ERR_Success)
             {
-                var scrServerInfo = Game.Scene.GetComponent<ServerInfoComponent>();
+                var scrServerInfo = self.ZoneScene().GetComponent<ServerInfoComponent>();
                 foreach (ServerInfo info in scrServerInfo.ServerInfoList)
                 {
 
@@ -57,7 +57,7 @@ namespace ET
 
                             self.imgCurChoose = go.GetComponent<Image>();
                             self.imgCurChoose.color = Color.red;
-                            Game.Scene.GetComponent<ServerInfoComponent>().SetCurServerId(info.Id);
+                            self.ZoneScene().GetComponent<ServerInfoComponent>().SetCurServerId(info.Id);
                             Log.Info($"当前所选大区ID{info.Id}");
                         });
 

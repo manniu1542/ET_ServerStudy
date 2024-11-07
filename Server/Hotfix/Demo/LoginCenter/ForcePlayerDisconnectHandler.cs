@@ -18,7 +18,7 @@ namespace ET
                 Player player = playerCpt.Get(request.AccountID);
 
 
-
+                 
                 if (player == null)
                 {
                     reply();

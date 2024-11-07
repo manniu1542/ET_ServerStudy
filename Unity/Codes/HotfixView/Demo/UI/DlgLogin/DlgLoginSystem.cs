@@ -24,7 +24,7 @@ namespace ET
         {
             Log.Info("使用的登录服务器是Game么：" + self.DomainScene().Name);
             int err = await LoginHelper.Login(
-                      self.DomainScene(),
+                      self.ZoneScene(),
                       ConstValue.LoginAddress,
                       self.View.E_AccountInputField.GetComponent<InputField>().text,
                       self.View.E_PasswordInputField.GetComponent<InputField>().text);
