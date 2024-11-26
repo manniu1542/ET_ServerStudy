@@ -661,10 +661,10 @@ namespace ET
 
 	}
 
-	[ResponseType(nameof(A2C_GetListRoleInfo))]
-	[Message(OuterOpcode.C2A_GetListRoleInfo)]
+	[ResponseType(nameof(A2C_GetRoleInfoInServer))]
+	[Message(OuterOpcode.C2A_GetRoleInfoInServer)]
 	[ProtoContract]
-	public partial class C2A_GetListRoleInfo: Object, IRequest
+	public partial class C2A_GetRoleInfoInServer: Object, IRequest
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -680,9 +680,9 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode.A2C_GetListRoleInfo)]
+	[Message(OuterOpcode.A2C_GetRoleInfoInServer)]
 	[ProtoContract]
-	public partial class A2C_GetListRoleInfo: Object, IResponse
+	public partial class A2C_GetRoleInfoInServer: Object, IResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -694,7 +694,7 @@ namespace ET
 		public string Message { get; set; }
 
 		[ProtoMember(1)]
-		public List<MRoleInfo> RoleInfo = new List<MRoleInfo>();
+		public MRoleInfo RoleInfo { get; set; }
 
 	}
 
@@ -732,6 +732,120 @@ namespace ET
 
 		[ProtoMember(92)]
 		public string Message { get; set; }
+
+	}
+
+	[ResponseType(nameof(A2C_GetRealmGate))]
+	[Message(OuterOpcode.C2A_GetRealmGate)]
+	[ProtoContract]
+	public partial class C2A_GetRealmGate: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountId { get; set; }
+
+		[ProtoMember(2)]
+		public string Token { get; set; }
+
+		[ProtoMember(3)]
+		public long ServerId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.A2C_GetRealmGate)]
+	[ProtoContract]
+	public partial class A2C_GetRealmGate: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public string KeyRealmGate { get; set; }
+
+		[ProtoMember(2)]
+		public string AdressRealmGate { get; set; }
+
+	}
+
+	[ResponseType(nameof(R2C_GetGate))]
+	[Message(OuterOpcode.C2R_GetGate)]
+	[ProtoContract]
+	public partial class C2R_GetGate: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountId { get; set; }
+
+		[ProtoMember(2)]
+		public string Token { get; set; }
+
+	}
+
+	[Message(OuterOpcode.R2C_GetGate)]
+	[ProtoContract]
+	public partial class R2C_GetGate: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public string KeyGate { get; set; }
+
+		[ProtoMember(2)]
+		public string AdressGate { get; set; }
+
+	}
+
+	[ResponseType(nameof(G2C_LinkGateLogin))]
+	[Message(OuterOpcode.C2G_LinkGateLogin)]
+	[ProtoContract]
+	public partial class C2G_LinkGateLogin: Object, IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountId { get; set; }
+
+		[ProtoMember(2)]
+		public string SessionKey { get; set; }
+
+		[ProtoMember(3)]
+		public long RoleId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.G2C_LinkGateLogin)]
+	[ProtoContract]
+	public partial class G2C_LinkGateLogin: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public long PlayerId { get; set; }
 
 	}
 

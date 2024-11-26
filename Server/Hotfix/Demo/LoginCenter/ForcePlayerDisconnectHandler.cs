@@ -3,41 +3,73 @@
 namespace ET
 {
     [ActorMessageHandler]
-    public class ForcePlayerDisconnectHandler : AMActorRpcHandler<Scene, L2G_ForcePlayerDisconnect, G2L_ForcePlayerDisconnect>
+    public class ForcePlayerDisconnectHandler: AMActorRpcHandler<Scene, L2G_ForcePlayerDisconnect, G2L_ForcePlayerDisconnect>
     {
         protected override async ETTask Run(Scene scene, L2G_ForcePlayerDisconnect request, G2L_ForcePlayerDisconnect response, Action reply)
         {
-        
-            long acountId = request.AccountID;
-            //防止多个 客户端，同一时刻 请求
-            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginCenterPlayerLogOut, acountId.GetHashCode()))
+            //请求的服务器类型
+            SceneType st = scene.SceneType;
+            if (st != SceneType.Gate)
             {
+                response.Error = ErrorCode.ERR_LoginSceneSever;
+                reply();
 
-                PlayerComponent playerCpt = scene.GetComponent<PlayerComponent>();
+                Log.Error("请求的场景服务器错误！" + st);
+                return;
+            }
 
-                Player player = playerCpt.Get(request.AccountID);
+            long acountId = request.AccountID;
 
+            PlayerComponent playerCpt = scene.GetComponent<PlayerComponent>();
+            //TODO：令牌怎么处理
+            scene.DomainScene().GetComponent<GateSessionKeyComponent>().Remove(request.AccountID);
 
-                 
-                if (player == null)
+            Player player = playerCpt.Get(request.AccountID);
+
+            if (player == null)
+            {
+                reply();
+                return;
+            }
+
+            long id = player.InstanceId;
+            //防止多个 客户端，同一时刻 请求
+            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginGate, acountId.GetHashCode()))
+            {
+                //调用很多次，进来的账号已经不是同一个 直接return出去
+                if (id == 0 || id != player.InstanceId)
                 {
                     reply();
                     return;
                 }
 
-                playerCpt.Remove(acountId);
+                switch (player.State)
+                {
+                    case PlayerState.Disconect:
+                        Log.Error("玩家已经下线了，无需再次下线！" + player);
+                        reply();
+                        return;
+                    case PlayerState.Gate:
+                        //获取到网关的session让玩家下线
 
-                player.Dispose();
+                        Session sessionPalyer = Game.EventSystem.Get(player.SessionInstanceId) as Session;
 
+                        //告知客户端下线的 消息
+                        sessionPalyer.Send(new G2C_ForcePlayerDisconnect());
 
-                //通知登录的到网关的玩家下线。发送协议 ，请求在map服务器的账号是否有该玩家  找到 Map服务器得到Unit 推送下线通知。
+                        //服务端定时移除数据(定时可以保证 如果玩家 在短时间内连接回来 ，服务器依然有玩家的数据。从而实现断线重连功能h)
+                        player.AddComponent<PlayerLineOffComponent>();
 
-                //MessageHelper.SendToClient(player.GetComponent<Unit>(), new G2C_ForcePlayerDisconnect());
+                        break;
+                    case PlayerState.Game:
+                        //在游戏中  要把map中角色也提出下线
+                        // 请求在map服务器的账号是否有该玩家 找到 Map服务器得到Unit 推送下线通知。
 
-
+                        break;
+                    default:
+                        break;
+                }
             }
-
-
         }
     }
 }

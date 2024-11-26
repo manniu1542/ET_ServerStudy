@@ -96,7 +96,7 @@ namespace ET
                     string token = TimeHelper.ServerNow().ToString() + RandomHelper.RandomNumber(int.MinValue, int.MaxValue).ToString();
 
 
-                    #region 给账号中心服务器，发送通知给已经登录的该账号踢下线
+                    #region 给账号中心服务器，发送通知给Gate或指定游戏内map的服务器 （已经登录的该账号踢下线）
                     //获取该账号用了那个网关
                     StartSceneConfig config = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "LoginCenter");
                     //给那个网关发送,强制下线的消息
@@ -110,15 +110,12 @@ namespace ET
                         acount?.Dispose();
                         return;
                     }
-
-
-
                     #endregion
 
 
 
-
-                    //在账号服务器连接的用户踢下线功能
+                    
+                    //在账号服务器上连接 （用户踢下线功能)
                     AccountLoginSessionComponent scrAcountSession = session.DomainScene().GetComponent<AccountLoginSessionComponent>();
                     Session lastLoginSession = scrAcountSession.Get(acount.Id);
                     // Game.EventSystem.Get(lastLoginAccountId) as Session;

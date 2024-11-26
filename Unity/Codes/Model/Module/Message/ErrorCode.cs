@@ -34,6 +34,13 @@ namespace ET
         public const int ERR_RoleInfoNotExistDB = 200008;
         /// <summary> 数据库没有角色表 </summary>
         public const int ERR_DBNotExistRoleInfo = 200008;
+        /// <summary> 该账号在负载均衡服务器上已经下线 </summary>
+        public const int ERR_RealmKeyError = 200009;
+        /// <summary> 该账号在网关服务器上已经下线 </summary>
+        public const int ERR_GateKeyError = 200010;
+
+        /// <summary> 其他机器也进入登录网关请求 </summary>
+        public const int ERR_OtherMechineLoginGateReq = 200011;
 
     }
 }

@@ -5,7 +5,7 @@
     {
         protected override void Run(Session session, A2C_Disconnect message)
         {
-            //顶号被踢下线
+            //登录时，没有进入游戏，顶号被踢下线
             if (message.Error == 0)
             {
 
@@ -22,7 +22,7 @@
                 return;
 
             }
-
+     
             session.DomainScene().RemoveComponent<SessionComponent>();
             session.Dispose();
 

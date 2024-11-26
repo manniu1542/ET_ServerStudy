@@ -8,7 +8,7 @@
         public const int SessionAcceptTimeout = 1003;
 
         public const int AccountLoginOutTimeCheck = 1004;
-        
+        public const int PlayerLineOffComponentTimeCheck = 1005; 
         // 不能超过10000
 
 

@@ -100,7 +100,7 @@ namespace ET
             Session session = self.AddChildWithId<Session, AService>(channelId, self.Service);
             session.RemoteAddress = realIPEndPoint;
             session.AddComponent<SessionIdleCheckerComponent, int>(NetThreadComponent.checkInteral);
-            
+           
             self.Service.GetOrCreate(session.Id, realIPEndPoint);
 
             return session;

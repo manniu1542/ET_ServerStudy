@@ -42,9 +42,15 @@ namespace ET
 		 public const ushort MRoleInfo = 10039;
 		 public const ushort C2A_CreateRoleInfo = 10040;
 		 public const ushort A2C_CreateRoleInfo = 10041;
-		 public const ushort C2A_GetListRoleInfo = 10042;
-		 public const ushort A2C_GetListRoleInfo = 10043;
+		 public const ushort C2A_GetRoleInfoInServer = 10042;
+		 public const ushort A2C_GetRoleInfoInServer = 10043;
 		 public const ushort C2A_DeleRoleInfo = 10044;
 		 public const ushort A2C_DeleRoleInfo = 10045;
+		 public const ushort C2A_GetRealmGate = 10046;
+		 public const ushort A2C_GetRealmGate = 10047;
+		 public const ushort C2R_GetGate = 10048;
+		 public const ushort R2C_GetGate = 10049;
+		 public const ushort C2G_LinkGateLogin = 10050;
+		 public const ushort G2C_LinkGateLogin = 10051;
 	}
 }

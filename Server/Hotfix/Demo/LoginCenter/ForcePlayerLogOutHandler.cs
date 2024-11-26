@@ -7,24 +7,36 @@ namespace ET
     {
         protected override async ETTask Run(Scene scene, A2L_ForcePlayerLogOut request, L2A_ForcePlayerLogOut response, Action reply)
         {
+
+            //请求的服务器类型
+            SceneType st = scene.SceneType;
+            if (st != SceneType.LoginCenter)
+            {
+                response.Error = ErrorCode.ERR_LoginSceneSever;
+                reply();
+        
+                Log.Error("请求的场景服务器错误！" + st);
+                return;
+            }
+
             long acountId = request.AccountID;
             //防止多个 客户端，同一时刻 请求
-            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginCenterPlayerLogOut, acountId.GetHashCode()))
+            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginCenterPlayerLogOut, acountId))
             {
-                LoginAccountInZoneRecordComponent loginAccountZone = scene.GetComponent<LoginAccountInZoneRecordComponent>();
+                LoginAccountInDistrictRecordComponent loginAccountDistrict = scene.GetComponent<LoginAccountInDistrictRecordComponent>();
 
-
+                
                 //该玩家不在中心服务器注册，证明他现在没有别的账号登陆了中心服务器
-                if (!loginAccountZone.IsExit(acountId))
+                if (!loginAccountDistrict.IsExit(acountId))
                 {
                     reply();
                     return;
                 }
-                int zone = loginAccountZone.Get(acountId);
+                int zone = loginAccountDistrict.Get(acountId);
                 //获取该账号使用了那个网关
                 StartSceneConfig config = RealmGateAddressHelper.GetGate(acountId, zone);
 
-
+                Log.Error("--" + config.InnerIPOutPort);
                 G2L_ForcePlayerDisconnect forcePlayerLogOut = (G2L_ForcePlayerDisconnect)await MessageHelper.CallActor(
                      config.InstanceId, new L2G_ForcePlayerDisconnect() { AccountID = request.AccountID });
 

@@ -381,4 +381,97 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(R2A_GetRealmInfo))]
+	[Message(InnerOpcode.A2R_GetRealmInfo)]
+	[ProtoContract]
+	public partial class A2R_GetRealmInfo: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountID { get; set; }
+
+	}
+
+	[Message(InnerOpcode.R2A_GetRealmInfo)]
+	[ProtoContract]
+	public partial class R2A_GetRealmInfo: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public string KeyRealmGate { get; set; }
+
+	}
+
+	[ResponseType(nameof(G2R_GetGatekey))]
+	[Message(InnerOpcode.R2G_GetGatekey)]
+	[ProtoContract]
+	public partial class R2G_GetGatekey: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountID { get; set; }
+
+	}
+
+	[Message(InnerOpcode.G2R_GetGatekey)]
+	[ProtoContract]
+	public partial class G2R_GetGatekey: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public string KeyRealmGate { get; set; }
+
+	}
+
+	[ResponseType(nameof(L2G_RigestLoginCenterPlayer))]
+	[Message(InnerOpcode.G2L_RigestLoginCenterPlayer)]
+	[ProtoContract]
+	public partial class G2L_RigestLoginCenterPlayer: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long AccountID { get; set; }
+
+		[ProtoMember(2)]
+		public long ServerId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.L2G_RigestLoginCenterPlayer)]
+	[ProtoContract]
+	public partial class L2G_RigestLoginCenterPlayer: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 }

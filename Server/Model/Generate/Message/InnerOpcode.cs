@@ -27,5 +27,11 @@ namespace ET
 		 public const ushort L2A_ForcePlayerLogOut = 20024;
 		 public const ushort L2G_ForcePlayerDisconnect = 20025;
 		 public const ushort G2L_ForcePlayerDisconnect = 20026;
+		 public const ushort A2R_GetRealmInfo = 20027;
+		 public const ushort R2A_GetRealmInfo = 20028;
+		 public const ushort R2G_GetGatekey = 20029;
+		 public const ushort G2R_GetGatekey = 20030;
+		 public const ushort G2L_RigestLoginCenterPlayer = 20031;
+		 public const ushort L2G_RigestLoginCenterPlayer = 20032;
 	}
 }

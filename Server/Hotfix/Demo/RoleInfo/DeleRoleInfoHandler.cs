@@ -56,7 +56,7 @@ namespace ET
 
                     var dbc = DBManagerComponent.Instance.GetZoneDB(session.DomainZone());
 
-                    var list = await dbc.Query<RoleInfo>(d => d.AccountId == request.AccountId && d.ServerId == request.ServerId);
+                    var list = await dbc.Query<RoleInfo>(d => d.AccountId == request.AccountId && d.ServerId == request.ServerId&&d.State == RoleInfoState.Normal);
                     if (list == null || list.Count == 0)
                     {
 

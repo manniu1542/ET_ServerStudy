@@ -10,8 +10,8 @@ namespace ET
     /// 登陆的账号所在的区服记录组件
     /// </summary>
     [ComponentOf(typeof(Scene))]
-    public class LoginAccountInZoneRecordComponent : Entity, IAwake, IDestroy
+    public class LoginAccountInDistrictRecordComponent : Entity, IAwake, IDestroy
     {
-        public Dictionary<long, int> dicLoginAccountZone;
+        public Dictionary<long, int> dicLoginAccountDistrict;
     }
 }

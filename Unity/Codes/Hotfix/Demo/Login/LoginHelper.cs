@@ -1,10 +1,12 @@
 using System;
+using System.Net;
 using System.Threading;
+using static System.Collections.Specialized.BitVector32;
 
 
 namespace ET
 {
-
+    
     [FriendClass(typeof(RoleInfo))]
     [FriendClass(typeof(ServerInfoComponent))]
     [FriendClass(typeof(AccountInfoComponent))]
@@ -111,8 +113,8 @@ namespace ET
                 return info.Error;
             }
 
-         
-            zoneScene.GetComponent<RoleInfoComponent>().Add(info.RoleInfo);
+
+            zoneScene.GetComponent<RoleInfoComponent>().SetRoleInfo(info.RoleInfo);
 
 
 
@@ -121,21 +123,21 @@ namespace ET
         }
 
 
-        public static async ETTask<int> GetAllRoleInfo(Scene zoneScene)
+        public static async ETTask<int> GetRoleInfo(Scene zoneScene)
         {
             var scrAccountInfo = zoneScene.GetComponent<AccountInfoComponent>();
-            A2C_GetListRoleInfo info;
+            A2C_GetRoleInfoInServer info;
 
             try
             {
                 info = await zoneScene.GetComponent<SessionComponent>().Session.Call(
-                        new C2A_GetListRoleInfo()
+                        new C2A_GetRoleInfoInServer()
                         {
                             AccountId = scrAccountInfo.AccountId,
                             Token = scrAccountInfo.Token,
                             ServerId = zoneScene.GetComponent<ServerInfoComponent>().curServerId,
 
-                        }) as A2C_GetListRoleInfo;
+                        }) as A2C_GetRoleInfoInServer;
 
 
             }
@@ -154,13 +156,10 @@ namespace ET
 
             //添加自己的信息
 
-            var scrRoleInfoCpt = Game.Scene.GetComponent<RoleInfoComponent>();
+            var scrRoleInfoCpt = zoneScene.GetComponent<RoleInfoComponent>();
 
-     
-            foreach (var item in info.RoleInfo)
-            {
-                scrRoleInfoCpt.Add(item);
-            }
+            scrRoleInfoCpt.SetRoleInfo(info.RoleInfo);
+          
 
 
 
@@ -180,7 +179,6 @@ namespace ET
                             AccountId = scrAccountInfo.AccountId,
                             Token = scrAccountInfo.Token,
                             ServerId = zoneScene.GetComponent<ServerInfoComponent>().curServerId,
-
                         }) as A2C_DeleRoleInfo;
 
 
@@ -198,11 +196,127 @@ namespace ET
                 return info.Error;
             }
 
-            zoneScene.GetComponent<RoleInfoComponent>().Remove(scrAccountInfo.AccountId);
+            zoneScene.GetComponent<RoleInfoComponent>().Remove();
 
 
             return info.Error;
 
         }
+
+
+        public static async ETTask<int> EnterGameRealmGameToLoginGate(Scene zoneScene)
+        {
+            //通过账号服务器获取 负载均衡服务器 的地址 以及key
+            var scrAccountInfo = zoneScene.GetComponent<AccountInfoComponent>();
+            A2C_GetRealmGate info;
+            try
+            {
+                info = await zoneScene.GetComponent<SessionComponent>().Session.Call(
+                        new C2A_GetRealmGate()
+                        {
+                            AccountId = scrAccountInfo.AccountId,
+                            Token = scrAccountInfo.Token,
+                            ServerId = zoneScene.GetComponent<ServerInfoComponent>().curServerId,
+
+                        }) as A2C_GetRealmGate;
+
+
+            }
+            catch (Exception e)
+            {
+
+                Log.Error(e);
+                return ErrorCode.ERR_NetReqTimeOut;
+            }
+            if (info.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("获取负载均衡服务器Key失败！错误码：" + info.Error);
+                return info.Error;
+            }
+
+            scrAccountInfo.KeyRealmGate = info.KeyRealmGate;
+            scrAccountInfo.AdressRealmGate = info.AdressRealmGate;
+            //通过负载均衡服务器 获取网关的地址 以及key
+            Session realmSession;
+            R2C_GetGate getGate;
+            try
+            {
+                realmSession = zoneScene.GetComponent<NetKcpComponent>().Create(NetworkHelper.ToIPEndPoint(scrAccountInfo.AdressRealmGate));
+                getGate = await realmSession.Call(
+                        new C2R_GetGate()
+                        {
+                            AccountId = scrAccountInfo.AccountId,
+                            Token = scrAccountInfo.KeyRealmGate,
+
+                        }) as R2C_GetGate;
+
+
+            }
+            catch (Exception e)
+            {
+
+                Log.Error(e);
+                return ErrorCode.ERR_NetReqTimeOut;
+            }
+
+            realmSession?.Dispose();
+            if (getGate.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("网关服务器Key失败！错误码：" + getGate.Error);
+                return getGate.Error;
+            }
+
+
+            scrAccountInfo.KeyGate = getGate.KeyGate;
+            scrAccountInfo.AdressGate = getGate.AdressGate;
+
+            //创建游戏网关
+
+            Session gateSession;
+            G2C_LinkGateLogin loginGate;
+
+            try
+            {
+                gateSession = zoneScene.GetComponent<NetKcpComponent>().Create(NetworkHelper.ToIPEndPoint(scrAccountInfo.AdressGate));
+     
+                loginGate = await gateSession.Call(
+                        new C2G_LinkGateLogin()
+                        {
+                            AccountId = scrAccountInfo.AccountId,
+                            SessionKey = scrAccountInfo.KeyGate,
+                            RoleId = scrAccountInfo.AccountId,
+
+                        }) as G2C_LinkGateLogin; ;
+
+            }
+            catch (Exception e)
+            {
+
+                Log.Error(e);
+                return ErrorCode.ERR_NetReqTimeOut;
+            }
+ 
+            if (loginGate.Error != ErrorCode.ERR_Success)
+            {
+                gateSession?.Dispose();
+                Log.Error("网关服务器连接失败！错误码：" + loginGate.Error);
+                return loginGate.Error;
+            }
+
+
+            //移除登录服务器的会话，会一并移除掉  账号服务器的pingcomponenet
+            zoneScene.RemoveComponent<SessionComponent>();
+
+            //重置网关服务器的会话
+            zoneScene.AddComponent<SessionComponent>().Session = gateSession;
+            gateSession.AddComponent<PingComponent>();
+
+            return ErrorCode.ERR_Success;
+
+
+        }
+
+
+
     }
 }

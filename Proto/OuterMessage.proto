@@ -324,8 +324,8 @@ message A2C_CreateRoleInfo // IResponse
 	MRoleInfo RoleInfo = 1;
 }
 
-//ResponseType A2C_GetListRoleInfo
-message C2A_GetListRoleInfo // IRequest
+//ResponseType A2C_GetRoleInfoInServer
+message C2A_GetRoleInfoInServer // IRequest
 {
 	int32 RpcId = 90;
 	int64 AccountId = 1;
@@ -333,12 +333,12 @@ message C2A_GetListRoleInfo // IRequest
 	int64  ServerId = 4;
 }
 
-message A2C_GetListRoleInfo // IResponse
+message A2C_GetRoleInfoInServer // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-    repeated MRoleInfo RoleInfo = 1;
+    MRoleInfo RoleInfo = 1;
 }
 
 
@@ -358,3 +358,59 @@ message A2C_DeleRoleInfo // IResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+
+//ResponseType A2C_GetRealmGate
+message C2A_GetRealmGate // IRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+	string Token = 2;
+	int64  ServerId = 3;
+}
+
+message A2C_GetRealmGate // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string KeyRealmGate = 1;
+	string AdressRealmGate = 2;
+}
+
+
+//ResponseType R2C_GetGate
+message C2R_GetGate // IRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+	string Token = 2;
+
+}
+
+message R2C_GetGate // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string KeyGate = 1;
+	string AdressGate = 2;
+}
+
+//ResponseType G2C_LinkGateLogin
+message C2G_LinkGateLogin // IRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+	string SessionKey = 2;
+	int64 RoleId = 3;
+}
+
+message G2C_LinkGateLogin // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 PlayerId = 1;
+}
+
+

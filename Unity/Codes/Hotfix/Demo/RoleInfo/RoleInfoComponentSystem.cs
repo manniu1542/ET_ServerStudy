@@ -7,73 +7,60 @@ using System.Threading.Tasks;
 namespace ET
 {
     [ObjectSystem]
-    public class RoleInfoComponentAwakeSystem : AwakeSystem<RoleInfoComponent>
+    public class RoleInfoComponentAwakeSystem: AwakeSystem<RoleInfoComponent>
     {
         public override void Awake(RoleInfoComponent self)
         {
-            self.dicRoleInfo = new Dictionary<long, RoleInfo>();
+            self.roleInfo = null;
         }
     }
 
     [ObjectSystem]
-    public class RoleInfoComponentDestroySystem : DestroySystem<RoleInfoComponent>
+    public class RoleInfoComponentDestroySystem: DestroySystem<RoleInfoComponent>
     {
         public override void Destroy(RoleInfoComponent self)
         {
-
+            self.roleInfo = null;
         }
     }
-    [FriendClass(typeof(RoleInfo))]
-    [FriendClass(typeof(RoleInfoComponent))]
+
+    [FriendClass(typeof (RoleInfo))]
+    [FriendClass(typeof (RoleInfoComponent))]
     public static class RoleInfoComponentSystem
     {
-
-        public static void Add(this RoleInfoComponent self, RoleInfo ri)
+        public static void SetRoleInfo(this RoleInfoComponent self, RoleInfo ri)
         {
-            if (self.dicRoleInfo.ContainsKey(ri.AccountId))
+            self.roleInfo = ri;
+        }
+
+        public static void SetRoleInfo(this RoleInfoComponent self, MRoleInfo ri)
+        {
+            self.Remove();
+            RoleInfo roleInfo = null;
+            if (ri != null)
             {
-                Log.Error("添加重复角色元素！" + ri.Name);
-                return;
+                roleInfo = self.AddChildWithId<RoleInfo>(ri.AccountId);
+                roleInfo.FromMessage(ri);
             }
-            self.dicRoleInfo.Add(ri.AccountId, ri);
 
-
+            self.SetRoleInfo(roleInfo);
         }
 
-        public static void Add(this RoleInfoComponent self, MRoleInfo ri)
+        public static void Remove(this RoleInfoComponent self)
         {
-            if (self.dicRoleInfo.ContainsKey(ri.AccountId))
-            {
-                Log.Error("添加重复角色元素！" + ri.Name);
-                return;
-            }
-            var roleInfo = self.AddChildWithId<RoleInfo>(ri.AccountId);
-            roleInfo.FromMessage(ri);
-
-
-            self.dicRoleInfo.Add(roleInfo.AccountId, roleInfo);
-
-
+            
+            self.roleInfo?.Dispose();
+            self.roleInfo = null;
         }
-        public static void Remove(this RoleInfoComponent self, long id)
-        {
-            self.dicRoleInfo.Remove(id);
-        }
-        public static void ClearAll(this RoleInfoComponent self)
-        {
-            self.dicRoleInfo.Clear();
-        }
-        public static RoleInfo Get(this RoleInfoComponent self, long id)
-        {
-            self.dicRoleInfo.TryGetValue(id, out RoleInfo ri);
-            return ri;
-        }
-        public static bool Exit(this RoleInfoComponent self, long id)
-        {
 
+        public static RoleInfo Get(this RoleInfoComponent self)
+        {
+            return self.roleInfo;
+        }
 
-            return self.dicRoleInfo.ContainsKey(id); ;
-
+        public static bool Exit(this RoleInfoComponent self)
+        {
+            return self.roleInfo != null;
         }
     }
 }

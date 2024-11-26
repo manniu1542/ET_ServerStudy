@@ -12,8 +12,9 @@ namespace ET
     public class RoleInfoComponent : Entity, IAwake, IDestroy
     {
 
-        public Dictionary<long,RoleInfo> dicRoleInfo;
+        public RoleInfo roleInfo;
         
+
 
     }
 }

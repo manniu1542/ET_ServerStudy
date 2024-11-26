@@ -18,7 +18,7 @@ namespace ET
     [FriendClass(typeof(AccountLoginSessionComponent))]
     public static class AccountLoginCenterComponentSystem
     {
-        //public void bool Is
+   
         public static Session Get(this AccountLoginSessionComponent self, long id)
         {
             if (!self.dicLoginAccountSessionId.TryGetValue(id, out Session session))

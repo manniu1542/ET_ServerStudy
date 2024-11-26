@@ -58,7 +58,7 @@ namespace ET
      		}
      	}
 
-		public UnityEngine.RectTransform EGoRoleTmpRectTransform
+		public UnityEngine.RectTransform EGORoleRectTransform
      	{
      		get
      		{
@@ -67,11 +67,11 @@ namespace ET
      				Log.Error("uiTransform is null.");
      				return null;
      			}
-     			if( this.m_EGoRoleTmpRectTransform == null )
+     			if( this.m_EGORoleRectTransform == null )
      			{
-		    		this.m_EGoRoleTmpRectTransform = UIFindHelper.FindDeepChild<UnityEngine.RectTransform>(this.uiTransform.gameObject,"EGBackGround/layout/EGoRoleTmp");
+		    		this.m_EGORoleRectTransform = UIFindHelper.FindDeepChild<UnityEngine.RectTransform>(this.uiTransform.gameObject,"EGBackGround/layout/EGORole");
      			}
-     			return this.m_EGoRoleTmpRectTransform;
+     			return this.m_EGORoleRectTransform;
      		}
      	}
 
@@ -143,27 +143,65 @@ namespace ET
      		}
      	}
 
+		public UnityEngine.UI.Button EEnterGameButton
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_EEnterGameButton == null )
+     			{
+		    		this.m_EEnterGameButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"EGBackGround/EEnterGame");
+     			}
+     			return this.m_EEnterGameButton;
+     		}
+     	}
+
+		public UnityEngine.UI.Image EEnterGameImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_EEnterGameImage == null )
+     			{
+		    		this.m_EEnterGameImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"EGBackGround/EEnterGame");
+     			}
+     			return this.m_EEnterGameImage;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_EGBackGroundRectTransform = null;
 			this.m_ECreateRoleButton = null;
 			this.m_ECreateRoleImage = null;
-			this.m_EGoRoleTmpRectTransform = null;
+			this.m_EGORoleRectTransform = null;
 			this.m_EInputFieldNameInputField = null;
 			this.m_EInputFieldNameImage = null;
 			this.m_EBackButton = null;
 			this.m_EBackImage = null;
+			this.m_EEnterGameButton = null;
+			this.m_EEnterGameImage = null;
 			this.uiTransform = null;
 		}
 
 		private UnityEngine.RectTransform m_EGBackGroundRectTransform = null;
 		private UnityEngine.UI.Button m_ECreateRoleButton = null;
 		private UnityEngine.UI.Image m_ECreateRoleImage = null;
-		private UnityEngine.RectTransform m_EGoRoleTmpRectTransform = null;
+		private UnityEngine.RectTransform m_EGORoleRectTransform = null;
 		private UnityEngine.UI.InputField m_EInputFieldNameInputField = null;
 		private UnityEngine.UI.Image m_EInputFieldNameImage = null;
 		private UnityEngine.UI.Button m_EBackButton = null;
 		private UnityEngine.UI.Image m_EBackImage = null;
+		private UnityEngine.UI.Button m_EEnterGameButton = null;
+		private UnityEngine.UI.Image m_EEnterGameImage = null;
 		public Transform uiTransform = null;
 	}
 }
