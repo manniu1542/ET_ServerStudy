@@ -83,7 +83,7 @@ namespace ET
                         return;
                     }
                     PlayerComponent scrPlayerCpt = scene.GetComponent<PlayerComponent>();
-                    Player player = scrPlayerCpt.Get(request.RoleId);
+                    Player player = scrPlayerCpt.Get(request.AccountId);
 
                     if (player == null)
                     {
@@ -108,9 +108,8 @@ namespace ET
                     //获取到session，可以获取到玩家组件
                     spc.PlayerInstaceId = player.InstanceId;
                     //知道玩家是哪一个，玩家的id就是RoleId
-                    spc.PlayerId = player.Id;
-
-          
+                    spc.AccountID = player.Account;
+                    spc.PlayerID = player.Id;
                 }
             }
 

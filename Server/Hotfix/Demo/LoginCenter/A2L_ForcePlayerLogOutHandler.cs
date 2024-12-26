@@ -3,7 +3,7 @@
 namespace ET
 {
     [ActorMessageHandler]
-    public class ForcePlayerLogOutHandler : AMActorRpcHandler<Scene, A2L_ForcePlayerLogOut, L2A_ForcePlayerLogOut>
+    public class A2L_ForcePlayerLogOutHandler : AMActorRpcHandler<Scene, A2L_ForcePlayerLogOut, L2A_ForcePlayerLogOut>
     {
         protected override async ETTask Run(Scene scene, A2L_ForcePlayerLogOut request, L2A_ForcePlayerLogOut response, Action reply)
         {
@@ -35,8 +35,7 @@ namespace ET
                 int zone = loginAccountDistrict.Get(acountId);
                 //获取该账号使用了那个网关
                 StartSceneConfig config = RealmGateAddressHelper.GetGate(acountId, zone);
-
-                Log.Error("--" + config.InnerIPOutPort);
+                
                 G2L_ForcePlayerDisconnect forcePlayerLogOut = (G2L_ForcePlayerDisconnect)await MessageHelper.CallActor(
                      config.InstanceId, new L2G_ForcePlayerDisconnect() { AccountID = request.AccountID });
 

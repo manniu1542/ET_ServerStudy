@@ -44,14 +44,15 @@ namespace ET
 
         public static void LineOffEvent(this PlayerLineOffComponent self)
         {
-
+       
             Player player = self.GetParent<Player>();
 
+            //移除玩家组件管理的 该玩家  ，数据，以及 连接玩家的Session
             self.DomainScene().GetComponent<PlayerComponent>().Remove(player.Account);
 
             player.Dispose();
 
-
+        
             Game.EventSystem.Get(player.SessionInstanceId)?.Dispose();
 
 

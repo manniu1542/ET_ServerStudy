@@ -3,7 +3,7 @@
 namespace ET
 {
     [ActorMessageHandler]
-    public class ForcePlayerDisconnectHandler: AMActorRpcHandler<Scene, L2G_ForcePlayerDisconnect, G2L_ForcePlayerDisconnect>
+    public class L2G_ForcePlayerDisconnectHandler: AMActorRpcHandler<Scene, L2G_ForcePlayerDisconnect, G2L_ForcePlayerDisconnect>
     {
         protected override async ETTask Run(Scene scene, L2G_ForcePlayerDisconnect request, G2L_ForcePlayerDisconnect response, Action reply)
         {

@@ -10,14 +10,14 @@ namespace ET
 			public override void Destroy(SessionPlayerComponent self)
 			{
 				// 发送断线消息
-				ActorLocationSenderComponent.Instance.Send(self.PlayerId, new G2M_SessionDisconnect());
-				self.Domain.GetComponent<PlayerComponent>()?.Remove(self.PlayerId);
+				ActorLocationSenderComponent.Instance.Send(self.PlayerID, new G2M_SessionDisconnect());
+				self.Domain.GetComponent<PlayerComponent>()?.Remove(self.AccountID);
 			}
 		}
 
 		public static Player GetMyPlayer(this SessionPlayerComponent self)
 		{
-			return self.Domain.GetComponent<PlayerComponent>().Get(self.PlayerId);
+			return self.Domain.GetComponent<PlayerComponent>().Get(self.AccountID);
 		}
 	}
 }

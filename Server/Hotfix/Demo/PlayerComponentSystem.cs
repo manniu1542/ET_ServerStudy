@@ -22,6 +22,7 @@ namespace ET
         
         public static void Add(this PlayerComponent self, Player player)
         {
+         
             self.idPlayers.Add(player.Account, player);
         }
 

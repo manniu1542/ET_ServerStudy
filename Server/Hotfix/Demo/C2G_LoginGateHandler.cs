@@ -1,6 +1,7 @@
 ﻿using System;
 
 
+
 namespace ET
 {
 	[MessageHandler]
@@ -15,22 +16,22 @@ namespace ET
 
             Scene scene = session.DomainScene();
 			string account = scene.GetComponent<GateSessionKeyComponent>().Get(request.Key);
-			if (account == null)
+			long.TryParse(account, out long accountlong);
+			if (accountlong == 0)
 			{
 				response.Error = ErrorCore.ERR_ConnectGateKeyError;
 				response.Message = "Gate key验证失败!";
 				reply();
 				return;
 			}
-	
-
+			
 			PlayerComponent playerComponent = scene.GetComponent<PlayerComponent>();
-			Player player = playerComponent.AddChild<Player, long,long>(1,1);
+			Player player = playerComponent.AddChild<Player, long,long>(accountlong,accountlong);
 			playerComponent.Add(player);
-			session.AddComponent<SessionPlayerComponent>().PlayerId = player.Id;
+			session.AddComponent<SessionPlayerComponent>().AccountID = player.Account;
 			session.AddComponent<MailBoxComponent, MailboxType>(MailboxType.GateSession);
 
-			response.PlayerId = player.Id;
+			response.PlayerId = player.Account;
 			reply();
 			await ETTask.CompletedTask;
 		}
