@@ -474,4 +474,85 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(M2G_RequestEnterGameState))]
+	[Message(InnerOpcode.G2M_RequestEnterGameState)]
+	[ProtoContract]
+	public partial class G2M_RequestEnterGameState: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.M2G_RequestEnterGameState)]
+	[ProtoContract]
+	public partial class M2G_RequestEnterGameState: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[ResponseType(nameof(M2G_RemoveUnit))]
+	[Message(InnerOpcode.G2M_RemoveUnit)]
+	[ProtoContract]
+	public partial class G2M_RemoveUnit: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.M2G_RemoveUnit)]
+	[ProtoContract]
+	public partial class M2G_RemoveUnit: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[ResponseType(nameof(L2G_RemovePlayer))]
+	[Message(InnerOpcode.G2L_RemovePlayer)]
+	[ProtoContract]
+	public partial class G2L_RemovePlayer: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long Account { get; set; }
+
+		[ProtoMember(2)]
+		public int ServerId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.L2G_RemovePlayer)]
+	[ProtoContract]
+	public partial class L2G_RemovePlayer: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 }

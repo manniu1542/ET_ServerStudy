@@ -33,5 +33,11 @@ namespace ET
 		 public const ushort G2R_GetGatekey = 20030;
 		 public const ushort G2L_RigestLoginCenterPlayer = 20031;
 		 public const ushort L2G_RigestLoginCenterPlayer = 20032;
+		 public const ushort G2M_RequestEnterGameState = 20033;
+		 public const ushort M2G_RequestEnterGameState = 20034;
+		 public const ushort G2M_RemoveUnit = 20035;
+		 public const ushort M2G_RemoveUnit = 20036;
+		 public const ushort G2L_RemovePlayer = 20037;
+		 public const ushort L2G_RemovePlayer = 20038;
 	}
 }

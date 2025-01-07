@@ -3,7 +3,7 @@
 namespace ET
 {
     [ActorMessageHandler]
-    public class GetRealmInfoHandler : AMActorRpcHandler<Scene, A2R_GetRealmInfo, R2A_GetRealmInfo>
+    public class A2R_GetRealmInfoHandler : AMActorRpcHandler<Scene, A2R_GetRealmInfo, R2A_GetRealmInfo>
     {
         protected override async ETTask Run(Scene scene, A2R_GetRealmInfo request, R2A_GetRealmInfo response, Action reply)
         {

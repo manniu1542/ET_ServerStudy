@@ -3,7 +3,7 @@
 namespace ET
 {
     [FriendClass(typeof(RoleInfo))]
-    public class GetRealmGateHandler : AMRpcHandler<C2A_GetRealmGate, A2C_GetRealmGate>
+    public class C2A_GetRealmGateHandler : AMRpcHandler<C2A_GetRealmGate, A2C_GetRealmGate>
     {
         protected override async ETTask Run(Session session, C2A_GetRealmGate request, A2C_GetRealmGate response, Action reply)
         {

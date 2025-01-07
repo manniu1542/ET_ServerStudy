@@ -235,3 +235,46 @@ message L2G_RigestLoginCenterPlayer // IActorResponse
 
 }
 
+//ResponseType M2G_RequestEnterGameState
+message G2M_RequestEnterGameState // IActorLocationRequest
+{
+	int32 RpcId = 90;
+}
+
+message M2G_RequestEnterGameState // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+}
+
+//ResponseType M2G_RemoveUnit
+message G2M_RemoveUnit // IActorLocationRequest
+{
+	int32 RpcId = 90;
+}
+
+message M2G_RemoveUnit // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+}
+
+//ResponseType L2G_RemovePlayer
+message G2L_RemovePlayer // IActorRequest
+{
+	int32 RpcId = 90;
+	int64 Account = 1;
+	int32 ServerId = 2;
+}
+
+message L2G_RemovePlayer // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+}

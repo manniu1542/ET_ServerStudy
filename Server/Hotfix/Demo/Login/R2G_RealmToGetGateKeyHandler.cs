@@ -3,7 +3,7 @@
 namespace ET
 {
     [ActorMessageHandler]
-    public class RealmToGetGateKeyHandler : AMActorRpcHandler<Scene, R2G_GetGatekey, G2R_GetGatekey>
+    public class R2G_RealmToGetGateKeyHandler : AMActorRpcHandler<Scene, R2G_GetGatekey, G2R_GetGatekey>
     {
         protected override async ETTask Run(Scene scene, R2G_GetGatekey request, G2R_GetGatekey response, Action reply)
         {

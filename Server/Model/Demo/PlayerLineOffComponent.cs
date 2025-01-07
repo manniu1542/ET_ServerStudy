@@ -10,5 +10,6 @@ namespace ET
     public class PlayerLineOffComponent : Entity, IAwake, IDestroy
     {
         public long TimeId;
+     
     }
 }

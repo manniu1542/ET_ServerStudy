@@ -42,5 +42,13 @@ namespace ET
         /// <summary> 其他机器也进入登录网关请求 </summary>
         public const int ERR_OtherMechineLoginGateReq = 200011;
 
+        /// <summary> 该用户的Seesion已经登录游戏了 </summary>
+        public const int ERR_SessionEnterGameRealdy = 200012;
+        /// <summary> 该用户的Seesion已经登录游戏了 </summary>
+        public const int ERR_SessionPlayerError = 200013;
+        /// <summary> 玩家的数据已经被释放掉 </summary>
+        public const int ERR_PlayerDisposeError = 200014;
+        /// <summary> 玩家的数据已经被释放掉 </summary>
+        public const int ERR_EnterGameError = 200015;
     }
 }

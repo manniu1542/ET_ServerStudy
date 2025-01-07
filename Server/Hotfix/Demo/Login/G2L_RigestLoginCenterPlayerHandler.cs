@@ -3,7 +3,7 @@
 namespace ET
 {
     [ActorMessageHandler]
-    public class RigestLoginCenterPlayerHandler : AMActorRpcHandler<Scene, G2L_RigestLoginCenterPlayer, L2G_RigestLoginCenterPlayer>
+    public class G2L_RigestLoginCenterPlayerHandler : AMActorRpcHandler<Scene, G2L_RigestLoginCenterPlayer, L2G_RigestLoginCenterPlayer>
     {
         protected override async ETTask Run(Scene scene, G2L_RigestLoginCenterPlayer request, L2G_RigestLoginCenterPlayer response, Action reply)
         {

@@ -4,7 +4,7 @@ namespace ET
 {
     [FriendClass(typeof(SessionPlayerComponent))]
     [FriendClass(typeof(RoleInfo))]
-    public class LinkGateLoginHandler : AMRpcHandler<C2G_LinkGateLogin, G2C_LinkGateLogin>
+    public class C2G_LinkGateLoginHandler : AMRpcHandler<C2G_LinkGateLogin, G2C_LinkGateLogin>
     {
         protected override async ETTask Run(Session session, C2G_LinkGateLogin request, G2C_LinkGateLogin response, Action reply)
         {
@@ -98,7 +98,8 @@ namespace ET
                         //移除的  游戏玩家下线组件
                         player.RemoveComponent<PlayerLineOffComponent>();
                     }
-
+                    session.RemoveComponent<SessionStateComponent>();
+                    session.AddComponent<SessionStateComponent>();
                     //给玩家与 通信Session绑定起来
 
                     //玩家可以得到Session

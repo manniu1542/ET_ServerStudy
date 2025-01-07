@@ -21,6 +21,7 @@ namespace ET
                 self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_RoleInfo);
                 self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_ServerList);
             });
+           
 
             EUIHelper.AddListenerAsync(self.View.EEnterGameButton, async () => { await self.EnterGame(); });
             EUIHelper.AddListenerAsync(self.View.ECreateRoleButton, async () =>
@@ -43,6 +44,9 @@ namespace ET
             if (err != ErrorCode.ERR_Success) return;
             self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_RoleInfo);
             self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Lobby);
+
+            err = await LoginHelper.EnterGame(self.ZoneScene());
+            if (err != ErrorCode.ERR_Success) return;
             Log.Info("登录完成！！！");
         }
 
@@ -66,7 +70,7 @@ namespace ET
         {
             //获取所有角色
             await LoginHelper.GetRoleInfo(self.ZoneScene());
-        
+
             self.UpdateUI();
         }
 

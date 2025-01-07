@@ -37,6 +37,7 @@ namespace ET
             public override void Destroy(PlayerLineOffComponent self)
             {
 
+                
                 TimerComponent.Instance.Remove(ref self.TimeId);
             }
         }
@@ -46,16 +47,7 @@ namespace ET
         {
        
             Player player = self.GetParent<Player>();
-
-            //移除玩家组件管理的 该玩家  ，数据，以及 连接玩家的Session
-            self.DomainScene().GetComponent<PlayerComponent>().Remove(player.Account);
-
-            player.Dispose();
-
-        
-            Game.EventSystem.Get(player.SessionInstanceId)?.Dispose();
-
-
+            SessionDisconnectHelp.LetPlayLeave(player).Coroutine();
 
         }
 
