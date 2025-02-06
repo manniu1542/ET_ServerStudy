@@ -14,7 +14,7 @@ namespace ET
             SceneType st = scene.DomainScene().SceneType;
             if (st != SceneType.LoginCenter)
             {
-                response.Error = ErrorCode.ERR_LoginSceneSever;
+                response.Error = ErrorCode.ERR_SwitchSceneSever;
                 reply();
                 Log.Error("请求的账号，场景服务器错误！" + st);
                 return;

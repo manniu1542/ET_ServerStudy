@@ -13,7 +13,7 @@ namespace ET
             SceneType st = session.DomainScene().SceneType;
             if (st != SceneType.Account)
             {
-                response.Error = ErrorCode.ERR_LoginSceneSever;
+                response.Error = ErrorCode.ERR_SwitchSceneSever;
                 reply();
                 session.Disconnect().Coroutine();
                 Log.Error("请求的账号，场景服务器错误！" + st);

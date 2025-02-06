@@ -18,8 +18,8 @@ namespace ET
         // 200001以上不抛异常
         /// <summary> 请求超时 </summary>
         public const int ERR_NetReqTimeOut = 200002;
-        /// <summary> 客户端发送的请求的地址 ：场景服务器错误 </summary>
-        public const int ERR_LoginSceneSever = 200003;
+        /// <summary> 客户端发送的请求的地址 ：切换场景服务器错误 </summary>
+        public const int ERR_SwitchSceneSever = 200003;
         /// <summary> 账号不存在 </summary>
         public const int ERR_LoginAccount = 200004;
         /// <summary> 密码错误 </summary>
