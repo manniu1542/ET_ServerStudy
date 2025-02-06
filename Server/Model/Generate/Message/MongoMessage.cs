@@ -37,4 +37,26 @@ namespace ET
 
 	}
 
+//获取unit的数据放入缓存
+	[Message(MongoOpcode.U2G_GetUnitChache)]
+	[ProtoContract]
+	public partial class U2G_GetUnitChache: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public List<byte[]> Unit = new List<byte[]>();
+
+		[ProtoMember(2)]
+		public List<byte[]> UnitComponent = new List<byte[]>();
+
+	}
+
 }

@@ -53,7 +53,13 @@ namespace ET
 
 
                     break;
+                case SceneType.UnitChache:
 
+
+                    scene.AddComponent<UnitChacheComponent>();
+
+
+                    break;
 
             }
 

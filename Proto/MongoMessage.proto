@@ -19,3 +19,17 @@ message M2M_UnitTransferRequest // IActorRequest
 	Unit Unit = 2;
 	repeated Entity Entitys = 3;
 }
+
+
+
+//获取unit的数据放入缓存
+message U2G_GetUnitChache // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	
+	repeated  bytes Unit = 1;
+    repeated  bytes UnitComponent = 2;
+
+}

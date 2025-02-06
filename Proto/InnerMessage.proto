@@ -276,5 +276,58 @@ message L2G_RemovePlayer // IActorResponse
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
+}
+
+//从缓存服获取unit 或者添加 unit单元
+//ResponseType U2G_AddOrUpdateUnitChache
+message G2U_AddOrUpdateUnitChache // IActorRequest
+{
+    int32 RpcId = 90;
+	repeated  bytes Unit = 1;
+    repeated  bytes UnitComponent = 2;
+    
+
+
+}
+
+message U2G_AddOrUpdateUnitChache // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+
+}
+
+//从数据库中拿取unit单元
+//ResponseType U2G_GetUnitChache
+message G2U_GetUnitChache // IActorRequest
+{
+    int32 RpcId = 90;
+	repeated  long UnitIDs = 1;
+    repeated  int zones = 1;
+
+
+}
+
+
+
+//从缓存服删除unit 单位
+//ResponseType U2G_DeleteUnitChache
+message G2U_DeleteUnitChache // IActorRequest
+{
+    int32 RpcId = 90;
+	repeated  long UnitID = 1;
+    
+
+
+}
+
+message U2G_DeleteUnitChache // IActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
 
 }

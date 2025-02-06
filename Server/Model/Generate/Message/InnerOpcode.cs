@@ -39,5 +39,10 @@ namespace ET
 		 public const ushort M2G_RemoveUnit = 20036;
 		 public const ushort G2L_RemovePlayer = 20037;
 		 public const ushort L2G_RemovePlayer = 20038;
+		 public const ushort G2U_AddOrUpdateUnitChache = 20039;
+		 public const ushort U2G_AddOrUpdateUnitChache = 20040;
+		 public const ushort G2U_GetUnitChache = 20041;
+		 public const ushort G2U_DeleteUnitChache = 20042;
+		 public const ushort U2G_DeleteUnitChache = 20043;
 	}
 }

@@ -23,16 +23,17 @@ namespace ET
             self.roleInfo = null;
         }
     }
-
+    
     [FriendClass(typeof (RoleInfo))]
     [FriendClass(typeof (RoleInfoComponent))]
     public static class RoleInfoComponentSystem
     {
         public static void SetRoleInfo(this RoleInfoComponent self, RoleInfo ri)
         {
+            
             self.roleInfo = ri;
         }
-
+        
         public static void SetRoleInfo(this RoleInfoComponent self, MRoleInfo ri)
         {
             self.Remove();
@@ -45,10 +46,9 @@ namespace ET
 
             self.SetRoleInfo(roleInfo);
         }
-
+        
         public static void Remove(this RoleInfoComponent self)
         {
-            
             self.roleInfo?.Dispose();
             self.roleInfo = null;
         }

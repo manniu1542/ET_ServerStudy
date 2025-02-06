@@ -555,4 +555,79 @@ namespace ET
 
 	}
 
+//从缓存服获取unit 或者添加 unit单元
+	[ResponseType(nameof(U2G_AddOrUpdateUnitChache))]
+	[Message(InnerOpcode.G2U_AddOrUpdateUnitChache)]
+	[ProtoContract]
+	public partial class G2U_AddOrUpdateUnitChache: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public List<byte[]> Unit = new List<byte[]>();
+
+		[ProtoMember(2)]
+		public List<byte[]> UnitComponent = new List<byte[]>();
+
+	}
+
+	[Message(InnerOpcode.U2G_AddOrUpdateUnitChache)]
+	[ProtoContract]
+	public partial class U2G_AddOrUpdateUnitChache: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+//从数据库中拿取unit单元
+	[ResponseType(nameof(U2G_GetUnitChache))]
+	[Message(InnerOpcode.G2U_GetUnitChache)]
+	[ProtoContract]
+	public partial class G2U_GetUnitChache: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public List<long> UnitID = new List<long>();
+
+	}
+
+//从缓存服删除unit 单位
+	[ResponseType(nameof(U2G_DeleteUnitChache))]
+	[Message(InnerOpcode.G2U_DeleteUnitChache)]
+	[ProtoContract]
+	public partial class G2U_DeleteUnitChache: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public List<long> UnitID = new List<long>();
+
+	}
+
+	[Message(InnerOpcode.U2G_DeleteUnitChache)]
+	[ProtoContract]
+	public partial class U2G_DeleteUnitChache: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 }
