@@ -22,14 +22,14 @@ message M2M_UnitTransferRequest // IActorRequest
 
 
 
-//获取unit的数据放入缓存
+//获取unit的数据从数据库
 message U2G_GetUnitChache // IActorResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-	
-	repeated  bytes Unit = 1;
-    repeated  bytes UnitComponent = 2;
 
+
+	repeated  Entity EntityType = 2;  //实体列表
+    repeated  string listComponentName = 3;  // 实体组件标识
 }

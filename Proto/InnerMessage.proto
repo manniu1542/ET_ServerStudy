@@ -283,8 +283,9 @@ message L2G_RemovePlayer // IActorResponse
 message G2U_AddOrUpdateUnitChache // IActorRequest
 {
     int32 RpcId = 90;
-	repeated  bytes Unit = 1;
-    repeated  bytes UnitComponent = 2;
+	int64 UnitId = 1;             //缓存的unit 的id
+	repeated  string EntityType = 2;  //存储的 实体类型
+    repeated  bytes EntityBytes = 3;  // 存储的 实体字节
     
 
 
@@ -304,10 +305,9 @@ message U2G_AddOrUpdateUnitChache // IActorResponse
 message G2U_GetUnitChache // IActorRequest
 {
     int32 RpcId = 90;
-	repeated  long UnitIDs = 1;
-    repeated  int zones = 1;
 
-
+    int64 UnitId = 1;
+    repeated  string listComponentName = 2; //需要获取的组件名
 }
 
 
@@ -317,10 +317,9 @@ message G2U_GetUnitChache // IActorRequest
 message G2U_DeleteUnitChache // IActorRequest
 {
     int32 RpcId = 90;
-	repeated  long UnitID = 1;
+	
+	long UnitID = 1;
     
-
-
 }
 
 message U2G_DeleteUnitChache // IActorResponse

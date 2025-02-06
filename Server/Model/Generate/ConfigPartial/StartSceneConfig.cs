@@ -7,10 +7,12 @@ namespace ET
     public partial class StartSceneConfigCategory
     {
         public MultiMap<int, StartSceneConfig> Gates = new MultiMap<int, StartSceneConfig>();
+
         /// <summary>
         /// 数据缓存服
         /// </summary>
         public Dictionary<int, StartSceneConfig> UnitChaches = new Dictionary<int, StartSceneConfig>();
+
         public Dictionary<int, StartSceneConfig> RealmGates = new Dictionary<int, StartSceneConfig>();
         public Dictionary<int, StartSceneConfig> LoginCenters = new Dictionary<int, StartSceneConfig>();
         public MultiMap<int, StartSceneConfig> ProcessScenes = new MultiMap<int, StartSceneConfig>();
@@ -31,6 +33,12 @@ namespace ET
             return this.ZoneScenesByName[zone][name];
         }
 
+        public StartSceneConfig GetUnitChacheConfig(long unitId)
+        {
+            int zone = UnitIdStruct.GetUnitZone(unitId);
+            return this.UnitChaches[zone];
+        }
+
         public override void AfterEndInit()
         {
             foreach (StartSceneConfig startSceneConfig in this.GetAll().Values)
@@ -41,6 +49,7 @@ namespace ET
                 {
                     this.ZoneScenesByName.Add(startSceneConfig.Zone, new Dictionary<string, StartSceneConfig>());
                 }
+
                 this.ZoneScenesByName[startSceneConfig.Zone].Add(startSceneConfig.Name, startSceneConfig);
 
                 switch (startSceneConfig.Type)
@@ -61,14 +70,14 @@ namespace ET
                         this.Robots.Add(startSceneConfig);
                         break;
                     case SceneType.UnitChache:
-                        this.UnitChaches.Add(startSceneConfig.Zone,startSceneConfig);
+                        this.UnitChaches.Add(startSceneConfig.Zone, startSceneConfig);
                         break;
                 }
             }
         }
     }
 
-    public partial class StartSceneConfig : ISupportInitialize
+    public partial class StartSceneConfig: ISupportInitialize
     {
         public long InstanceId;
 

@@ -37,7 +37,7 @@ namespace ET
 
 	}
 
-//获取unit的数据放入缓存
+//获取unit的数据从数据库
 	[Message(MongoOpcode.U2G_GetUnitChache)]
 	[ProtoContract]
 	public partial class U2G_GetUnitChache: Object, IActorResponse
@@ -51,11 +51,11 @@ namespace ET
 		[ProtoMember(92)]
 		public string Message { get; set; }
 
-		[ProtoMember(1)]
-		public List<byte[]> Unit = new List<byte[]>();
-
 		[ProtoMember(2)]
-		public List<byte[]> UnitComponent = new List<byte[]>();
+		public List<Entity> EntityType = new List<Entity>();
+
+		[ProtoMember(3)]
+		public List<string> listComponentName = new List<string>();
 
 	}
 

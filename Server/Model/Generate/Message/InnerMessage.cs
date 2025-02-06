@@ -565,10 +565,13 @@ namespace ET
 		public int RpcId { get; set; }
 
 		[ProtoMember(1)]
-		public List<byte[]> Unit = new List<byte[]>();
+		public long UnitId { get; set; }
 
 		[ProtoMember(2)]
-		public List<byte[]> UnitComponent = new List<byte[]>();
+		public List<string> EntityType = new List<string>();
+
+		[ProtoMember(3)]
+		public List<byte[]> EntityBytes = new List<byte[]>();
 
 	}
 
@@ -597,7 +600,10 @@ namespace ET
 		public int RpcId { get; set; }
 
 		[ProtoMember(1)]
-		public List<long> UnitID = new List<long>();
+		public long UnitId { get; set; }
+
+		[ProtoMember(2)]
+		public List<string> listComponentName = new List<string>();
 
 	}
 
@@ -611,7 +617,7 @@ namespace ET
 		public int RpcId { get; set; }
 
 		[ProtoMember(1)]
-		public List<long> UnitID = new List<long>();
+		public long UnitID { get; set; }
 
 	}
 
