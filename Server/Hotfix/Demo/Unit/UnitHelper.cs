@@ -3,9 +3,10 @@ using UnityEngine;
 
 namespace ET
 {
-    [FriendClass(typeof(Unit))]
-    [FriendClass(typeof(MoveComponent))]
-    [FriendClass(typeof(NumericComponent))]
+    [FriendClass(typeof (GateMapComponent))]
+    [FriendClass(typeof (Unit))]
+    [FriendClass(typeof (MoveComponent))]
+    [FriendClass(typeof (NumericComponent))]
     public static class UnitHelper
     {
         public static UnitInfo CreateUnitInfo(Unit unit)
@@ -48,25 +49,44 @@ namespace ET
 
             return unitInfo;
         }
-        
+
         // 获取看见unit的玩家，主要用于广播
         public static Dictionary<long, AOIEntity> GetBeSeePlayers(this Unit self)
         {
             return self.GetComponent<AOIEntity>().GetBeSeePlayers();
         }
-        
+
         public static void NoticeUnitAdd(Unit unit, Unit sendUnit)
         {
             M2C_CreateUnits createUnits = new M2C_CreateUnits();
             createUnits.Units.Add(CreateUnitInfo(sendUnit));
             MessageHelper.SendToClient(unit, createUnits);
         }
-        
+
         public static void NoticeUnitRemove(Unit unit, Unit sendUnit)
         {
             M2C_RemoveUnits removeUnits = new M2C_RemoveUnits();
             removeUnits.Units.Add(sendUnit.Id);
             MessageHelper.SendToClient(unit, removeUnits);
+        }
+
+        /// <summary>
+        /// 加载数据库中的Unit(先从数据库中拿取 对应的Unit,如果有拿，没有则创建再写入数据库)
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public static async ETTask<Unit> LoadUnit(Player player)
+        {
+            
+            GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
+            //创建一个动态场景（就是为了创建Unit时，用的 逻辑场景）
+            gateMapComponent.Scene = await SceneFactory.Create(gateMapComponent, "GateMap", SceneType.Map);
+            
+            
+            
+
+            Unit unit = UnitFactory.Create(gateMapComponent.Scene, player.Id, UnitType.Player);
+            return unit;
         }
     }
 }

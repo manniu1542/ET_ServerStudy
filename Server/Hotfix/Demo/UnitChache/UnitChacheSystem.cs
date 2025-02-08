@@ -11,6 +11,12 @@ namespace ET
     {
         public override void Destroy(UnitChache self)
         {
+            foreach (var chacheCpt in self.dicChacheComponent.Values)
+            {
+                chacheCpt?.Dispose();
+            }
+            self.dicChacheComponent.Clear();
+            self.key = null;
         }
     }
 
@@ -40,6 +46,40 @@ namespace ET
             }
 
             self.dicChacheComponent.Add(entity.Id, entity);
+        }
+
+        /// <summary>
+        /// 获取缓存的组件
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="UnitId"></param>
+        /// <returns></returns>
+        public static async ETTask<Entity> Get(this UnitChache self, long unitId)
+        {
+            if (!self.dicChacheComponent.TryGetValue(unitId, out Entity entity))
+            {
+                entity = await DBManagerComponent.Instance.GetZoneDB(self.DomainZone()).Query<Entity>(unitId, self.key);
+                if (entity != null)
+                    self.AddOrUpdate(entity);
+            }
+
+            return entity;
+        }
+        
+        /// <summary>
+        /// 获取缓存的组件
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public static  void Delete(this UnitChache self, long unitId)
+        {
+            if (self.dicChacheComponent.TryGetValue(unitId, out Entity entity))
+            {
+                entity.Dispose();
+                self.dicChacheComponent.Remove(unitId);
+            }
+
         }
     }
 }

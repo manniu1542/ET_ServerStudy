@@ -17,13 +17,14 @@ namespace ET
                 Log.Error("请求的场景服务器错误！" + st);
                 return;
             }
-            AddOrUpdateUnitChache(scene,request,response).Coroutine();
-          
+
+            AddOrUpdateUnitChache(scene, request, response).Coroutine();
 
             reply();
+            await ETTask.CompletedTask;
         }
-        
-        protected async   ETTask  AddOrUpdateUnitChache(Scene scene, G2U_AddOrUpdateUnitChache request, U2G_AddOrUpdateUnitChache response)
+
+        protected async ETTask AddOrUpdateUnitChache(Scene scene, G2U_AddOrUpdateUnitChache request, U2G_AddOrUpdateUnitChache response)
         {
             UnitChacheComponent ucc = scene.GetComponent<UnitChacheComponent>();
             //是在玩家下线了 再更新还是每次做修改都操作数据库呢？
@@ -41,8 +42,6 @@ namespace ET
 
                 await ucc.AddOrUpdate(request.UnitId, list);
             }
-            
-            
         }
     }
 }

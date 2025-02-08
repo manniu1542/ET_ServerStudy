@@ -13,8 +13,8 @@ namespace ET
         public Dictionary<string, UnitChache> dicUnitChache = new Dictionary<string, UnitChache>();
 
         /// <summary>
-        /// 已经保存的UnitId
+        /// 已经继承了IChache的所有类型组件
         /// </summary>
-        public List<string> listChacheUnitKey = new List<string>();
+        public List<string> listUnitChacheKey = new List<string>();
     }
 }

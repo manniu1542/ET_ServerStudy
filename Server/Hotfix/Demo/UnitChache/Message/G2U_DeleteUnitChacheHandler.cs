@@ -2,6 +2,7 @@
 
 namespace ET
 {
+    [FriendClass(typeof (UnitChacheComponent))]
     [ActorMessageHandler]
     public class G2U_DeleteUnitChacheHandler: AMActorRpcHandler<Scene, G2U_DeleteUnitChache, U2G_DeleteUnitChache>
     {
@@ -17,17 +18,15 @@ namespace ET
                 Log.Error("请求的场景服务器错误！" + st);
                 return;
             }
-            AddOrUpdateUnitChache(scene,request,response).Coroutine();
-          
 
-            reply();
-        }
-        
-        protected async   ETTask  AddOrUpdateUnitChache(Scene scene, G2U_DeleteUnitChache request, U2G_DeleteUnitChache response)
-        {
+      
+            //获取所有UnitId类型 。遍历所有 ucc
             UnitChacheComponent ucc = scene.GetComponent<UnitChacheComponent>();
-         
-            
+            ucc.Delete(request.UnitID);
+            reply();
+            await ETTask.CompletedTask;
         }
+
+     
     }
 }

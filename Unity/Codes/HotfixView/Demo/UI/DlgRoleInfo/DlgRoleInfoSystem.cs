@@ -12,16 +12,19 @@ namespace ET
     {
         public static void RegisterUIEvent(this DlgRoleInfo self)
         {
+#if UNITY_EDITOR
             //不可用ILRunTime热更
-            // self.View.EInputFieldNameInputField.onValueChanged.RemoveAllListeners();
-            // self.View.EInputFieldNameInputField.onValueChanged.AddListener(str => { self.roleName = str; });
+            self.View.EInputFieldNameInputField.onValueChanged.RemoveAllListeners();
+            self.View.EInputFieldNameInputField.onValueChanged.AddListener(str => { self.roleName = str; });
+#else
             self.roleName = "tmp";
+#endif
+
             EUIHelper.AddListener(self.View.EBackButton, () =>
             {
                 self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_RoleInfo);
                 self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_ServerList);
             });
-           
 
             EUIHelper.AddListenerAsync(self.View.EEnterGameButton, async () => { await self.EnterGame(); });
             EUIHelper.AddListenerAsync(self.View.ECreateRoleButton, async () =>

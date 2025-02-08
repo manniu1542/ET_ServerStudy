@@ -114,11 +114,9 @@ namespace ET
 
                     try
                     {
-                        GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
-                        //创建一个动态创景
-                        gateMapComponent.Scene = await SceneFactory.Create(gateMapComponent, "GateMap", SceneType.Map);
+                        // 先从数据库中拿取 对应的Unit,如果有拿，没有则创建再写入数据库
+                        var unit = await UnitHelper.LoadUnit(player);
 
-                        Unit unit = UnitFactory.Create(gateMapComponent.Scene, player.Id, UnitType.Player);
                         //使定位服务器知道 他是在哪个Gate网关上连接着的
                         unit.AddComponent<UnitGateComponent, long>(session.InstanceId);
                         //TODO:当前只有一个服

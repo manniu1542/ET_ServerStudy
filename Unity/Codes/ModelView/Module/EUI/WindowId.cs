@@ -10,5 +10,6 @@ namespace ET
         WindowID_Helper,   //提示界面
     	WindowID_ServerList,
 		WindowID_RoleInfo,
+		WindowID_Main,
 	}
 }
