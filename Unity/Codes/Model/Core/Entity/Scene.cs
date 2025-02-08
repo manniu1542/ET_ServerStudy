@@ -1,5 +1,6 @@
 ﻿namespace ET
 {
+    [ChildType(typeof(Unit))]
     [EnableMethod]
     public sealed class Scene: Entity
     {

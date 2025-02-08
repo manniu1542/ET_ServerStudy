@@ -75,18 +75,30 @@ namespace ET
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        public static async ETTask<Unit> LoadUnit(Player player)
+        public static async ETTask<(bool,Unit)> LoadUnit(Player player)
         {
-            
             GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
             //创建一个动态场景（就是为了创建Unit时，用的 逻辑场景）
             gateMapComponent.Scene = await SceneFactory.Create(gateMapComponent, "GateMap", SceneType.Map);
-            
-            
-            
 
-            Unit unit = UnitFactory.Create(gateMapComponent.Scene, player.Id, UnitType.Player);
-            return unit;
+            Unit unit = await UnitChacheHelper.GetUnitChache(gateMapComponent.Scene, player.Id);
+            bool isNewUnit = unit == null;
+            if (isNewUnit)
+            {
+                unit = UnitFactory.Create(gateMapComponent.Scene, player.UintId, UnitType.Player);
+                UnitChacheHelper.AddOrUpdateAllUnitChache(unit).Coroutine();
+            }
+
+           
+            return (isNewUnit,unit);
+        }
+
+       /// <summary>
+       /// 初始化Unit
+       /// </summary>
+       /// <param name="unit"></param>
+        public static async ETTask InitUnit(Unit unit,bool isNew)
+        {
         }
     }
 }

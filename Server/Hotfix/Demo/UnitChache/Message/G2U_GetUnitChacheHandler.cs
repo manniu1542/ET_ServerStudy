@@ -12,7 +12,7 @@ namespace ET
             //请求的服务器类型
             SceneType st = scene.SceneType;
             if (st != SceneType.UnitChache)
-            {
+            {   
                 response.Error = ErrorCode.ERR_SwitchSceneSever;
                 reply();
 

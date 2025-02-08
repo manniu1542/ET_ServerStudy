@@ -115,16 +115,16 @@ namespace ET
                     try
                     {
                         // 先从数据库中拿取 对应的Unit,如果有拿，没有则创建再写入数据库
-                        var unit = await UnitHelper.LoadUnit(player);
+                        var (isNewUnit, unit) = await UnitHelper.LoadUnit(player);
 
                         //使定位服务器知道 他是在哪个Gate网关上连接着的
                         unit.AddComponent<UnitGateComponent, long>(session.InstanceId);
+
+                        await UnitHelper.InitUnit(unit,isNewUnit);
                         //TODO:当前只有一个服
                         int zone = 1;
-                        StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.GetBySceneName(zone, "Map1");
+                        StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.GetBySceneName(zone, "Game");
                         await TransferHelper.Transfer(unit, realmConfig.InstanceId, realmConfig.Name);
-
-                        player.UintId = unit.Id;
 
                         player.State = PlayerState.Game;
 

@@ -12,10 +12,12 @@ namespace ET
                 //IsAssignableFrom .该type的类型是否有继承IUnitChache 类型
                 if (type != typeof (IUnitChache) && typeof (IUnitChache).IsAssignableFrom(type))
                 {
-                    self.listUnitChacheKey.Add(type.Name);
+                    self.listUnitChacheKey.Add(type.FullName);
                 }
             }
-
+            
+            self.listUnitChacheKey.Add(typeof(Unit).FullName);
+            
             foreach (var iunitChacheType in self.listUnitChacheKey)
             {
                 UnitChache uc = self.AddChild<UnitChache>();
@@ -49,7 +51,7 @@ namespace ET
             //更新缓存服的数据
             foreach (var cpt in listCpt)
             {
-                string type = cpt.GetType().Name;
+                string type = cpt.GetType().FullName;
                 if (!self.dicUnitChache.TryGetValue(type, out UnitChache unitChache)) 
                 {
                     unitChache = self.AddChild<UnitChache>();
