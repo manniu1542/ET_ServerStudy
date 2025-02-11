@@ -58,7 +58,9 @@ namespace ET
         {
             if (!self.dicChacheComponent.TryGetValue(unitId, out Entity entity))
             {
-                entity = await DBManagerComponent.Instance.GetZoneDB(self.DomainZone()).Query<Entity>(unitId, self.key);
+                //获取他的类型，不要全类型，数据库存储 ET的entity类时，不是全类型存储。
+                string type = Game.EventSystem.GetType(self.key).Name;
+                entity = await DBManagerComponent.Instance.GetZoneDB(self.DomainZone()).Query<Entity>(unitId, type);
                 if (entity != null)
                     self.AddOrUpdate(entity);
             }

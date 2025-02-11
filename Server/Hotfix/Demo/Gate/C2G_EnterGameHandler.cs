@@ -118,9 +118,12 @@ namespace ET
                         var (isNewUnit, unit) = await UnitHelper.LoadUnit(player);
 
                         //使定位服务器知道 他是在哪个Gate网关上连接着的
-                        unit.AddComponent<UnitGateComponent, long>(session.InstanceId);
+                        // unit.AddComponent<UnitGateComponent, long>(session.InstanceId);
 
-                        await UnitHelper.InitUnit(unit,isNewUnit);
+                        //TODO:unit的信息 是如果 通过gate网关 发送消息给客户端呢？ （也是通过基础的socket传递给客户端的）
+                        unit.AddComponent<UnitGateComponent, long>(player.InstanceId);
+               
+                        await UnitHelper.InitUnit(unit, isNewUnit);
                         //TODO:当前只有一个服
                         int zone = 1;
                         StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.GetBySceneName(zone, "Game");

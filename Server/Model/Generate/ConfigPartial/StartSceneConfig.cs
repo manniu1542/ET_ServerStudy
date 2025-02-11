@@ -36,6 +36,8 @@ namespace ET
         public StartSceneConfig GetUnitChacheConfig(long unitId)
         {
             int zone = UnitIdStruct.GetUnitZone(unitId);
+            //TODO:当前只有一个服
+            zone = 1;
             return this.UnitChaches[zone];
         }
 
@@ -74,6 +76,7 @@ namespace ET
                         break;
                 }
             }
+          
         }
     }
 

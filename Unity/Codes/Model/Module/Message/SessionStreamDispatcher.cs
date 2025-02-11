@@ -6,4 +6,4 @@
         public static SessionStreamDispatcher Instance;
         public ISessionStreamDispatcher[] Dispatchers;
     }
-}
+} 

@@ -282,6 +282,10 @@ namespace ET
             {
                 Log.Error("网关服务器连接失败！错误码：" + gateSession.Error);
             }
+            //赋值 单位id
+            zoneScene.GetComponent<PlayerComponent>().MyId = enterGame.UnitID;
+            // 等待场景 Unit的人物 都加载完成后 再切换到 游戏主场景
+            await zoneScene.GetComponent<ObjectWait>().Wait<WaitType.Wait_SceneChangeFinish>();
             return enterGame.Error;
         }
     }

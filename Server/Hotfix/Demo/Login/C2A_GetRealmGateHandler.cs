@@ -8,7 +8,7 @@ namespace ET
         protected override async ETTask Run(Session session, C2A_GetRealmGate request, A2C_GetRealmGate response, Action reply)
         {
 
-
+    
             //请求的服务器类型
             SceneType st = session.DomainScene().SceneType;
             if (st != SceneType.Account)

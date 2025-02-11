@@ -21,15 +21,14 @@ namespace ET
             message.EntityBytes.Add(MongoHelper.ToBson(unit));
             foreach (var cpt in unit.Components)
             {
-                
-                if (typeof (IUnitChache).IsAssignableFrom(cpt.Key)) ;
+                if (typeof (IUnitChache).IsAssignableFrom(cpt.Key))
                 {
                     message.EntityType.Add(cpt.Key.FullName);
                     message.EntityBytes.Add(MongoHelper.ToBson(cpt.Value));
                 }
             }
-          
-            var sceneUnitChache = StartSceneConfigCategory.Instance.GetUnitChacheConfig(unit.Id );
+
+            var sceneUnitChache = StartSceneConfigCategory.Instance.GetUnitChacheConfig(unit.Id);
 
             U2G_AddOrUpdateUnitChache msg = await MessageHelper.CallActor(sceneUnitChache.InstanceId, message) as U2G_AddOrUpdateUnitChache;
         }
@@ -67,14 +66,14 @@ namespace ET
             //找到Unit组件 （没有 继承了IUnitChache怎么会被找到呢？）   获取到的UnitChache 必定有 Unit这个基类 存储 因为 UnitChacheComponent的Aawke里面存储了Unit的类型。
             string unitName = typeof (Unit).FullName;
             int unitIdx = response.listComponentName.FindIndex(str => str == unitName);
-            if (unitIdx < 0) return null;
+            if (unitIdx < 0 || response.EntityType[unitIdx] == null) return null;
 
             Unit unit = response.EntityType[unitIdx] as Unit;
             scene.AddChild(unit);
 
             foreach (var cpt in response.EntityType)
             {
-                if (cpt != null && cpt is Unit)
+                if (cpt != null && !(cpt is Unit))
                 {
                     unit.AddComponent(cpt);
                 }

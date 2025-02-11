@@ -105,13 +105,13 @@ namespace ET
             self.Insert(final, result, isPublicEvent);
         }
     }
-#if SERVER
     [ComponentOf(typeof (Unit))]
+#if SERVER
     public class NumericComponent: Entity, IAwake, ITransfer, IUnitChache
 #else
     public class NumericComponent: Entity, IAwake, ITransfer
 #endif
-
+   
     {
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<int, long> NumericDic = new Dictionary<int, long>();

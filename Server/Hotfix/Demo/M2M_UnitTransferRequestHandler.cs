@@ -14,16 +14,18 @@ namespace ET
 			
 			unitComponent.AddChild(unit);
 			unitComponent.Add(unit);
-
+           //里面应该又 属性组件NumCpt的 
 			foreach (Entity entity in request.Entitys)
 			{
 				unit.AddComponent(entity);
 			}
 			
-			unit.AddComponent<MoveComponent>();
-			unit.AddComponent<PathfindingComponent, string>(scene.Name);
-			unit.Position = new Vector3(-10, 0, -10);
+	
 			
+			// unit.AddComponent<MoveComponent>();
+			// unit.AddComponent<PathfindingComponent, string>(scene.Name);
+			// unit.Position = new Vector3(-10, 0, -10);
+			//
 			unit.AddComponent<MailBoxComponent>();
 			
 			// 通知客户端创建My Unit
@@ -32,7 +34,7 @@ namespace ET
 			MessageHelper.SendToClient(unit, m2CCreateUnits);
 			
 			// 加入aoi
-			unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);
+			// unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);
 
 			response.NewInstanceId = unit.InstanceId;
 			

@@ -4,6 +4,7 @@ namespace ET
     {
         protected override void Run(EventType.SceneChangeStart args)
         {
+            args.ZoneScene.GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Loading);
             RunAsync(args).Coroutine();
         }
         

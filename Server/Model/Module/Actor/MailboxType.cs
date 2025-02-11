@@ -2,8 +2,8 @@
 {
     public enum MailboxType
     {
-        MessageDispatcher,
-        UnOrderMessageDispatcher,
-        GateSession,
+        MessageDispatcher,//消息派发者
+        UnOrderMessageDispatcher,//无序消息派发者
+        GateSession,//连接客户端的网关
     }
 }

@@ -3,7 +3,7 @@
 namespace ET
 {
     [FriendClass(typeof (RoleInfo))]
-    public class CreateRoleInfoHandler: AMRpcHandler<C2A_CreateRoleInfo, A2C_CreateRoleInfo>
+    public class C2A_CreateRoleInfoHandler: AMRpcHandler<C2A_CreateRoleInfo, A2C_CreateRoleInfo>
     {
         protected override async ETTask Run(Session session, C2A_CreateRoleInfo request, A2C_CreateRoleInfo response, Action reply)
         {

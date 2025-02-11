@@ -37,7 +37,7 @@ namespace ET
 
 	}
 
-    //获取unit的数据从数据库
+//获取unit的数据从数据库
 	[Message(MongoOpcode.U2G_GetUnitChache)]
 	[ProtoContract]
 	public partial class U2G_GetUnitChache: Object, IActorResponse

@@ -4,10 +4,12 @@
     {
         public static async ETTask Transfer(Unit unit, long sceneInstanceId, string sceneName)
         {
+            
             // 通知客户端开始切场景
             M2C_StartSceneChange m2CStartSceneChange = new M2C_StartSceneChange() {SceneInstanceId = sceneInstanceId, SceneName = sceneName};
             MessageHelper.SendToClient(unit, m2CStartSceneChange);
             
+            //客户端那处理完切换场景 就在等着处理 unit 传送
             M2M_UnitTransferRequest request = new M2M_UnitTransferRequest();
             request.Unit = unit;
             foreach (Entity entity in unit.Components.Values)

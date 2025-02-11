@@ -12,6 +12,7 @@ namespace ET
     {
         public static void RegisterUIEvent(this DlgRoleInfo self)
         {
+            
 #if UNITY_EDITOR
             //不可用ILRunTime热更
             self.View.EInputFieldNameInputField.onValueChanged.RemoveAllListeners();
@@ -45,11 +46,14 @@ namespace ET
             int err = await LoginHelper.EnterGameRealmGameToLoginGate(self.ZoneScene());
 
             if (err != ErrorCode.ERR_Success) return;
-            self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_RoleInfo);
-            self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Lobby);
+       
 
             err = await LoginHelper.EnterGame(self.ZoneScene());
             if (err != ErrorCode.ERR_Success) return;
+            //客户端也要加载客户端得Unit 获取它上面得NumericComponent 组件获取玩家 属性
+            
+            self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_RoleInfo);
+            self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Main);
             Log.Info("登录完成！！！");
         }
 

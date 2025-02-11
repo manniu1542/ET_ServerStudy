@@ -9,6 +9,7 @@ namespace ET
     {
         public override void Awake(ConfigComponent self)
         {
+	        
 	        ConfigComponent.Instance = self;
         }
     }

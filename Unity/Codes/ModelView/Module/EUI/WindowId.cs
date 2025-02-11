@@ -11,5 +11,6 @@ namespace ET
     	WindowID_ServerList,
 		WindowID_RoleInfo,
 		WindowID_Main,
+		WindowID_Loading,
 	}
 }

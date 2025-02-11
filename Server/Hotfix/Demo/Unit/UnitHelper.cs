@@ -16,30 +16,30 @@ namespace ET
             unitInfo.UnitId = unit.Id;
             unitInfo.ConfigId = unit.ConfigId;
             unitInfo.Type = (int)unit.Type;
-            Vector3 position = unit.Position;
-            unitInfo.X = position.x;
-            unitInfo.Y = position.y;
-            unitInfo.Z = position.z;
-            Vector3 forward = unit.Forward;
-            unitInfo.ForwardX = forward.x;
-            unitInfo.ForwardY = forward.y;
-            unitInfo.ForwardZ = forward.z;
-
-            MoveComponent moveComponent = unit.GetComponent<MoveComponent>();
-            if (moveComponent != null)
-            {
-                if (!moveComponent.IsArrived())
-                {
-                    unitInfo.MoveInfo = new MoveInfo();
-                    for (int i = moveComponent.N; i < moveComponent.Targets.Count; ++i)
-                    {
-                        Vector3 pos = moveComponent.Targets[i];
-                        unitInfo.MoveInfo.X.Add(pos.x);
-                        unitInfo.MoveInfo.Y.Add(pos.y);
-                        unitInfo.MoveInfo.Z.Add(pos.z);
-                    }
-                }
-            }
+            // Vector3 position = unit.Position;
+            // unitInfo.X = position.x;
+            // unitInfo.Y = position.y;
+            // unitInfo.Z = position.z;
+            // Vector3 forward = unit.Forward;
+            // unitInfo.ForwardX = forward.x;
+            // unitInfo.ForwardY = forward.y;
+            // unitInfo.ForwardZ = forward.z;
+            //
+            // MoveComponent moveComponent = unit.GetComponent<MoveComponent>();
+            // if (moveComponent != null)
+            // {
+            //     if (!moveComponent.IsArrived())
+            //     {
+            //         unitInfo.MoveInfo = new MoveInfo();
+            //         for (int i = moveComponent.N; i < moveComponent.Targets.Count; ++i)
+            //         {
+            //             Vector3 pos = moveComponent.Targets[i];
+            //             unitInfo.MoveInfo.X.Add(pos.x);
+            //             unitInfo.MoveInfo.Y.Add(pos.y);
+            //             unitInfo.MoveInfo.Z.Add(pos.z);
+            //         }
+            //     }
+            // }
 
             foreach ((int key, long value) in nc.NumericDic)
             {
@@ -81,7 +81,7 @@ namespace ET
             //创建一个动态场景（就是为了创建Unit时，用的 逻辑场景）
             gateMapComponent.Scene = await SceneFactory.Create(gateMapComponent, "GateMap", SceneType.Map);
 
-            Unit unit = await UnitChacheHelper.GetUnitChache(gateMapComponent.Scene, player.Id);
+            Unit unit = await UnitChacheHelper.GetUnitChache(gateMapComponent.Scene, player.UintId);
             bool isNewUnit = unit == null;
             if (isNewUnit)
             {
@@ -99,6 +99,7 @@ namespace ET
        /// <param name="unit"></param>
         public static async ETTask InitUnit(Unit unit,bool isNew)
         {
+            await ETTask.CompletedTask;
         }
     }
 }
