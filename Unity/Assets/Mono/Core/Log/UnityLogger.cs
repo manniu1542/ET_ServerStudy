@@ -24,7 +24,7 @@ namespace ET
         {
             UnityEngine.Debug.LogWarning(msg);
         }
-
+ 
         public void Error(string msg)
         {
             UnityEngine.Debug.LogError(msg);

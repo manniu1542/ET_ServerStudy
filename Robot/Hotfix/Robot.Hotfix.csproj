@@ -91,12 +91,26 @@
         <Compile Include="..\..\Server\Hotfix\Config\**\*.cs">
             <Link>Config\%(RecursiveDir)%(FileName)%(Extension)</Link>
         </Compile>
+
+        <Compile Remove="Module\Numeric\**" />
     </ItemGroup>
     
    
     
     <ItemGroup>
       <Folder Include="Server" />
+    </ItemGroup>
+    
+   
+    
+    <ItemGroup>
+      <EmbeddedResource Remove="Module\Numeric\**" />
+    </ItemGroup>
+    
+   
+    
+    <ItemGroup>
+      <None Remove="Module\Numeric\**" />
     </ItemGroup>
 
 </Project>

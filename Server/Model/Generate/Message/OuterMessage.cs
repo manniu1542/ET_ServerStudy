@@ -883,4 +883,49 @@ namespace ET
 
 	}
 
+//获取numCpt组件的刷新（获取人物最新属性）
+	[ResponseType(nameof(M2C_NumericCptGet))]
+	[Message(OuterOpcode.C2M_NumericCptGet)]
+	[ProtoContract]
+	public partial class C2M_NumericCptGet: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_NumericCptGet)]
+	[ProtoContract]
+	public partial class M2C_NumericCptGet: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+//通知客户端 数值改变
+	[Message(OuterOpcode.M2C_NumbericChange)]
+	[ProtoContract]
+	public partial class M2C_NumbericChange: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long UnitID { get; set; }
+
+		[ProtoMember(2)]
+		public int NumType { get; set; }
+
+		[ProtoMember(3)]
+		public long NumValue { get; set; }
+
+	}
+
 }

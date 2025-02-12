@@ -7,6 +7,7 @@ namespace ET
     {
         public override void Awake(WatcherComponent self)
         {
+        
             WatcherComponent.Instance = self;
         }
     }

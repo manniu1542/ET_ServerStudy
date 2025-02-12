@@ -429,3 +429,32 @@ message G2C_EnterGame // IResponse
 	int64 UnitID = 1;
 }
 
+//获取numCpt组件的刷新（获取人物最新属性）
+//ResponseType M2C_NumericCptGet
+message C2M_NumericCptGet // IActorLocationRequest
+{
+	int32 RpcId = 90;
+}
+
+message M2C_NumericCptGet // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//通知客户端 数值改变
+message M2C_NumbericChange // IActorMessage
+{
+
+	int32 RpcId = 90;
+ 
+	int64 UnitID = 1;
+    int32 NumType = 2;
+	int64 NumValue = 3;
+
+}
+
+
+

@@ -75,7 +75,7 @@ namespace ET
 
                     //1.创建 GateMap场景 来创建unit初始 场景，然后看看这个GateMap是每次登录 都创建这个场景么？，
                     //2.传送 玩家到 Map1场景，再把该账号的UnitId赋值，以及 player，session的状态修改了
-                    //有人 顶号登录， 该账号再游戏内 。需要先把 老人 踢出游戏， （异常处理， 顶号 逻辑有问题。 需要清理自己的 登录请求）
+              
                     if (player.State == PlayerState.Game)
                     {
                         try
@@ -91,11 +91,15 @@ namespace ET
                                 return;
                             }
 
+                            //有人 顶号登录， 该账号再游戏内 。需要先把 老人 踢出游戏， （异常处理， 顶号 逻辑有问题。 需要清理自己的 登录请求）
+
+                       
                             //获取到该玩家的session
                             Session sessionOther = Game.EventSystem.Get(player.SessionInstanceId) as Session;
                             sessionOther?.Send(new G2C_ForcePlayerDisconnect());
                             await SessionDisconnectHelp.LetPlayLeave(player, true);
                             sessionOther.Disconnect().Coroutine();
+
                             reply();
                         }
                         catch (Exception e)
@@ -114,16 +118,21 @@ namespace ET
 
                     try
                     {
+                     
                         // 先从数据库中拿取 对应的Unit,如果有拿，没有则创建再写入数据库
                         var (isNewUnit, unit) = await UnitHelper.LoadUnit(player);
 
                         //使定位服务器知道 他是在哪个Gate网关上连接着的
                         // unit.AddComponent<UnitGateComponent, long>(session.InstanceId);
 
-                        //TODO:unit的信息 是如果 通过gate网关 发送消息给客户端呢？ （也是通过基础的socket传递给客户端的）
+                        //unit的信息 是如果 通过gate网关 发送消息给客户端呢？ （答：也是通过基础的socket传递给客户端的）
                         unit.AddComponent<UnitGateComponent, long>(player.InstanceId);
                
                         await UnitHelper.InitUnit(unit, isNewUnit);
+                        response.UnitID = unit.Id;
+                        //提前回复客户端 ，防止 TransferHelper.Transfer 传送unit的消息比 进入游戏消息早到客户端。导致顺序错乱
+                        reply();
+                        
                         //TODO:当前只有一个服
                         int zone = 1;
                         StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.GetBySceneName(zone, "Game");
@@ -133,8 +142,8 @@ namespace ET
 
                         SessionState.curState = ET.SessionState.Game;
 
-                        response.UnitID = unit.Id;
-                        reply();
+                      
+                    
                     }
                     catch (Exception e)
                     {

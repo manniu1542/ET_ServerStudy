@@ -1,6 +1,6 @@
 namespace ET
 {
-    public class AppStart_Init : AEvent<EventType.AppStart>
+    public class AppStart_Init: AEvent<EventType.AppStart>
     {
         protected override void Run(EventType.AppStart args)
         {
@@ -9,7 +9,6 @@ namespace ET
 
         private async ETTask RunAsync(EventType.AppStart args)
         {
-
             Game.Scene.AddComponent<TimerComponent>();
             Game.Scene.AddComponent<CoroutineLockComponent>();
 
@@ -32,8 +31,6 @@ namespace ET
             Game.Scene.AddComponent<AIDispatcherComponent>();
 
             //可以放在zoneSene 上。客户端上处理 玩家所需要的组件, Game.Scene 添加游戏工具相关的 例如配置。通讯，时间管理等这些全局组件。
-         
-
 
             await ResourcesComponent.Instance.LoadBundleAsync("unit.unity3d");
 

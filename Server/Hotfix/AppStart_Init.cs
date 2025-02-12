@@ -29,9 +29,7 @@ namespace ET
             // 访问location server的组件
             Game.Scene.AddComponent<LocationProxyComponent>();
             Game.Scene.AddComponent<ActorMessageDispatcherComponent>();
-            // 数值订阅组件
-            Game.Scene.AddComponent<NumericWatcherComponent>();
-
+      
             Game.Scene.AddComponent<NetThreadComponent>();
 
             Game.Scene.AddComponent<NavmeshComponent, Func<string, byte[]>>(RecastFileReader.Read);
@@ -57,6 +55,7 @@ namespace ET
                     }
                 case AppType.Watcher:
                     {
+                        
                         StartMachineConfig startMachineConfig = WatcherHelper.GetThisMachineConfig();
                         WatcherComponent watcherComponent = Game.Scene.AddComponent<WatcherComponent>();
                         watcherComponent.Start(Game.Options.CreateScenes);

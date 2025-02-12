@@ -23,7 +23,7 @@ namespace ET
 
                 Log.Info("请求的结果是：" + result);
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 session?.Dispose();
                 return ErrorCode.ERR_NetReqTimeOut;

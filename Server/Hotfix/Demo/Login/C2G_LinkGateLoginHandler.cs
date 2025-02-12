@@ -2,13 +2,12 @@
 
 namespace ET
 {
-    [FriendClass(typeof(SessionPlayerComponent))]
-    [FriendClass(typeof(RoleInfo))]
-    public class C2G_LinkGateLoginHandler : AMRpcHandler<C2G_LinkGateLogin, G2C_LinkGateLogin>
+    [FriendClass(typeof (SessionPlayerComponent))]
+    [FriendClass(typeof (RoleInfo))]
+    public class C2G_LinkGateLoginHandler: AMRpcHandler<C2G_LinkGateLogin, G2C_LinkGateLogin>
     {
         protected override async ETTask Run(Session session, C2G_LinkGateLogin request, G2C_LinkGateLogin response, Action reply)
         {
-
             //移除超时 还未响应的 组件 (只在这里移除，LoginAccount是Account服务器的第一个消息，需要移除session超时)
             session.RemoveComponent<SessionAcceptTimeoutComponent>();
 
@@ -35,9 +34,8 @@ namespace ET
                 Log.Error("该账号在网关服务器上已经下线！");
                 return;
             }
+
             session.DomainScene().GetComponent<GateSessionKeyComponent>().Remove(request.AccountId);
-
-
 
             //不是多余,using执行完就dispose了。   （多余每次登录的 session 都不同。所以 添加这个 毫无用处。只有在相同的session下才 有效）
             var rsc = session.GetComponent<RepeatClickServerComponent>();
@@ -48,9 +46,7 @@ namespace ET
                 session.Disconnect().Coroutine();
                 Log.Error("重复请求！客户端防不住的通过处理");
                 return;
-
             }
-
 
             long sessionid = session.InstanceId;
             //防止一个客户端的 等待时候的重复点击。
@@ -71,9 +67,9 @@ namespace ET
 
                     StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.LoginCenters[session.DomainZone()];
 
-                    L2G_RigestLoginCenterPlayer rigestLoginCenter = await MessageHelper.CallActor(realmConfig.InstanceId, new G2L_RigestLoginCenterPlayer() { AccountID = request.AccountId })
-                        as L2G_RigestLoginCenterPlayer;
-
+                    L2G_RigestLoginCenterPlayer rigestLoginCenter = await MessageHelper.CallActor(realmConfig.InstanceId,
+                                new G2L_RigestLoginCenterPlayer() { AccountID = request.AccountId })
+                            as L2G_RigestLoginCenterPlayer;
 
                     if (rigestLoginCenter.Error != ErrorCode.ERR_Success)
                     {
@@ -82,6 +78,7 @@ namespace ET
                         session.Disconnect().Coroutine();
                         return;
                     }
+
                     PlayerComponent scrPlayerCpt = scene.GetComponent<PlayerComponent>();
                     Player player = scrPlayerCpt.Get(request.AccountId);
 
@@ -98,9 +95,12 @@ namespace ET
                         //移除的  游戏玩家下线组件
                         player.RemoveComponent<PlayerLineOffComponent>();
                     }
+
                     session.RemoveComponent<SessionStateComponent>();
                     session.AddComponent<SessionStateComponent>();
                     //给玩家与 通信Session绑定起来
+
+                 
 
                     //玩家可以得到Session
                     player.SessionInstanceId = session.InstanceId;
@@ -113,9 +113,6 @@ namespace ET
                     spc.PlayerID = player.Id;
                 }
             }
-
-
-
 
             reply();
 
