@@ -20,13 +20,10 @@ namespace ET
                 return;
             }
 
-            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginGate, request.Account.GetHashCode()))
-            {
-                var laid = scene.GetComponent<LoginAccountInDistrictRecordComponent>();
-                if (laid.Get(request.Account) == request.ServerId)
-                    laid.Remove(request.Account);
-            }
-
+            var laid = scene.GetComponent<LoginAccountInDistrictRecordComponent>();
+            if (laid.Get(request.Account) == request.ServerId)
+                laid.Remove(request.Account);
+            reply();
             await ETTask.CompletedTask;
         }
     }

@@ -65,20 +65,7 @@ namespace ET
                         return;
                     }
 
-                    StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.LoginCenters[session.DomainZone()];
-
-                    L2G_RigestLoginCenterPlayer rigestLoginCenter = await MessageHelper.CallActor(realmConfig.InstanceId,
-                                new G2L_RigestLoginCenterPlayer() { AccountID = request.AccountId })
-                            as L2G_RigestLoginCenterPlayer;
-
-                    if (rigestLoginCenter.Error != ErrorCode.ERR_Success)
-                    {
-                        response.Error = rigestLoginCenter.Error;
-                        reply();
-                        session.Disconnect().Coroutine();
-                        return;
-                    }
-
+                    //获取玩家Play组件
                     PlayerComponent scrPlayerCpt = scene.GetComponent<PlayerComponent>();
                     Player player = scrPlayerCpt.Get(request.AccountId);
 
@@ -96,14 +83,24 @@ namespace ET
                         player.RemoveComponent<PlayerLineOffComponent>();
                     }
 
+                    //登录中心服 登录
+                    StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.LoginCenters[session.DomainZone()];
+
+                    L2G_RigestLoginCenterPlayer rigestLoginCenter = await MessageHelper.CallActor(realmConfig.InstanceId,
+                                new G2L_RigestLoginCenterPlayer() { AccountID = request.AccountId })
+                            as L2G_RigestLoginCenterPlayer;
+
+                    if (rigestLoginCenter.Error != ErrorCode.ERR_Success)
+                    {
+                        response.Error = rigestLoginCenter.Error;
+                        reply();
+                        session.Disconnect().Coroutine();
+                        return;
+                    }
+
                     session.RemoveComponent<SessionStateComponent>();
                     session.AddComponent<SessionStateComponent>();
                     //给玩家与 通信Session绑定起来
-
-                 
-
-                    //玩家可以得到Session
-                    player.SessionInstanceId = session.InstanceId;
 
                     SessionPlayerComponent spc = session.AddComponent<SessionPlayerComponent>();
                     //获取到session，可以获取到玩家组件

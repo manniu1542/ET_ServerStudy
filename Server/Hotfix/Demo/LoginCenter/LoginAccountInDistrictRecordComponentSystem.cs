@@ -21,6 +21,9 @@ namespace ET
 
         public static void Add(this LoginAccountInDistrictRecordComponent self, long accountID, long zone)
         {
+            //TODO:目前场景都是1
+            zone = 1;
+            
             if (self.dicLoginAccountDistrict.ContainsKey(accountID))
             {
                 self.dicLoginAccountDistrict[accountID] = (int)zone;

@@ -41,7 +41,7 @@ namespace ET
             if (player == null || player.IsDisposed) return;
 
             long id = player.InstanceId;
-            //防止多个 客户端，同一时刻 请求
+            //防止多个 客户端，同一时刻 请求  登录网关。
             using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginGate, player.Account.GetHashCode()))
             {
                 //调用很多次，进来的账号已经不是同一个 直接return出去
@@ -50,52 +50,52 @@ namespace ET
                     return;
                 }
 
-                if (!isExcept)
+                switch (player.State)
                 {
-                    switch (player.State)
-                    {
-                        case PlayerState.Disconect:
-                            Log.Error("玩家已经下线了，无需再次下线！" + player);
+                    case PlayerState.Disconect:
+                        Log.Error("玩家已经下线了，无需再次下线！" + player);
 
-                            return;
-                        case PlayerState.Gate:
+                        return;
+                    case PlayerState.Gate:
 
-                            break;
-                        case PlayerState.Game:
-                            //在游戏中  给map发个消息 移除玩家的unit，保存玩家数据， locatin定位服务器也移除 玩家记录，给定位中心服务器也移除玩家
-                            // 请求在map服务器的账号是否有该玩家 找到 Map服务器得到Unit 推送下线通知。
-                            var removeUnit = await MessageHelper.CallLocationActor(player.UintId, new G2M_RemoveUnit()) as M2G_RemoveUnit;
-                            if (removeUnit.Error == ErrorCode.ERR_Success) return;
-                            else
-                            {
-                                Log.Error("移除失败！" + removeUnit.Error);
-                            }
+                        break;
+                    case PlayerState.Game:
+                        //在游戏中  给map发个消息 移除玩家的unit，保存玩家数据， locatin定位服务器也移除 玩家记录，给定位中心服务器也移除玩家
+                        // 请求在map服务器的账号是否有该玩家 找到 Map服务器得到Unit 推送下线通知。
+                        var removeUnit = await MessageHelper.CallLocationActor(player.UintId, new G2M_RemoveUnit()) as M2G_RemoveUnit;
+                        if (removeUnit.Error != ErrorCode.ERR_Success)
+                        {
+                            Log.Error("移除失败！" + removeUnit.Error);
+                        }
 
-                            int zone = 1;
-                            long loginCenterId = StartSceneConfigCategory.Instance.LoginCenters[zone].InstanceId;
-                            L2G_RemovePlayer lginfo = await MessageHelper.CallActor(loginCenterId,
-                                new G2L_RemovePlayer() { Account = player.Account, ServerId = player.DomainZone() }) as L2G_RemovePlayer;
-                            if (lginfo.Error == ErrorCode.ERR_Success)
-                            {
-                                Log.Error("移除成功！");
-                            }
-                            else
-                            {
-                                Log.Error("移除失败！" + lginfo.Error);
-                            }
+                        int zone = 1;
+                        long loginCenterId = StartSceneConfigCategory.Instance.LoginCenters[zone].InstanceId;
+                        L2G_RemovePlayer lginfo = await MessageHelper.CallActor(loginCenterId,
+                            new G2L_RemovePlayer() { Account = player.Account, ServerId = player.DomainZone() }) as L2G_RemovePlayer;
+                        if (lginfo.Error == ErrorCode.ERR_Success)
+                        {
+                            Log.Error("移除成功！");
+                        }
+                        else
+                        {
+                            Log.Error("移除失败！" + lginfo.Error);
+                        }
 
-                            break;
-                        default:
-                            break;
-                    }
+                        break;
+                    default:
+                        break;
                 }
 
-                player.State = PlayerState.Disconect;
-                player.DomainScene().GetComponent<PlayerComponent>()?.Remove(player.Account);
+                if (!isExcept)
+                {
+                    player.State = PlayerState.Disconect;
+                    player.DomainScene().GetComponent<PlayerComponent>()?.Remove(player.Account);
 
-                player.Dispose();
-                //一些session 上的异步移除组件 给的等待时间
-                await TimerComponent.Instance.WaitAsync(300);
+                    player.Dispose();
+
+                    //一些session 上的异步移除组件 给的等待时间
+                    await TimerComponent.Instance.WaitAsync(300);
+                }
             }
         }
     }

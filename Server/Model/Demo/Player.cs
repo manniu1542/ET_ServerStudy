@@ -10,7 +10,7 @@
 		Game,
 	}
 
-	public sealed class Player : Entity, IAwake<long,long>
+	public sealed class Player : Entity, IAwake<long,long>,IDestroy
 	{
 		//账号id
 		public long Account { get; set; }
