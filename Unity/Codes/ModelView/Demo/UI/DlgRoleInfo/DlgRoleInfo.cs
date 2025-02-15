@@ -3,11 +3,6 @@ using UnityEngine;
 
 namespace ET
 {
-    public enum UIRoleInfoType
-    {
-        Create,
-        Enter,
-    }
 
     [ComponentOf(typeof (UIBaseWindow))]
     public class DlgRoleInfo: Entity, IAwake, IUILogic
@@ -16,12 +11,6 @@ namespace ET
         {
             get => this.Parent.GetComponent<DlgRoleInfoViewComponent>();
         }
-
-        public string roleName;
-        
-        /// <summary>
-        /// UI的角色信息展示类型
-        /// </summary>
-        public UIRoleInfoType roleInfoType;
+        public Dictionary<int, Scroll_Item_attribute> ScrollItemAttributes;
     }
 }

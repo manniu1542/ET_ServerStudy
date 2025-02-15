@@ -1,0 +1,96 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace ET
+{
+    [FriendClass(typeof (AccountInfoComponent))]
+    [FriendClass(typeof (RoleInfoComponent))]
+    [FriendClass(typeof (RoleInfo))]
+    [FriendClass(typeof (DlgRoles))]
+    public static class DlgRolesSystem
+    {
+        public static void RegisterUIEvent(this DlgRoles self)
+        {
+#if UNITY_EDITOR
+            //不可用ILRunTime热更
+            self.View.EInputFieldNameInputField.onValueChanged.RemoveAllListeners();
+            self.View.EInputFieldNameInputField.onValueChanged.AddListener(str => { self.roleName = str; });
+#else
+            self.roleName = "tmp";
+#endif
+
+            EUIHelper.AddListener(self.View.EBackButton, () =>
+            {
+                self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Roles);
+                self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_ServerList);
+            });
+
+            EUIHelper.AddListenerAsync(self.View.EEnterGameButton, async () => { await self.EnterGame(); });
+            EUIHelper.AddListenerAsync(self.View.ECreateRoleButton, async () =>
+            {
+                if (self.roleInfoType == UIRoleInfoType.Enter)
+                {
+                    Log.Warning("已有角色不可创建角色了！");
+                    return;
+                }
+
+                await LoginHelper.CreateRoleInfo(self.ZoneScene(), self.roleName);
+                self.UpdateUI();
+            });
+        }
+
+        public static async ETTask EnterGame(this DlgRoles self)
+        {
+            int err = await LoginHelper.EnterGameRealmGameToLoginGate(self.ZoneScene());
+
+            if (err != ErrorCode.ERR_Success) return;
+
+            err = await LoginHelper.EnterGame(self.ZoneScene());
+            if (err != ErrorCode.ERR_Success) return;
+            //客户端也要加载客户端得Unit 获取它上面得NumericComponent 组件获取玩家 属性
+
+            self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Roles);
+            self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Main);
+            Log.Info("登录完成！！！");
+        }
+
+        public static void UpdateRole(this DlgRoles self)
+        {
+            if (self.roleInfoType == UIRoleInfoType.Enter)
+            {
+                var info = self.ZoneScene().GetComponent<RoleInfoComponent>().Get();
+                self.View.EGORoleRectTransform.GetComponentInChildren<Text>().text = info.Name;
+                Log.Info("---" + info.Name);
+                EUIHelper.AddListenerAsync(self.View.EGORoleRectTransform.GetComponentInChildren<Button>(), async () =>
+                {
+                    //删除角色
+                    await LoginHelper.DeleteRoleInfo(self.ZoneScene());
+                    self.UpdateUI();
+                });
+            }
+        }
+
+        public static async void ShowWindow(this DlgRoles self, Entity contextData = null)
+        {
+            //获取所有角色
+            await LoginHelper.GetRoleInfo(self.ZoneScene());
+
+            self.UpdateUI();
+        }
+
+        public static void UpdateUI(this DlgRoles self)
+        {
+            self.roleInfoType = self.ZoneScene().GetComponent<RoleInfoComponent>().Exit()? UIRoleInfoType.Enter : UIRoleInfoType.Create;
+
+            self.View.EGORoleRectTransform.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Enter);
+            self.View.EEnterGameButton.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Enter);
+
+            self.View.EInputFieldNameInputField.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Create);
+            self.View.ECreateRoleButton.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Create);
+            self.UpdateRole();
+        }
+    }
+}

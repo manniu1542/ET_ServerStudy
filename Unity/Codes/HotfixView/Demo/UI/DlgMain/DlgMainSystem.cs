@@ -11,11 +11,12 @@ namespace ET
     {
         public static void RegisterUIEvent(this DlgMain self)
         {
-            EUIHelper.AddListener(self.View.E_RoleButton, async () =>
+            EUIHelper.AddListener(self.View.E_RoleButton,  () =>
             {
-                var isFinish = await NumericHelper.GetNewNumericSpawn(self.ZoneScene());
+                self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_RoleInfo);
+                // var isFinish = await NumericHelper.GetNewNumericSpawn(self.ZoneScene());
                 //Gate网关
-                Log.Error("获取最新属性是否成功：" + isFinish);
+                // Log.Error("获取最新属性是否成功：" + isFinish);
             });
         }
 

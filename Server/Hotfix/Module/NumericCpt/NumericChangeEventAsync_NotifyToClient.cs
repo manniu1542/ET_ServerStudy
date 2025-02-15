@@ -8,7 +8,8 @@ namespace ET
             EventType.NumbericChange numbericChange = args as EventType.NumbericChange;
 
             //服务端跟客户端干的事是不一样的。
-
+            
+            
             numbericChange.Parent?.GetComponent<NumericNoticeComponent>()?.Notify(numbericChange.NumericType, numbericChange.New);
         }
     }

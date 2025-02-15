@@ -1,96 +1,61 @@
 ﻿using System.Threading.Tasks;
+using ILRuntime.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace ET
 {
-    [FriendClass(typeof (AccountInfoComponent))]
-    [FriendClass(typeof (RoleInfoComponent))]
-    [FriendClass(typeof (RoleInfo))]
     [FriendClass(typeof (DlgRoleInfo))]
     public static class DlgRoleInfoSystem
     {
         public static void RegisterUIEvent(this DlgRoleInfo self)
         {
-            
-#if UNITY_EDITOR
-            //不可用ILRunTime热更
-            self.View.EInputFieldNameInputField.onValueChanged.RemoveAllListeners();
-            self.View.EInputFieldNameInputField.onValueChanged.AddListener(str => { self.roleName = str; });
-#else
-            self.roleName = "tmp";
-#endif
+            self.View.ES_AttributeItem.RegisterUIEvent(NumericType.Power);
+            self.View.ES_AttributeItem1.RegisterUIEvent(NumericType.PhysicalStrength);
+            self.View.ES_AttributeItem2.RegisterUIEvent(NumericType.Agile);
+            self.View.ES_AttributeItem3.RegisterUIEvent(NumericType.Spirit);
 
-            EUIHelper.AddListener(self.View.EBackButton, () =>
+            self.View.E_AttributesLoopVerticalScrollRect.AddItemRefreshListener((Transform transform, int index) =>
             {
-                self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_RoleInfo);
-                self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_ServerList);
+                self.OnAttributeItemRefreshHandler(transform, index);
             });
-
-            EUIHelper.AddListenerAsync(self.View.EEnterGameButton, async () => { await self.EnterGame(); });
-            EUIHelper.AddListenerAsync(self.View.ECreateRoleButton, async () =>
-            {
-                if (self.roleInfoType == UIRoleInfoType.Enter)
-                {
-                    Log.Warning("已有角色不可创建角色了！");
-                    return;
-                }
-
-                await LoginHelper.CreateRoleInfo(self.ZoneScene(), self.roleName);
-                self.UpdateUI();
-            });
+  
+            self.RegisterCloseEvent<DlgRoleInfo>(self.View.E_CloseButton);
         }
 
-        public static async ETTask EnterGame(this DlgRoleInfo self)
+        public static void ShowWindow(this DlgRoleInfo self, Entity contextData = null)
         {
-            int err = await LoginHelper.EnterGameRealmGameToLoginGate(self.ZoneScene());
-
-            if (err != ErrorCode.ERR_Success) return;
-       
-
-            err = await LoginHelper.EnterGame(self.ZoneScene());
-            if (err != ErrorCode.ERR_Success) return;
-            //客户端也要加载客户端得Unit 获取它上面得NumericComponent 组件获取玩家 属性
-            
-            self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_RoleInfo);
-            self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Main);
-            Log.Info("登录完成！！！");
+            self.RefreshUI();
         }
 
-        public static void UpdateRole(this DlgRoleInfo self)
+        public static void RefreshUI(this DlgRoleInfo self)
         {
-            if (self.roleInfoType == UIRoleInfoType.Enter)
-            {
-                var info = self.ZoneScene().GetComponent<RoleInfoComponent>().Get();
-                self.View.EGORoleRectTransform.GetComponentInChildren<Text>().text = info.Name;
-                Log.Info("---" + info.Name);
-                EUIHelper.AddListenerAsync(self.View.EGORoleRectTransform.GetComponentInChildren<Button>(), async () =>
-                {
-                    //删除角色
-                    await LoginHelper.DeleteRoleInfo(self.ZoneScene());
-                    self.UpdateUI();
-                });
-            }
+            var unit = UnitHelper.GetMyUnitFromCurrentScene(self.ZoneScene().CurrentScene());
+            var numCpt = unit?.GetComponent<NumericComponent>();
+            if (numCpt == null) return;
+
+            self.View.E_CombatEffectivenessText.text = "战力值：" + numCpt[NumericType.CombatEffectiveness].ToString();
+
+            self.View.ES_AttributeItem.RefreshUI(NumericType.Power);
+            self.View.ES_AttributeItem1.RefreshUI(NumericType.PhysicalStrength);
+            self.View.ES_AttributeItem2.RefreshUI(NumericType.Agile);
+            self.View.ES_AttributeItem3.RefreshUI(NumericType.Spirit);
+
+            self.View.E_AttributePointText.text = numCpt[NumericType.AttributePoint].ToString();
+
+            int count = PlayerNumericConfigCategory.Instance.listNeedShow.Count;
+            self.AddUIScrollItems(ref self.ScrollItemAttributes, count);
+            self.View.E_AttributesLoopVerticalScrollRect.SetVisible(true, count);
         }
 
-        public static async void ShowWindow(this DlgRoleInfo self, Entity contextData = null)
+        public static void OnAttributeItemRefreshHandler(this DlgRoleInfo self, Transform transform, int index)
         {
-            //获取所有角色
-            await LoginHelper.GetRoleInfo(self.ZoneScene());
-
-            self.UpdateUI();
-        }
-
-        public static async void UpdateUI(this DlgRoleInfo self)
-        {
-            self.roleInfoType = self.ZoneScene().GetComponent<RoleInfoComponent>().Exit()? UIRoleInfoType.Enter : UIRoleInfoType.Create;
-
-            self.View.EGORoleRectTransform.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Enter);
-            self.View.EEnterGameButton.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Enter);
-
-            self.View.EInputFieldNameInputField.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Create);
-            self.View.ECreateRoleButton.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Create);
-            self.UpdateRole();
+            Scroll_Item_attribute scrollItemAttribute = self.ScrollItemAttributes[index].BindTrans(transform);
+            PlayerNumericConfig config = PlayerNumericConfigCategory.Instance.listNeedShow[index];
+            scrollItemAttribute.E_attributeNameText.text = config.Name + ":";
+            scrollItemAttribute.E_attributeValueText.text = config.isPrecent == 0?
+                    UnitHelper.GetMyUnitNumericComponent(self.ZoneScene().CurrentScene()).GetAsLong(config.Id).ToString() :
+                    $"{UnitHelper.GetMyUnitNumericComponent(self.ZoneScene().CurrentScene()).GetAsFloat(config.Id).ToString("0.00")}%";
         }
     }
 }

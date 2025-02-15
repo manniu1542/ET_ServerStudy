@@ -18,7 +18,7 @@ namespace ET
             EUIHelper.AddListener(self.View.E_EnterGameButton, () =>
             {
                 self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_ServerList);
-                self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_RoleInfo);
+                self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Roles);
 
             });
         }

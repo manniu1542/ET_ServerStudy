@@ -14,23 +14,29 @@ namespace ET
                 case UnitType.Player:
                 {
                     Unit unit = unitComponent.AddChildWithId<Unit, int>(id, 1001);
-                    //ChildType测试代码 取消注释 编译Server.hotfix 可发现报错
-                    //unitComponent.AddChild<Player, string>("Player");
-                    // unit.AddComponent<MoveComponent>();
-                    // unit.Position = new Vector3(-10, 0, -10);
-
+      
                     NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
-                    // numericComponent.Set(NumericType.Speed, 6f); // 速度是6米每秒
-                    // numericComponent.Set(NumericType.AOI, 15000); // 视野15米
-                    var config = UnitConfigCategory.Instance.Get(unit.ConfigId);
-                    //设置默认属性
-                    numericComponent.SetNoEvent(NumericType.Level, 0);
-                    numericComponent.SetNoEvent(NumericType.Gold, 0);
-                    numericComponent.SetNoEvent(NumericType.Exp, 0);
-                    numericComponent.SetNoEvent(NumericType.Weight, config.Weight);
-                    numericComponent.SetNoEvent(NumericType.Height, config.Height);
-                    numericComponent.SetNoEvent(NumericType.Position, config.Position);
-                    unitComponent.Add(unit);
+             
+                    var playerNumericConfigs = PlayerNumericConfigCategory.Instance.GetAll();
+                    foreach (var attribute in playerNumericConfigs)
+                    {
+                        //初始属性跳过
+                        if(attribute.Value.BaseValue==0)continue;;
+                        
+                        if (attribute.Key < 3000)//有加成推导的最终属性
+                        {
+                            int baseKey = attribute.Key * 10 + 1;
+                            numericComponent.SetNoEvent(baseKey,attribute.Value.BaseValue);
+
+                        }
+                        else//直接使用没有加成的属性
+                        {
+                            numericComponent.SetNoEvent(attribute.Key,attribute.Value.BaseValue);
+                        }
+                        
+                        
+                    }
+              
                     // 加入aoi
                     // unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);
                     return unit;

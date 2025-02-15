@@ -14,8 +14,6 @@ namespace ET
             numCpt.Set(NumericType.Exp, exp + 50);
             int gold = numCpt.GetAsInt(NumericType.Gold);
             numCpt.Set(NumericType.Gold, gold + 100);
-            long Position = numCpt.GetByKey(NumericType.Position);
-            numCpt.Set(NumericType.Position, Position + 50);
             
             
 

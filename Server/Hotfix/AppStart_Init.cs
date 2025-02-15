@@ -16,7 +16,9 @@ namespace ET
             await ConfigComponent.Instance.LoadAsync();
 
             StartProcessConfig processConfig = StartProcessConfigCategory.Instance.Get(Game.Options.Process);
-
+            
+            
+            Game.Scene.AddComponent<NumericWatcherComponent>();
             Game.Scene.AddComponent<TimerComponent>();
             Game.Scene.AddComponent<OpcodeTypeComponent>();
             Game.Scene.AddComponent<MessageDispatcherComponent>();

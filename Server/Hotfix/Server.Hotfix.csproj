@@ -32,6 +32,14 @@
       <Link>Module\AI\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Codes\Hotfix\Module\Numeric\NumericChangeEvent_NotifyWatcher.cs">
+      <Link>Module\NumericCpt\NumericChangeEvent_NotifyWatcher.cs</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Codes\Hotfix\Module\Numeric\NumericWatcherComponentSystem.cs">
+      <Link>Module\NumericCpt\NumericWatcherComponentSystem.cs</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Codes\Hotfix\Module\Recast\**\*.cs">
       <Link>Module\Recast\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>

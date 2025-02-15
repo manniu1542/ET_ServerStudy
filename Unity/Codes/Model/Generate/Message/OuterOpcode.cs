@@ -57,5 +57,7 @@ namespace ET
 		 public const ushort C2M_NumericCptGet = 10054;
 		 public const ushort M2C_NumericCptGet = 10055;
 		 public const ushort M2C_NumbericChange = 10056;
+		 public const ushort C2M_AttributeAddPoint = 10057;
+		 public const ushort M2C_AttributeAddPoint = 10058;
 	}
 }
