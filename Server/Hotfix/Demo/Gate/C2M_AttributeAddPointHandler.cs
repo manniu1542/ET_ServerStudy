@@ -10,7 +10,7 @@ namespace ET
     {
         protected override async ETTask Run(Unit unit, C2M_AttributeAddPoint request, M2C_AttributeAddPoint response, Action reply)
         {
-            // 属性 值修改。保存缓存服以及 数据库（TODO：定时把缓存服数据存储到数据库一次。这样不用反复调用数据库了）
+            // 属性 值修改。保存缓存服以及 数据库（定时把缓存服数据存储到数据库一次。这样不用反复调用数据库了）  
 
             var configAttribute = PlayerNumericConfigCategory.Instance.Get(request.AttributeType);
             if (configAttribute == null || configAttribute.isAddPoint != 1)
@@ -37,7 +37,9 @@ namespace ET
             //对应属性值加+1 (  修改属性时间分发时会对应调整该调整的属性值，NumericChange_AttributeAddPoint)
             numCpt.Set(request.AttributeType, numCpt.GetAsInt(request.AttributeType) + 1);
 
-            await UnitChacheHelper.AddOrUpdateUnitChache(numCpt);
+            
+            //定时保存到缓存服  UnitSaveDBComponent
+            // await UnitChacheHelper.AddOrUpdateUnitChache(numCpt);
 
             reply();
             await ETTask.CompletedTask;

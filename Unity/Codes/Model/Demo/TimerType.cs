@@ -12,5 +12,8 @@
         // 不能超过10000
 
 
+        public const int UnitSaveDBTimerCheck = 1006; 
+        
+        
     }
 }
