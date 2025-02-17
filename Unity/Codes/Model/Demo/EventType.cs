@@ -113,6 +113,10 @@ namespace ET
         {
             public Scene ZoneScene;
         }
+        public struct AdventureRefreshUI
+        {
+            public Scene ZoneScene;
+        }
         
     }
 }

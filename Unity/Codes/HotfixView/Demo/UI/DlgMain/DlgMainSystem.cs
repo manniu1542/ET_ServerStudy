@@ -11,13 +11,15 @@ namespace ET
     {
         public static void RegisterUIEvent(this DlgMain self)
         {
-            EUIHelper.AddListener(self.View.E_RoleButton,  () =>
+            EUIHelper.AddListener(self.View.E_RoleButton, () =>
             {
                 self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_RoleInfo);
                 // var isFinish = await NumericHelper.GetNewNumericSpawn(self.ZoneScene());
                 //Gate网关
                 // Log.Error("获取最新属性是否成功：" + isFinish);
             });
+            EUIHelper.AddListener(self.View.E_BattleButton,
+                () => { self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Adventure); });
         }
 
         public static void ShowWindow(this DlgMain self, Entity contextData = null)

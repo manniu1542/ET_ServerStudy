@@ -1,10 +1,14 @@
-﻿namespace ET
+﻿
+
+namespace ET
 {
     [ObjectSystem]
     public class ZoneSceneFlagComponentDestroySystem: DestroySystem<ZoneSceneFlagComponent>
     {
         public override void Destroy(ZoneSceneFlagComponent self)
         {
+            
+           
             ZoneSceneManagerComponent.Instance.Remove(self.DomainZone());
         }
     }

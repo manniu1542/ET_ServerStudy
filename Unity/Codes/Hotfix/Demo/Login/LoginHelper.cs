@@ -278,9 +278,9 @@ namespace ET
                 Log.Error(e);
                 return ErrorCode.ERR_NetReqTimeOut;
             }
-            if (gateSession.Error != ErrorCode.ERR_Success)
+            if (enterGame.Error != ErrorCode.ERR_Success)
             {
-                Log.Error("网关服务器连接失败！错误码：" + gateSession.Error);
+                Log.Error("网关服务器连接失败！错误码：" + enterGame.Error);
             }
             //赋值 单位id
             zoneScene.GetComponent<PlayerComponent>().MyId = enterGame.UnitID;

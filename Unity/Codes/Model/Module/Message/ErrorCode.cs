@@ -51,13 +51,13 @@ namespace ET
         /// <summary> 玩家的数据已经被释放掉 </summary>
         public const int ERR_EnterGameError = 200015;
         
-        
-        
         /// <summary> 不可以加点 </summary>
         public const int ERR_AttributeAddPointCant = 200016;
         
         /// <summary> 加点数不足 </summary>
         public const int ERR_AttributeAddPointDontEnough = 200017;
         
+        /// <summary> 不能进入战斗 </summary>
+        public const int ERR_CantGoToAdventure = 200018;
     }
 }

@@ -9,6 +9,7 @@ namespace ET
         {
             get
             {
+                
                 return this.UIPrefabGameObject != null ;
             }
         }

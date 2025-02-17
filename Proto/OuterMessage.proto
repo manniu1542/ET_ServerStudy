@@ -472,3 +472,17 @@ message M2C_AttributeAddPoint // IActorLocationResponse
   string Message = 92;
 }
 
+//玩家前往冒险
+//ResponseType M2C_GoToAdventure
+message C2M_GoToAdventure // IActorLocationRequest
+{
+  int32 RpcId = 90;
+  int32 BattleLevelConfigID = 1;
+}
+
+message M2C_GoToAdventure // IActorLocationResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+}

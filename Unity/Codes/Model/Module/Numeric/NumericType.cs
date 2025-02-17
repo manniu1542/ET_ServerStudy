@@ -111,7 +111,24 @@
         public const int Exp   = 3009;//经验
 
         #endregion
-    
 
+
+        #region 玩家状态
+
+        /// <summary>
+        /// 关卡冒险状态  （0 还没开始，其他表示在第几关正战斗）
+        /// </summary>
+        public const int AdventureState = 3010; 
+
+        /// <summary>
+        /// 关卡开始冒险的时间
+        /// </summary>
+        public const int AdventureStartTime = 3011;  
+        
+        
+        #endregion
+        
+        
+        
     }
 }

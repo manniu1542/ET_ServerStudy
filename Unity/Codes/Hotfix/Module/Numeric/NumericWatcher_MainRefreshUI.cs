@@ -7,7 +7,7 @@ namespace ET
     [NumericWatcher(NumericType.Hp)]
     [NumericWatcher(NumericType.Exp)]
     [NumericWatcher(NumericType.Gold)]
-    public class NumericWatcher_Hp_ShowUI: INumericWatcher
+    public class NumericWatcher_MainRefreshUI: INumericWatcher
     {
         public void Run(EventType.NumbericChange args)
         {

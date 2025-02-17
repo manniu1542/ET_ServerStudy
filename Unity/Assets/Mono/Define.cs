@@ -29,6 +29,7 @@ namespace ET
 		
 		public static string[] GetAssetPathsFromAssetBundle(string assetBundleName)
 		{
+			
 #if UNITY_EDITOR	
 			return UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(assetBundleName);
 #else

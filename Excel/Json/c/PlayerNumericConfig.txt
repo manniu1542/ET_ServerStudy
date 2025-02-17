@@ -14,4 +14,6 @@
 {"_t":"PlayerNumericConfig","_id":3007,"Name":"等级","BaseValue":1,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 {"_t":"PlayerNumericConfig","_id":3008,"Name":"金币","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 {"_t":"PlayerNumericConfig","_id":3009,"Name":"经验值","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
+{"_t":"PlayerNumericConfig","_id":3010,"Name":"关卡冒险状态","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
+{"_t":"PlayerNumericConfig","_id":3011,"Name":"关卡开始冒险的时间","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 ]}

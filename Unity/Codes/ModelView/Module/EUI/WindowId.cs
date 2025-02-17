@@ -13,5 +13,6 @@ namespace ET
 		WindowID_Main,
 		WindowID_Loading,
 		WindowID_Roles,
+		WindowID_Adventure,
 	}
 }

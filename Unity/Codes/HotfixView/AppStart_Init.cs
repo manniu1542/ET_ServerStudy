@@ -4,6 +4,7 @@ namespace ET
     {
         protected override void Run(EventType.AppStart args)
         {
+            
             RunAsync(args).Coroutine();
         }
 
