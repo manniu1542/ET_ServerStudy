@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using DG.Tweening;
+using ET.Adventure;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +52,6 @@ namespace ET
 
             bool isOpenAdventureLevel = level >= config.MiniEnterLevel[0] && level < config.MiniEnterLevel[1];
             bool isNoOpenAdventure = adventureState == 0;
-            Log.Error("当前的玩家状态是：" + adventureState);
             //当前玩家的管卡等级， 当前玩家的状态是，按钮响应：
             scrollItemAttribute.E_LevelNameText.SetText($"{config.Name} Lv.{config.MiniEnterLevel[0]}~Lv.{config.MiniEnterLevel[1]}");
 
@@ -65,7 +65,12 @@ namespace ET
                 bool isFinish = await DlgAdventureHelper.OnStartGameLevelClickHandler(self.ZoneScene(), config.Id);
 
                 if (isFinish)
-                    self.RefreshUI();
+                {
+                    self.ZoneScene().GetComponent<UIComponent>().HideWindow<DlgAdventure>();
+               
+
+                    self.ZoneScene().CurrentScene().GetComponent<AdventureComponent>().StartAdventure().Coroutine();
+                }
             });
         }
     }

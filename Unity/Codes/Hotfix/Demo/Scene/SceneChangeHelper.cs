@@ -1,4 +1,6 @@
-﻿namespace ET
+﻿using ET.Adventure;
+
+namespace ET
 {
     public static class SceneChangeHelper
     {
@@ -13,14 +15,15 @@
             Scene currentScene = SceneFactory.CreateCurrentScene(sceneInstanceId, zoneScene.Zone, sceneName, currentScenesComponent);
             //在当前场景上 添加Unit组件
             UnitComponent unitComponent = currentScene.AddComponent<UnitComponent>();
-
+            //添加去冒险的组件
+            currentScene.AddComponent<AdventureComponent>();
             // 可以订阅这个事件中（ 切换场景 和 创建Loading界面 ）
             Game.EventSystem.Publish(new EventType.SceneChangeStart() { ZoneScene = zoneScene });
 
             // 等待CreateMyUnit的消息
             WaitType.Wait_CreateMyUnit waitCreateMyUnit = await zoneScene.GetComponent<ObjectWait>().Wait<WaitType.Wait_CreateMyUnit>();
             M2C_CreateMyUnit m2CCreateMyUnit = waitCreateMyUnit.Message;
-            Unit unit = UnitFactory.Create(currentScene, m2CCreateMyUnit.Unit);
+            Unit unit =  UnitFactory.Create(currentScene, m2CCreateMyUnit.Unit);
        
 
             zoneScene.RemoveComponent<AIComponent>();

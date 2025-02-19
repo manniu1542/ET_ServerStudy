@@ -15,5 +15,9 @@
         public const int UnitSaveDBTimerCheck = 1006; 
         
         
+        
+        public const int AdventureStartEnterRound = 1006; 
+        
+        
     }
 }

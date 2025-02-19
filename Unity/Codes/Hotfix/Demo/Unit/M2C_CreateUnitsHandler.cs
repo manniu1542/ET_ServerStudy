@@ -14,7 +14,7 @@
 				{
 					continue;
 				}
-				Unit unit = UnitFactory.Create(currentScene, unitInfo);
+				Unit unit =  UnitFactory.Create(currentScene, unitInfo);
 			}
 		}
 	}

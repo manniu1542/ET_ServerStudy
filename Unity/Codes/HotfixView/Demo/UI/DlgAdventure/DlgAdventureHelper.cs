@@ -25,7 +25,7 @@ namespace ET
                 Log.Error("前往冒险网络请求失败！错误码：" + enterGame.Error);
             }
 
-            return false;
+            return enterGame.Error == ErrorCode.ERR_Success;
         }
     }
 }

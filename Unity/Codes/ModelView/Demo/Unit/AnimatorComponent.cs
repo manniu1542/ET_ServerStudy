@@ -6,8 +6,12 @@ namespace ET
 	public enum MotionType
 	{
 		None,
-		Idle,
 		Run,
+		Win,
+		Die,
+		Hurt,
+		Attack,
+		Idle,
 	}
 
 	[ComponentOf(typeof(Unit))]

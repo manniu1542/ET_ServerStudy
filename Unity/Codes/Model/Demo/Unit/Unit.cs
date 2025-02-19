@@ -10,7 +10,8 @@ namespace ET
 
         [BsonIgnore]
         public UnitConfig Config => UnitConfigCategory.Instance.Get(this.ConfigId);
-
+        [BsonIgnore]
+        public UnitType Type => (UnitType)Config.Type;
         private WrapVector3 position = new WrapVector3(); //坐标
 
         public Vector3 Position

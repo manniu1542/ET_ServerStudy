@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"BattleLevelConfig","_id":1,"MonsterIds":[1002],"Name":"诅咒之地1","MiniEnterLevel":[1,10],"RewardExp":1},
+{"_t":"BattleLevelConfig","_id":1,"MonsterIds":[1002,1002,1002],"Name":"诅咒之地1","MiniEnterLevel":[1,10],"RewardExp":1},
 {"_t":"BattleLevelConfig","_id":2,"MonsterIds":[1003],"Name":"诅咒之地2","MiniEnterLevel":[10,20],"RewardExp":2},
 {"_t":"BattleLevelConfig","_id":3,"MonsterIds":[1004],"Name":"诅咒之地3","MiniEnterLevel":[20,30],"RewardExp":3},
 {"_t":"BattleLevelConfig","_id":4,"MonsterIds":[1005],"Name":"诅咒之地4","MiniEnterLevel":[30,40],"RewardExp":4},

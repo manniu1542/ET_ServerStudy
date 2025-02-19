@@ -118,5 +118,10 @@ namespace ET
             public Scene ZoneScene;
         }
         
+        public struct AdventureStartReset
+        {
+            public Scene ZoneScene;
+        }
+
     }
 }

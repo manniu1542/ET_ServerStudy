@@ -74,7 +74,7 @@ namespace ET
                             new G2L_RemovePlayer() { Account = player.Account, ServerId = player.DomainZone() }) as L2G_RemovePlayer;
                         if (lginfo.Error == ErrorCode.ERR_Success)
                         {
-                            Log.Error("移除成功！");
+                            Log.Info($"移除{ player.Account}成功！");
                         }
                         else
                         {

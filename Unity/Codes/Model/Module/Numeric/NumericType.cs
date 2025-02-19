@@ -126,6 +126,10 @@
         public const int AdventureStartTime = 3011;  
         
         
+        /// <summary>
+        /// 是否存活
+        /// </summary>
+        public const int IsAlive = 3012;  
         #endregion
         
         
