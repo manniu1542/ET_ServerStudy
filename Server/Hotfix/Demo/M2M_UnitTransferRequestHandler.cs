@@ -28,7 +28,10 @@ namespace ET
             unit.AddComponent<NumericNoticeComponent>();
             //数据库定时 检查/保存unit的属性
             unit.AddComponent<UnitSaveDBComponent>();
-
+            //战斗检查
+            unit.AddComponent<AdventureCheckComponent>();
+            
+            
             // 通知客户端创建My Unit
             M2C_CreateMyUnit m2CCreateUnits = new M2C_CreateMyUnit();
             m2CCreateUnits.Unit = UnitHelper.CreateUnitInfo(unit);

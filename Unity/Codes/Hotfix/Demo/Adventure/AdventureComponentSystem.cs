@@ -131,6 +131,7 @@ namespace ET
 
         public static void CheckCurRoundEnd(this AdventureComponent self)
         {
+            self.roundCount++;
             var unitSelf = UnitHelper.GetMyUnitFromZoneScene(self.ZoneScene());
 
             AdventureBattleRoundState state;
@@ -150,7 +151,6 @@ namespace ET
                 }
                 else
                 {
-                    self.roundCount++;
                     state = AdventureBattleRoundState.Keep;
                 }
             }

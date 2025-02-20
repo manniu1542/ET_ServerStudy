@@ -996,7 +996,10 @@ namespace ET
 		public int RpcId { get; set; }
 
 		[ProtoMember(1)]
-		public int roundCount { get; set; }
+		public int RoundCount { get; set; }
+
+		[ProtoMember(2)]
+		public int AdventureBattleRoundState { get; set; }
 
 	}
 

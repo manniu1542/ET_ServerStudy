@@ -59,5 +59,11 @@ namespace ET
         
         /// <summary> 不能进入战斗 </summary>
         public const int ERR_CantGoToAdventure = 200018;
+        
+        
+        /// <summary> 战斗结束的验证 </summary>
+        public const int ERR_AdventureEndCheckCant = 200019;
+        
+
     }
 }

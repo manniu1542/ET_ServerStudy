@@ -491,7 +491,8 @@ message M2C_GoToAdventure // IActorLocationResponse
 message C2M_AdventureEnd // IActorLocationRequest
 {
   int32 RpcId = 90;
-  int32 roundCount = 1;
+  int32 RoundCount = 1;
+  int32 AdventureBattleRoundState = 2;
 }
 
 message M2C_AdventureEnd // IActorLocationResponse

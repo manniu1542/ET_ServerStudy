@@ -17,12 +17,12 @@ namespace ET
                 case AdventureBattleRoundState.Keep:
                     adCpt.EnterAdventureRound().Coroutine();
                     return;
+                
                 case AdventureBattleRoundState.Win:
                     UnitHelper.GetMyUnitFromZoneScene(args.ZoneScene).GetComponent<AnimatorComponent>()?.Play(MotionType.Win);
                     await TimerComponent.Instance.WaitAsync(1000);
                     break;
                 case AdventureBattleRoundState.Lose:
-
                     adCpt.ResetCurRoundAliveEnemy();
 
                     foreach (var mosterId in adCpt.listAliveEnemyUnitID)
@@ -38,19 +38,21 @@ namespace ET
                         var unit = unitCpt.Get(adCpt.listAliveEnemyUnitID[i]);
                         unit?.Dispose();
                     }
-             
+
                     break;
             }
- 
-            bool isFinish = await AdventureHelper.OnEndGameCheck(args.ZoneScene, adCpt.roundCount);
+            
+            
+      
+            
+            bool isFinish = await AdventureHelper.OnEndGameCheck(args.ZoneScene, adCpt.roundCount,args.state);
             if (isFinish)
             {
                 Log.Error("战斗结束！ 处理发放奖励道具。");
-                args.ZoneScene.GetComponent<UIComponent>().ShowWindow<DlgAdventure>();
-                UnitHelper.GetMyUnitFromZoneScene(args.ZoneScene).GetComponent<AnimatorComponent>()?.Play(MotionType.Idle);
-                
             }
-
+            args.ZoneScene.GetComponent<UIComponent>().ShowWindow<DlgAdventure>();
+            UnitHelper.GetMyUnitFromZoneScene(args.ZoneScene).GetComponent<AnimatorComponent>()?.Play(MotionType.Idle);
+            
             await ETTask.CompletedTask;
         }
     }
