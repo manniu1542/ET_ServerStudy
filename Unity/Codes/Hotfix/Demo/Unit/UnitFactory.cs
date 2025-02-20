@@ -28,7 +28,7 @@ namespace ET
             Unit unit = unitComponent.AddChildWithId<Unit, int>(IdGenerater.Instance.GenerateId(), monsterConfig.Id);
 
             var numCpt = unit.AddComponent<NumericComponent>();
-            numCpt.SetNoEvent(NumericType.IsAlive, 1);
+            numCpt.SetNoEvent(NumericType.IsAlive, 0);
             numCpt.SetNoEvent(NumericType.Hp, monsterConfig.MaxHP);
             numCpt.SetNoEvent(NumericType.MaxHp, monsterConfig.MaxHP);
             numCpt.SetNoEvent(NumericType.DamageValue, monsterConfig.DamageValue);

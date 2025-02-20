@@ -986,4 +986,33 @@ namespace ET
 
 	}
 
+//冒险结束的反馈
+	[ResponseType(nameof(M2C_AdventureEnd))]
+	[Message(OuterOpcode.C2M_AdventureEnd)]
+	[ProtoContract]
+	public partial class C2M_AdventureEnd: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int roundCount { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_AdventureEnd)]
+	[ProtoContract]
+	public partial class M2C_AdventureEnd: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 }

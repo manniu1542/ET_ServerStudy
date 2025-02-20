@@ -47,16 +47,9 @@ namespace ET
             numCpt.Set(NumericType.AdventureStartTime, TimeHelper.ServerNow());
             numCpt.Set(NumericType.AdventureState, request.BattleLevelConfigID);
             reply();
-            
-            //临时测试代码：5秒钟后战斗结束。 
-            await TimerComponent.Instance.WaitAsync(5*1000);
-            //战斗结束！
-            numCpt.Set(NumericType.AdventureState, 0);
-            numCpt.Set(NumericType.AdventureStartTime, 0);
-            //赋值给数据库
-            unit.GetComponent<NumericComponent>();
 
-      
+            await ETTask.CompletedTask;
+
         }
     }
 }

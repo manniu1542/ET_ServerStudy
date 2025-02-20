@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 using DG.Tweening;
-using ET.Adventure;
+using ET;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -62,7 +62,7 @@ namespace ET
 
             EUIHelper.AddListenerAsync(scrollItemAttribute.E_GoButton, async () =>
             {
-                bool isFinish = await DlgAdventureHelper.OnStartGameLevelClickHandler(self.ZoneScene(), config.Id);
+                bool isFinish = await AdventureHelper.OnStartGameLevelClickHandler(self.ZoneScene(), config.Id);
 
                 if (isFinish)
                 {

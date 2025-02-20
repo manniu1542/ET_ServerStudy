@@ -61,5 +61,7 @@ namespace ET
 		 public const ushort M2C_AttributeAddPoint = 10058;
 		 public const ushort C2M_GoToAdventure = 10059;
 		 public const ushort M2C_GoToAdventure = 10060;
+		 public const ushort C2M_AdventureEnd = 10061;
+		 public const ushort M2C_AdventureEnd = 10062;
 	}
 }

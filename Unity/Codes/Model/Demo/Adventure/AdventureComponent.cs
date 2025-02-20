@@ -1,7 +1,19 @@
 using System.Collections.Generic;
 
-namespace ET.Adventure
+namespace ET
 {
+    /// <summary>
+    /// 冒险战斗回合状态
+    /// </summary>
+    public enum AdventureBattleRoundState
+    {
+        Keep,
+        Win,
+        Lose,
+        
+    }
+    
+    
     //做冒险
     [ComponentOf(typeof (Scene))]
     public class AdventureComponent: Entity, IAwake, IDestroy
@@ -20,5 +32,13 @@ namespace ET.Adventure
         /// 本关的敌人单位的unitID列表
         /// </summary>
         public List<long> listEnemyUnitID = new();
+        
+        /// <summary>
+        /// 活着的敌人单位
+        /// </summary>
+        public List<long> listAliveEnemyUnitID = new();
+
+        public AdventureBattleRoundState state;
+
     }
 }

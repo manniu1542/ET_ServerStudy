@@ -486,3 +486,17 @@ message M2C_GoToAdventure // IActorLocationResponse
   int32 Error = 91;
   string Message = 92;
 }
+//冒险结束的反馈
+//ResponseType M2C_AdventureEnd
+message C2M_AdventureEnd // IActorLocationRequest
+{
+  int32 RpcId = 90;
+  int32 roundCount = 1;
+}
+
+message M2C_AdventureEnd // IActorLocationResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+}

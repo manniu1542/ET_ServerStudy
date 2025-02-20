@@ -117,11 +117,31 @@ namespace ET
         {
             public Scene ZoneScene;
         }
-        
+        public struct AdventureAlive
+        {
+            public Scene ZoneScene;
+            public long unitId;
+        }
         public struct AdventureStartReset
         {
             public Scene ZoneScene;
         }
-
+        public struct AdventureBattleRole
+        {
+            public Scene ZoneScene;
+            /// <summary>
+            /// 攻击者
+            /// </summary>
+            public long AttackerUnitID;
+            //被攻击者
+            public long TartgetUnitID;
+            
+        }
+        public struct AdventureBattleRoundEnd
+        {
+            public Scene ZoneScene;
+            public AdventureBattleRoundState state;
+           
+        }
     }
 }
