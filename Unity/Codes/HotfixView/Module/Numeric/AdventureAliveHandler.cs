@@ -11,7 +11,7 @@
             var unit = unitCpt.Get(a.unitId);
             unit.GetComponent<AnimatorComponent>().Play(MotionType.Die);
 
-            await TimerComponent.Instance.WaitAsync(300);
+            await TimerComponent.Instance.WaitAsync(1000);
 
             if (unit.Type == UnitType.Monster)
                 unitCpt.Remove(a.unitId);

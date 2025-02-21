@@ -31,19 +31,31 @@ namespace ET
                 return;
             }
 
-            //战斗结果有问题
-            if (request.AdventureBattleRoundState <= 0 || request.AdventureBattleRoundState > 2)
+            //胜利
+            if (request.AdventureBattleRoundState == 1)
             {
-                Log.Error("战斗结果有问题" + request.AdventureBattleRoundState);
-                response.Error = ErrorCode.ERR_AdventureEndCheckCant;
+                var adcCpt = unit.GetComponent<AdventureCheckComponent>();
+                if (!adcCpt.CheckWinBattle(request.RoundCount, levelId))
+                {
+                    Log.Error("战斗验证没有通过！");
+                    response.Error = ErrorCode.ERR_AdventureEndCheckCant;
+                    reply();
+                    return;
+                }
+            } //失败 （设置濒死状态）
+            else if (request.AdventureBattleRoundState == 2)
+            {
+                //濒死状态
+                numCpt.Set(NumericType.DyingState,1);
+                //战斗结束！
+                numCpt.Set(NumericType.AdventureState, 0);
+                numCpt.Set(NumericType.AdventureStartTime, 0);
                 reply();
                 return;
-            }
-
-            var adcCpt = unit.GetComponent<AdventureCheckComponent>();
-            if (request.AdventureBattleRoundState == 1 && !adcCpt.CheckWinBattle(request.RoundCount, levelId))
+            } //战斗结果有问题 
+            else
             {
-                Log.Error("战斗验证没有通过！");
+                Log.Error("战斗结果有问题" + request.AdventureBattleRoundState);
                 response.Error = ErrorCode.ERR_AdventureEndCheckCant;
                 reply();
                 return;
@@ -53,6 +65,10 @@ namespace ET
             numCpt.Set(NumericType.AdventureState, 0);
             numCpt.Set(NumericType.AdventureStartTime, 0);
             reply();
+            //发送经验值
+            
+            //TODO:发送奖励道具  
+            
             await ETTask.CompletedTask;
         }
     }

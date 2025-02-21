@@ -5,6 +5,8 @@
 {"_t":"PlayerNumericConfig","_id":1014,"Name":"法力","BaseValue":100,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 {"_t":"PlayerNumericConfig","_id":1015,"Name":"护甲","BaseValue":10,"isNeedShow":1,"isAddPoint":0,"isPrecent":0},
 {"_t":"PlayerNumericConfig","_id":1016,"Name":"护甲追加","BaseValue":10,"isNeedShow":1,"isAddPoint":0,"isPrecent":0},
+{"_t":"PlayerNumericConfig","_id":1017,"Name":"最大生命值","BaseValue":200,"isNeedShow":1,"isAddPoint":0,"isPrecent":0},
+{"_t":"PlayerNumericConfig","_id":1018,"Name":"最大法力值","BaseValue":100,"isNeedShow":1,"isAddPoint":0,"isPrecent":0},
 {"_t":"PlayerNumericConfig","_id":3001,"Name":"力量","BaseValue":1,"isNeedShow":0,"isAddPoint":1,"isPrecent":1},
 {"_t":"PlayerNumericConfig","_id":3002,"Name":"体力","BaseValue":1,"isNeedShow":0,"isAddPoint":1,"isPrecent":1},
 {"_t":"PlayerNumericConfig","_id":3003,"Name":"敏捷","BaseValue":1,"isNeedShow":0,"isAddPoint":1,"isPrecent":1},
@@ -17,4 +19,5 @@
 {"_t":"PlayerNumericConfig","_id":3010,"Name":"关卡冒险状态","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 {"_t":"PlayerNumericConfig","_id":3011,"Name":"关卡开始冒险的时间","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 {"_t":"PlayerNumericConfig","_id":3012,"Name":"是否存活","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
+{"_t":"PlayerNumericConfig","_id":3013,"Name":"濒死状态","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 ]}

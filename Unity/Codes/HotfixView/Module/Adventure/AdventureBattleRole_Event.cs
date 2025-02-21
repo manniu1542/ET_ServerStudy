@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor.UI;
+using UnityEngine;
 
 namespace ET
 {
@@ -17,8 +18,13 @@ namespace ET
             int damValue = attNumCpt.GetAsInt(NumericType.DamageValue);
             int HpValue = targetNumCpt.GetAsInt(NumericType.Hp);
 
+            
+            Game.EventSystem.PublishAsync(new EventType.CreateUnitDamageValue
+            {
+                ZoneScene = args.ZoneScene, unitId = target.Id, damgeValue = damValue
+            }).Coroutine();
+            
             attacker.GetComponent<AnimatorComponent>().Play(MotionType.Attack);
-
             //被攻击者活着
             if (HpValue - damValue > 0)
             {
@@ -34,6 +40,7 @@ namespace ET
                 args.TartgetUnitID = 0;
             }
 
+    
             //等待300毫秒
             await TimerComponent.Instance.WaitAsync(1000);
 

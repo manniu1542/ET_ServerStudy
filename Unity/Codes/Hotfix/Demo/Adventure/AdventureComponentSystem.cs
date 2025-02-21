@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ET
 {
@@ -32,12 +33,19 @@ namespace ET
     {
         public override void Destroy(AdventureComponent self)
         {
+            TimerComponent.Instance.Remove(ref self.TimerID);
+            self.ResetAdventure().Coroutine();
+           
         }
     }
 
     [FriendClass(typeof (AdventureComponent))]
     public static class AdventureComponentSystem
     {
+        /// <summary>
+        /// 重置冒险参数
+        /// </summary>
+        /// <param name="self"></param>
         public static async ETTask ResetAdventure(this AdventureComponent self)
         {
             //回收之前的敌人
@@ -48,6 +56,7 @@ namespace ET
             }
 
             //属性重置
+            self.listAliveEnemyUnitID.Clear();
             self.listEnemyUnitID.Clear();
             self.roundCount = 0;
             self.TimerID = 0;
@@ -76,6 +85,14 @@ namespace ET
         }
 
         /// <summary>
+        /// 启动一个回合的战斗
+        /// </summary>
+        public static void StartNewRoundOneBattle(this AdventureComponent self)
+        {
+            self.TimerID = TimerComponent.Instance.NewOnceTimer(500, TimerType.AdventureStartEnterRound, self);
+        }
+
+        /// <summary>
         /// 开始冒险
         /// </summary>
         /// <param name="self"></param>
@@ -87,15 +104,30 @@ namespace ET
             await self.ResetAdventure();
             //生成冒险的敌人
             await self.CreateEnemy();
+            //更新显示所有血条
+            self.SetUpdateAllUnitHeadHp(true);
 
-            self.TimerID = TimerComponent.Instance.NewOnceTimer(500, TimerType.AdventureStartEnterRound, self);
-
+            self.StartNewRoundOneBattle();
             await ETTask.CompletedTask;
+        }
+
+        //设置角色血条
+        public static void SetUpdateAllUnitHeadHp(this AdventureComponent self, bool isShow)
+        {
+            //玩家自己
+            Unit unitSelf = UnitHelper.GetMyUnitFromCurrentScene(self.DomainScene());
+            Game.EventSystem.Publish(new EventType.SetUpdateHeadHp { ZoneScene = self.ZoneScene(), isShow = isShow, unitId = unitSelf.Id });
+            for (int i = 0; i < self.listEnemyUnitID.Count; i++)
+            {
+                Game.EventSystem.Publish(new EventType.SetUpdateHeadHp
+                {
+                    ZoneScene = self.ZoneScene(), isShow = isShow, unitId = self.listEnemyUnitID[i]
+                });
+            }
         }
 
         public static async ETTask EnterAdventureRound(this AdventureComponent self)
         {
-         
             var unit = UnitHelper.GetMyUnitFromZoneScene(self.ZoneScene());
             self.ResetCurRoundAliveEnemy();
 
@@ -124,7 +156,7 @@ namespace ET
                     }
                 }
             }
-            
+
             self.CheckCurRoundEnd();
             await ETTask.CompletedTask;
         }
@@ -155,7 +187,6 @@ namespace ET
                 }
             }
 
-  
             Game.EventSystem.PublishAsync(new EventType.AdventureBattleRoundEnd { ZoneScene = self.ZoneScene(), state = state }).Coroutine();
         }
 

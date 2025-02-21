@@ -15,12 +15,7 @@
 
    
 
-        public const int MaxHp = 1002;
-        public const int MaxHpBase = MaxHp * 10 + 1;
-        public const int MaxHpAdd = MaxHp * 10 + 2;
-        public const int MaxHpPct = MaxHp * 10 + 3;
-        public const int MaxHpFinalAdd = MaxHp * 10 + 4;
-        public const int MaxHpFinalPct = MaxHp * 10 + 5;
+ 
 
         public const int AOI = 1003;
         public const int AOIBase = AOI * 10 + 1;
@@ -56,6 +51,7 @@
         public const int HpFinalPct = Hp * 10 + 5;
 	    
 
+        
 	    
         public const int MP = 1014; //法力值
         public const int MPBase = MP * 10 + 1;
@@ -65,6 +61,8 @@
         public const int MPFinalPct = MP * 10 + 5;
 	    
 
+        
+
         public const int Armor = 1015; //护甲
         public const int ArmorBase = Armor * 10 + 1;
         public const int ArmorAdd = Armor * 10 + 2;
@@ -72,9 +70,21 @@
         public const int ArmorFinalAdd = Armor * 10 + 4;
         public const int ArmorFinalPct = Armor * 10 + 5;
 	    
-        public const int ArmorAddition = 1015; //护甲追加
+        public const int ArmorAddition = 1016; //护甲追加
         
+        public const int MaxHp = 1017; //最大生命值
+        public const int MaxHpBase = MaxHp * 10 + 1;
+        public const int MaxHpAdd = MaxHp * 10 + 2;
+        public const int MaxHpPct = MaxHp * 10 + 3;
+        public const int MaxHpFinalAdd = MaxHp * 10 + 4;
+        public const int MaxHpFinalPct = MaxHp * 10 + 5;
         
+        public const int MaxMp = 1018; //最大法力值
+        public const int MaxMpBase = MaxMp * 10 + 1;
+        public const int MaxMpAdd = MaxMp * 10 + 2;
+        public const int MaxMpPct = MaxMp * 10 + 3;
+        public const int MaxMpFinalAdd = MaxMp * 10 + 4;
+        public const int MaxMpFinalPct = MaxMp * 10 + 5;
         
 
         #endregion
@@ -130,6 +140,10 @@
         /// 是否存活
         /// </summary>
         public const int IsAlive = 3012;  
+        /// <summary>
+        /// 濒死状态（0无，1有）
+        /// </summary>
+        public const int DyingState = 3013;  
         #endregion
         
         

@@ -34,7 +34,7 @@ namespace ET
             //检查玩家总血量 与 敌人伤害
             var numCpt = self.Parent.GetComponent<NumericComponent>();
             
-            if (numCpt[NumericType.Hp] <= self.totalMonsterDamge)
+            if (numCpt[NumericType.MaxHp] <= self.totalMonsterDamge)
             {
                 Log.Error("玩家无法存活！");
                 return false;

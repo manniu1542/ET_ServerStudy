@@ -143,5 +143,18 @@ namespace ET
             public AdventureBattleRoundState state;
            
         }
+        
+        public struct SetUpdateHeadHp
+        {
+            public Scene ZoneScene;
+            public long unitId;
+            public bool isShow;
+        }
+        public struct CreateUnitDamageValue
+        {
+            public Scene ZoneScene;
+            public long unitId;
+            public long damgeValue;
+        }
     }
 }
