@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,7 +36,6 @@ namespace ET
         {
             TimerComponent.Instance.Remove(ref self.TimerID);
             self.ResetAdventure().Coroutine();
-           
         }
     }
 
@@ -89,7 +89,7 @@ namespace ET
         /// </summary>
         public static void StartNewRoundOneBattle(this AdventureComponent self)
         {
-            self.TimerID = TimerComponent.Instance.NewOnceTimer(500, TimerType.AdventureStartEnterRound, self);
+            self.TimerID = TimerComponent.Instance.NewOnceTimer(TimeHelper.ServerNow() + 500, TimerType.AdventureStartEnterRound, self);
         }
 
         /// <summary>
@@ -135,10 +135,15 @@ namespace ET
             {
                 if (unit.IsAlive())
                 {
-                    await Game.EventSystem.PublishAsync(new EventType.AdventureBattleRole
+                    Game.EventSystem.PublishAsync(new EventType.AdventureUnit2UnitBattleView
+                    {
+                        ZoneScene = self.ZoneScene(), AttackerUnitID = unit.Id, TartgetUnitID = self.listAliveEnemyUnitID[0]
+                    }).Coroutine();
+                    Game.EventSystem.Publish(new EventType.AdventureUnit2UnitBattle
                     {
                         ZoneScene = self.ZoneScene(), AttackerUnitID = unit.Id, TartgetUnitID = self.listAliveEnemyUnitID[0]
                     });
+                    await TimerComponent.Instance.WaitAsync(1000);
                 }
             }
             else
@@ -149,10 +154,16 @@ namespace ET
                     var unitM = self.DomainScene().GetComponent<UnitComponent>().Get(monsterId);
                     if (unitM.IsAlive())
                     {
-                        await Game.EventSystem.PublishAsync(new EventType.AdventureBattleRole
+                        Game.EventSystem.PublishAsync(new EventType.AdventureUnit2UnitBattleView
+                        {
+                            ZoneScene = self.ZoneScene(), AttackerUnitID = unitM.Id, TartgetUnitID = myId
+                        }).Coroutine();
+                        ;
+                        Game.EventSystem.Publish(new EventType.AdventureUnit2UnitBattle
                         {
                             ZoneScene = self.ZoneScene(), AttackerUnitID = unitM.Id, TartgetUnitID = myId
                         });
+                        await TimerComponent.Instance.WaitAsync(1000);
                     }
                 }
             }

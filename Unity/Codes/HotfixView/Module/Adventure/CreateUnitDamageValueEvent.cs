@@ -10,8 +10,8 @@
            
             args.ZoneScene.GetComponent<FlyDamageValueViewComponent>().SpawnFlyDamage(unit.Position, args.damgeValue).Coroutine();
             
-            //最迟1秒钟后这个 角色 会被销毁 ,飘数字 8秒钟
-            await TimerComponent.Instance.WaitAsync(800);
+            //最迟1秒钟后这个 角色 会被销毁
+            await TimerComponent.Instance.WaitAsync(500);
             if (!unit.IsAlive())
             {
                 //这个组件还没被销毁 可以 做个隐藏的延迟

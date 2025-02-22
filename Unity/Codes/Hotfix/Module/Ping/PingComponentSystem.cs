@@ -14,7 +14,7 @@ namespace ET
         {
             Session session = self.GetParent<Session>();
             long instanceId = self.InstanceId;
-            
+
             while (true)
             {
                 if (self.InstanceId != instanceId)
@@ -34,8 +34,12 @@ namespace ET
 
                     long time2 = TimeHelper.ClientNow();
                     self.Ping = time2 - time1;
-                    
+
+                    // 调整 服务器协同客户端的时间情况下（time2 现在的客户端时间，（response.Time + (time2 - time1) / 2）表示现在理想情况下的服务器时间）， 客户端和服务器时间只差
                     Game.TimeInfo.ServerMinusClientTime = response.Time + (time2 - time1) / 2 - time2;
+
+                    // 调整 客户端协同的服务器时间情况下(response.Time到的服务器时间，到服务器的时候的客户端时间(time2 - (time2 - time1) / 2);)， 客户端和服务器时间只差
+                    // Game.TimeInfo.ServerMinusClientTime = response.Time - (time2 - (time2 - time1) / 2);
 
                     await TimerComponent.Instance.WaitAsync(2000);
                 }

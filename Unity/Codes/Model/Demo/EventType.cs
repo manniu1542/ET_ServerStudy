@@ -126,7 +126,24 @@ namespace ET
         {
             public Scene ZoneScene;
         }
-        public struct AdventureBattleRole
+        /// <summary>
+        /// 角色跟角色之间的战斗 
+        /// </summary>
+        public struct AdventureUnit2UnitBattle
+        {
+            public Scene ZoneScene;
+            /// <summary>
+            /// 攻击者
+            /// </summary>
+            public long AttackerUnitID;
+            //被攻击者
+            public long TartgetUnitID;
+            
+        }
+        /// <summary>
+        /// 角色跟角色之间的战斗 
+        /// </summary>
+        public struct AdventureUnit2UnitBattleView
         {
             public Scene ZoneScene;
             /// <summary>
