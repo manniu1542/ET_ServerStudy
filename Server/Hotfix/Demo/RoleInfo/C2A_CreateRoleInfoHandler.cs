@@ -62,7 +62,6 @@ namespace ET
                     roleInfo.AccountId = request.AccountId;
                     roleInfo.ServerId = request.ServerId;
                     roleInfo.CreateRoleTime = TimeHelper.ServerNow();
-                    ;
                     roleInfo.LastLoginTime = 0;
                     roleInfo.State = RoleInfoState.Normal;
 

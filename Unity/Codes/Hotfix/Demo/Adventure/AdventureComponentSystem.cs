@@ -46,6 +46,24 @@ namespace ET
         /// 重置冒险参数
         /// </summary>
         /// <param name="self"></param>
+        public static  void ResetBattleRandom(this AdventureComponent self)
+        {
+            var numCpt = UnitHelper.GetMyUnitNumericComponent(self.DomainScene());
+            uint seed = (uint)numCpt[NumericType.AdventureRandomSeed];
+            if(self.battleRandom == null)
+                self.battleRandom = new SRandom(seed);
+            else
+            {
+                self.battleRandom.SetRandomSeed(seed);
+            }
+            
+        }
+
+     
+        /// <summary>
+        /// 重置冒险参数
+        /// </summary>
+        /// <param name="self"></param>
         public static async ETTask ResetAdventure(this AdventureComponent self)
         {
             //回收之前的敌人
@@ -60,6 +78,7 @@ namespace ET
             self.listEnemyUnitID.Clear();
             self.roundCount = 0;
             self.TimerID = 0;
+            self.ResetBattleRandom();
             //人物的动作重置
 
             await Game.EventSystem.PublishAsync(new EventType.AdventureStartReset() { ZoneScene = self.ZoneScene() });
@@ -130,7 +149,7 @@ namespace ET
         {
             var unit = UnitHelper.GetMyUnitFromZoneScene(self.ZoneScene());
             self.ResetCurRoundAliveEnemy();
-
+ 
             if (self.roundCount % 2 == 0)
             {
                 if (unit.IsAlive())

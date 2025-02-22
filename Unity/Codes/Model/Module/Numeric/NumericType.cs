@@ -62,8 +62,10 @@
 	    
 
         
-
-        public const int Armor = 1015; //护甲
+        /// <summary>
+        /// 护甲
+        /// </summary>
+        public const int Armor = 1015; 
         public const int ArmorBase = Armor * 10 + 1;
         public const int ArmorAdd = Armor * 10 + 2;
         public const int ArmorPct = Armor * 10 + 3;
@@ -86,6 +88,17 @@
         public const int MaxMpFinalAdd = MaxMp * 10 + 4;
         public const int MaxMpFinalPct = MaxMp * 10 + 5;
         
+        /// <summary>
+        /// 闪避
+        /// </summary>
+        public const int Dodge = 1019;           
+        public const int DodgeBase = Dodge * 10 + 1;
+        public const int DodgeAdd = Dodge * 10 + 2;
+        public const int DodgePct = Dodge * 10 + 3;
+        public const int DodgeFinalAdd = Dodge * 10 + 4;
+        public const int DodgeFinalPct = Dodge * 10 + 5;
+
+        public const int DodgeAddition = 1020;   // 闪避追加
 
         #endregion
 
@@ -144,6 +157,11 @@
         /// 濒死状态（0无，1有）
         /// </summary>
         public const int DyingState = 3013;  
+        
+        /// <summary>
+        /// 战斗随机数
+        /// </summary>
+        public const int AdventureRandomSeed = 3014;  
         #endregion
         
         

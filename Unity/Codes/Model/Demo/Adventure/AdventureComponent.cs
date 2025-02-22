@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ET
@@ -29,7 +30,14 @@ namespace ET
         /// </summary>
         public List<long> listAliveEnemyUnitID = new();
 
+        /// <summary>
+        /// 战斗情况
+        /// </summary>
         public AdventureBattleRoundState state;
-
+  
+        /// <summary>
+        /// 当前战斗的随机数
+        /// </summary>
+        public SRandom battleRandom;
     }
 }

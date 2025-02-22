@@ -14,13 +14,16 @@ namespace ET
     {
         public static void RegisterUIEvent(this DlgRoles self)
         {
-#if UNITY_EDITOR
-            //不可用ILRunTime热更
-            self.View.EInputFieldNameInputField.onValueChanged.RemoveAllListeners();
-            self.View.EInputFieldNameInputField.onValueChanged.AddListener(str => { self.roleName = str; });
-#else
-            self.roleName = "tmp";
-#endif
+            if (Define.IsEditor)
+            {
+                //不可用ILRunTime热更
+                self.View.EInputFieldNameInputField.onValueChanged.RemoveAllListeners();
+                self.View.EInputFieldNameInputField.onValueChanged.AddListener(str => { self.roleName = str; });
+            }
+            else
+            {
+                self.roleName = "tmp";
+            }
 
             EUIHelper.AddListener(self.View.EBackButton, () =>
             {

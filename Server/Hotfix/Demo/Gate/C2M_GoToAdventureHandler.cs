@@ -46,6 +46,7 @@ namespace ET
             //开始战斗
             numCpt.Set(NumericType.AdventureStartTime, TimeHelper.ServerNow());
             numCpt.Set(NumericType.AdventureState, request.BattleLevelConfigID);
+            numCpt.Set(NumericType.AdventureRandomSeed, RandomHelper.RandUInt32());
             reply();
 
             await ETTask.CompletedTask;

@@ -21,6 +21,7 @@ namespace ET
             int HpValue = targetNumCpt.GetAsInt(NumericType.Hp);
            
             
+            
             attacker.GetComponent<AnimatorComponent>().Play(MotionType.Attack);
             target.GetComponent<AnimatorComponent>().Play(MotionType.Hurt);
             //会自动回Idle 动画 状态下
