@@ -3,6 +3,16 @@ using UnityEngine;
 
 namespace ET
 {
+    public static class RedDotType
+    {
+        public static readonly string Role = "Role";
+
+        public static readonly string Role_Level = "Role_Level";
+        public static readonly string Role_AttributePoint = "Role_AttributePoint";
+    }
+    
+    
+    
     [ComponentOf(typeof(Scene))]
     public class RedDotComponent: Entity,IAwake,IDestroy
     {

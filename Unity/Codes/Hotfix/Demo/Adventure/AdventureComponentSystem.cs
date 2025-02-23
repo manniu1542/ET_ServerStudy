@@ -35,7 +35,7 @@ namespace ET
         public override void Destroy(AdventureComponent self)
         {
             TimerComponent.Instance.Remove(ref self.TimerID);
-            self.ResetAdventure().Coroutine();
+       
         }
     }
 
@@ -89,9 +89,8 @@ namespace ET
         {
             var numCpt = UnitHelper.GetMyUnitNumericComponent(self.DomainScene());
             long levelId = numCpt[NumericType.AdventureState];
-            levelId -= 1;
-
-            BattleLevelConfig config = BattleLevelConfigCategory.Instance.GetConfigByIndex((int)levelId);
+       
+            BattleLevelConfig config = BattleLevelConfigCategory.Instance.Get((int)levelId);
 
             for (int i = 0; i < config.MonsterIds.Length; i++)
             {

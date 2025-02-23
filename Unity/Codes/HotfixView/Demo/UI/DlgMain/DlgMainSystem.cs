@@ -20,12 +20,23 @@ namespace ET
             });
             EUIHelper.AddListener(self.View.E_BattleButton,
                 () => { self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Adventure); });
+            
+            RedDotHelper.AddRedDotNodeView(self.ZoneScene(),RedDotType.Role, self.View.E_RoleButton.gameObject, Vector3.one, new Vector3(75,55,0));
         }
-
+        public static void UnloadWindow(this DlgMain self)
+        {
+            RedDotMonoView redView = self.View.E_RoleButton.GetComponent<RedDotMonoView>();
+            RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.Role,out redView);
+  
+        }
         public static void ShowWindow(this DlgMain self, Entity contextData = null)
         {
             self.RefreshUI();
+  
         }
+        
+        
+        
 
         public static void RefreshUI(this DlgMain self)
         {
@@ -35,6 +46,10 @@ namespace ET
 
             self.View.E_ExpText.SetText(numCpt.GetAsInt(NumericType.Exp).ToString());
             self.View.E_GoldText.SetText(numCpt.GetAsInt(NumericType.Gold).ToString());
+            self.View.E_RoleLevelText.SetText(numCpt.GetAsInt(NumericType.Level).ToString());
         }
+        
+        
+        
     }
 }

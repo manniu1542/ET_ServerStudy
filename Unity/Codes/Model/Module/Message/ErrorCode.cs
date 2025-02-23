@@ -63,7 +63,8 @@ namespace ET
         
         /// <summary> 战斗结束的验证 </summary>
         public const int ERR_AdventureEndCheckCant = 200019;
-        
+        /// <summary> 升级失败 </summary>
+        public const int ERR_NumUpLevelCant = 200020;
 
     }
 }

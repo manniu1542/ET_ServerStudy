@@ -66,7 +66,7 @@ namespace ET
             {
                 var info = self.ZoneScene().GetComponent<RoleInfoComponent>().Get();
                 self.View.EGORoleRectTransform.GetComponentInChildren<Text>().text = info.Name;
-                Log.Info("---" + info.Name);
+            
                 EUIHelper.AddListenerAsync(self.View.EGORoleRectTransform.GetComponentInChildren<Button>(), async () =>
                 {
                     //删除角色

@@ -46,7 +46,7 @@ namespace ET
             else if (request.AdventureBattleRoundState == 2)
             {
                 //濒死状态
-                numCpt.Set(NumericType.DyingState,1);
+                numCpt.Set(NumericType.DyingState, 1);
                 //战斗结束！
                 numCpt.Set(NumericType.AdventureState, 0);
                 numCpt.Set(NumericType.AdventureStartTime, 0);
@@ -64,11 +64,14 @@ namespace ET
             //战斗结束！
             numCpt.Set(NumericType.AdventureState, 0);
             numCpt.Set(NumericType.AdventureStartTime, 0);
-            reply();
+
             //发送经验值
-            
+            int curLevel = numCpt.GetAsInt(NumericType.Level);
+            var levelConfig = BattleLevelConfigCategory.Instance.Get(curLevel);
+            numCpt[NumericType.Exp] += levelConfig.RewardExp;
             //TODO:发送奖励道具  
-            
+
+            reply();
             await ETTask.CompletedTask;
         }
     }

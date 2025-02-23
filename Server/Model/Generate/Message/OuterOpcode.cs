@@ -63,5 +63,7 @@ namespace ET
 		 public const ushort M2C_GoToAdventure = 10060;
 		 public const ushort C2M_AdventureEnd = 10061;
 		 public const ushort M2C_AdventureEnd = 10062;
+		 public const ushort C2M_NumericUpLevel = 10063;
+		 public const ushort M2C_NumericUpLevel = 10064;
 	}
 }

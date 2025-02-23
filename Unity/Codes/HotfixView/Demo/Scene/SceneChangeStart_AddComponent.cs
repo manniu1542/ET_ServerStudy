@@ -4,8 +4,15 @@ namespace ET
     {
         protected override void Run(EventType.SceneChangeStart args)
         {
+            
+            //红点注册
+            RedDotHelper.AddRedDotNode(args.ZoneScene, RedDotType.Role, RedDotType.Role_Level, false);
+            RedDotHelper.AddRedDotNode(args.ZoneScene, RedDotType.Role, RedDotType.Role_AttributePoint, false);
+            
             args.ZoneScene.GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Loading);
             RunAsync(args).Coroutine();
+            
+
         }
         
         private async ETTask RunAsync(EventType.SceneChangeStart args)

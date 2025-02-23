@@ -45,5 +45,23 @@ namespace ET
                     throw new Exception($"not such unit type: {unitType}");
             }
         }
+        
+        
+        
+        public static  Unit CreateMonster(Scene currentScene, int monsterId)
+        {
+            var monsterConfig = UnitConfigCategory.Instance.Get(monsterId);
+            UnitComponent unitComponent = currentScene.GetComponent<UnitComponent>();
+            Unit unit = unitComponent.AddChildWithId<Unit, int>(IdGenerater.Instance.GenerateId(), monsterConfig.Id);
+
+            var numCpt = unit.AddComponent<NumericComponent>();
+            numCpt.SetNoEvent(NumericType.IsAlive, 0);
+            numCpt.SetNoEvent(NumericType.Hp, monsterConfig.MaxHP);
+            numCpt.SetNoEvent(NumericType.MaxHp, monsterConfig.MaxHP);
+            numCpt.SetNoEvent(NumericType.DamageValue, monsterConfig.DamageValue);
+            
+            return unit;
+        }
+        
     }
 }

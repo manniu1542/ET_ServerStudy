@@ -14,18 +14,37 @@ namespace ET
             self.View.ES_AttributeItem1.RegisterUIEvent(NumericType.PhysicalStrength);
             self.View.ES_AttributeItem2.RegisterUIEvent(NumericType.Agile);
             self.View.ES_AttributeItem3.RegisterUIEvent(NumericType.Spirit);
+            EUIHelper.AddListenerAsync(self.View.E_UpLevelButton, self.OnUpLevelHandler);
 
             self.View.E_AttributesLoopVerticalScrollRect.AddItemRefreshListener((Transform transform, int index) =>
             {
                 self.OnAttributeItemRefreshHandler(transform, index);
             });
-  
+
             self.RegisterCloseEvent<DlgRoleInfo>(self.View.E_CloseButton);
+           
+            RedDotHelper.AddRedDotNodeView(self.ZoneScene(), RedDotType.Role_Level, self.View.E_UpLevelButton.gameObject, Vector3.one,
+                new Vector3(75, 55, 0));
+            RedDotHelper.AddRedDotNodeView(self.ZoneScene(), RedDotType.Role_AttributePoint, self.View.E_AttributePointText.gameObject, Vector3.one,
+                new Vector3(75, 55, 0));
+        }
+
+        public static void UnloadWindow(this DlgRoleInfo self)
+        {
+            RedDotMonoView redView = self.View.E_UpLevelButton.GetComponent<RedDotMonoView>();
+            RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.Role_Level, out redView);
+            redView = self.View.E_AttributePointText.GetComponent<RedDotMonoView>();
+            RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.Role_AttributePoint, out redView);
         }
 
         public static void ShowWindow(this DlgRoleInfo self, Entity contextData = null)
         {
             self.RefreshUI();
+        }
+
+        public static async ETTask OnUpLevelHandler(this DlgRoleInfo self)
+        {
+            bool isFinish = await NumericHelper.ReqUpLevel(self.ZoneScene());
         }
 
         public static void RefreshUI(this DlgRoleInfo self)

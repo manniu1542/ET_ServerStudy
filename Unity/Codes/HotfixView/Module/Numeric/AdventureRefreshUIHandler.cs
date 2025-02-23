@@ -6,6 +6,9 @@
         {
             var dlgMain = a.ZoneScene.GetComponent<UIComponent>().GetDlgLogic<DlgAdventure>();
             dlgMain?.RefreshUI();
+            
+        
+            
         }
     }
 }

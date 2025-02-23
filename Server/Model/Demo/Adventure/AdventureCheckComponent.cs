@@ -12,13 +12,18 @@ namespace ET
         //记录 战斗的时间(一个unit打斗需要1秒钟时间，如果 战斗开始的时间 到 结算的时候 》 打斗的时间 ，这是正常的)
         public long battleAnimAllTime;
 
-        //怪物总伤害 》 人物总血量。不正常
-        public long totalMonsterHp;
-        public long totalUnitDamge;
-        public long totalMonsterDamge;
+    
+        /// <summary>
+        /// 缓存怪物的Unit的id
+        /// </summary>
+        public List<long> listCacheEnemyId = new List<long>();
+        /// <summary>
+        /// 本局的怪物Unit的id
+        /// </summary>
+        public List<long> listEnemyUnitID = new List<long>();
         
-        //记录怪物的血量
-        public Dictionary<int, int> dicEnemyHp = new Dictionary<int, int>();
+        //战斗
+        public SRandom battleRandom;
 
     }
 }

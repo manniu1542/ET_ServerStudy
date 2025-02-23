@@ -101,5 +101,37 @@ namespace ET
         {
             await ETTask.CompletedTask;
         }
+       
+       
+        /// <summary>
+        /// 是否活着
+        /// </summary>
+        /// <param name="self"></param>
+        /// <returns></returns>
+        public static bool IsAlive(this Unit self)
+        {
+            if (self == null || self.IsDisposed) return false;
+
+            var numCpt = self.GetComponent<NumericComponent>();
+            if (numCpt == null) return false;
+            
+            return numCpt[NumericType.IsAlive] == 0;
+        }
+
+        /// <summary>
+        /// 设置是否活着
+        /// </summary>
+        /// <param name="self"></param>
+        /// <returns></returns>
+        public static void SetAliveNoEvent(this Unit self, bool isAlive)
+        {
+            if (self == null || self.IsDisposed) return;
+
+            var numCpt = self.GetComponent<NumericComponent>();
+            if (numCpt == null) return;
+
+            numCpt.SetNoEvent(NumericType.IsAlive,isAlive? 0 : 1);
+        }
+   
     }
 }

@@ -33,6 +33,8 @@
 
 		public void BeforeUnload(UIBaseWindow uiBaseWindow)
 		{
+			uiBaseWindow.GetComponent<DlgRoleInfo>().UnloadWindow(); 
+			
 		}
 
 	}
