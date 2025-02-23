@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using ILRuntime.Runtime;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,10 +32,15 @@ namespace ET
 
         public static void UnloadWindow(this DlgRoleInfo self)
         {
+     
             RedDotMonoView redView = self.View.E_UpLevelButton.GetComponent<RedDotMonoView>();
             RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.Role_Level, out redView);
             redView = self.View.E_AttributePointText.GetComponent<RedDotMonoView>();
             RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.Role_AttributePoint, out redView);
+        }
+        public static void HideWindow(this DlgRoleInfo self)
+        {
+            self.RemoveUIScrollItems(ref self.ScrollItemAttributes);
         }
 
         public static void ShowWindow(this DlgRoleInfo self, Entity contextData = null)

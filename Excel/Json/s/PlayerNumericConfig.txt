@@ -23,4 +23,5 @@
 {"_t":"PlayerNumericConfig","_id":3012,"BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 {"_t":"PlayerNumericConfig","_id":3013,"BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 {"_t":"PlayerNumericConfig","_id":3014,"BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
+{"_t":"PlayerNumericConfig","_id":3015,"BaseValue":500,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 ]}

@@ -30,6 +30,14 @@
       <Link>Demo\Adventure\AdventureBattleRoundState.cs</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Codes\Model\Demo\Bag\BagComponent.cs">
+      <Link>Demo\Bag\BagComponent.cs</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Codes\Model\Demo\Bag\Item.cs">
+      <Link>Demo\Bag\Item.cs</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Codes\Model\Demo\RoleInfo\RoleInfo.cs" Link="Demo\RoleInfo\RoleInfo.cs" />
 
     <Compile Include="..\..\Unity\Codes\Model\Demo\ServerList\ServerInfo.cs" Link="Demo\ServerList\ServerInfo.cs" />

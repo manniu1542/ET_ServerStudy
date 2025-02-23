@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ET
 {
@@ -70,6 +71,16 @@ namespace ET
             var levelConfig = BattleLevelConfigCategory.Instance.Get(curLevel);
             numCpt[NumericType.Exp] += levelConfig.RewardExp;
             //TODO:发送奖励道具  
+
+            //测试添加道具
+            for (int j = 0; j < 30; j++)
+            {
+                //加入30个道具
+                if (!BagHelper.AddItemByConfig(unit, RandomHelper.RandomNumber(1002, 1018)))
+                {
+                    Log.Error("有道具添加失败！");
+                }
+            }
 
             reply();
             await ETTask.CompletedTask;

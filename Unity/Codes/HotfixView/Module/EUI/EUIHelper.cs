@@ -151,12 +151,7 @@ namespace ET
         }
         
         
-        public static void IsSelected(this Toggle toggle, bool isSelected)
-        {
-            toggle.isOn = isSelected;
-            toggle.onValueChanged?.Invoke(isSelected);
-        }
-        
+     
 
         public static void RemoveUIScrollItems<K,T>(this K self, ref Dictionary<int, T> dictionary) where K : Entity,IUILogic  where T : Entity,IUIScrollItem
         {
@@ -294,6 +289,11 @@ namespace ET
                    }
                });
            }
+       }
+       public static void IsSelected(this Toggle toggle, bool isSelected)
+       {
+           toggle.isOn = isSelected;
+           toggle.onValueChanged?.Invoke(isSelected);
        }
 
         

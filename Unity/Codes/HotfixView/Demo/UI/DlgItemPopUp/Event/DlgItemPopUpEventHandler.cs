@@ -2,8 +2,8 @@
 {
 	[FriendClass(typeof(WindowCoreData))]
 	[FriendClass(typeof(UIBaseWindow))]
-	[AUIEvent(WindowID.WindowID_RoleInfo)]
-	public  class DlgRoleInfoEventHandler : IAUIEventHandler
+	[AUIEvent(WindowID.WindowID_ItemPopUp)]
+	public  class DlgItemPopUpEventHandler : IAUIEventHandler
 	{
 
 		public void OnInitWindowCoreData(UIBaseWindow uiBaseWindow)
@@ -13,29 +13,26 @@
 
 		public void OnInitComponent(UIBaseWindow uiBaseWindow)
 		{
-		  uiBaseWindow.AddComponent<DlgRoleInfoViewComponent>(); 
-		  uiBaseWindow.AddComponent<DlgRoleInfo>(); 
+		  uiBaseWindow.AddComponent<DlgItemPopUpViewComponent>(); 
+		  uiBaseWindow.AddComponent<DlgItemPopUp>(); 
 		}
 
 		public void OnRegisterUIEvent(UIBaseWindow uiBaseWindow)
 		{
-		  uiBaseWindow.GetComponent<DlgRoleInfo>().RegisterUIEvent(); 
+		  uiBaseWindow.GetComponent<DlgItemPopUp>().RegisterUIEvent(); 
 		}
 
 		public void OnShowWindow(UIBaseWindow uiBaseWindow, Entity contextData = null)
 		{
-		  uiBaseWindow.GetComponent<DlgRoleInfo>().ShowWindow(contextData); 
+		  uiBaseWindow.GetComponent<DlgItemPopUp>().ShowWindow(contextData); 
 		}
 
 		public void OnHideWindow(UIBaseWindow uiBaseWindow)
 		{
-			uiBaseWindow.GetComponent<DlgRoleInfo>().HideWindow(); 
 		}
 
 		public void BeforeUnload(UIBaseWindow uiBaseWindow)
 		{
-			uiBaseWindow.GetComponent<DlgRoleInfo>().UnloadWindow(); 
-			
 		}
 
 	}

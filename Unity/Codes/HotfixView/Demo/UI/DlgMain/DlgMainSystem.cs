@@ -14,9 +14,10 @@ namespace ET
             EUIHelper.AddListener(self.View.E_RoleButton, () =>
             {
                 self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_RoleInfo);
-                // var isFinish = await NumericHelper.GetNewNumericSpawn(self.ZoneScene());
-                //Gate网关
-                // Log.Error("获取最新属性是否成功：" + isFinish);
+            });
+            EUIHelper.AddListener(self.View.E_BagButton, () =>
+            {
+                self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Bag);
             });
             EUIHelper.AddListener(self.View.E_BattleButton,
                 () => { self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Adventure); });

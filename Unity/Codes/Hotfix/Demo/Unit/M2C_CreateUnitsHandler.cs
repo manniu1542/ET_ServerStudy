@@ -7,7 +7,7 @@
 		{
 			Scene currentScene = session.DomainScene().CurrentScene();
 			UnitComponent unitComponent = currentScene.GetComponent<UnitComponent>();
-			
+
 			foreach (UnitInfo unitInfo in message.Units)
 			{
 				if (unitComponent.Get(unitInfo.UnitId) != null)

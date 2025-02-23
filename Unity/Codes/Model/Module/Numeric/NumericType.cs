@@ -132,7 +132,9 @@
         public const int Gold  = 3008;//金币
 	    
         public const int Exp   = 3009;//经验
-
+       
+        
+        public const int BagCapacity   = 3015;//背包容量
         #endregion
 
 

@@ -23,6 +23,7 @@ namespace ET
 
         public static async ETTask<Unit> CreateMonster(Scene currentScene, int monsterId)
         {
+            
             var monsterConfig = UnitConfigCategory.Instance.Get(monsterId);
             UnitComponent unitComponent = currentScene.GetComponent<UnitComponent>();
             Unit unit = unitComponent.AddChildWithId<Unit, int>(IdGenerater.Instance.GenerateId(), monsterConfig.Id);

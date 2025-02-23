@@ -8,6 +8,7 @@ namespace ET
     {
         public override void Awake(AdventureCheckComponent self)
         {
+         
         }
     }
 
