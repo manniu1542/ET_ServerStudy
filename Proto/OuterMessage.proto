@@ -516,3 +516,23 @@ message M2C_NumericUpLevel // IActorLocationResponse
   int32 Error = 91;
   string Message = 92;
 }
+
+//通知客户端 背包刷新
+message ItemInfo 
+{
+  int64 Uid = 1;
+  
+  int32 ConfigID = 2;
+  int32 Quality = 3;
+}
+
+
+//通知客户端 背包刷新
+message M2C_BagUpdateItem // IActorMessage
+{
+  int32 RpcId = 90;
+
+  int32 NetItemOp = 1;
+  ItemInfo ItemInfo = 2;
+}
+

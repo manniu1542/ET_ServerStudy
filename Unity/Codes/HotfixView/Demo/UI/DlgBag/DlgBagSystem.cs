@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 namespace ET
 {
     [FriendClass(typeof (DlgBag))]
+    [FriendClassAttribute(typeof (ET.BagComponent))]
     public static class DlgBagSystem
     {
         public static void RegisterUIEvent(this DlgBag self)
@@ -17,6 +19,8 @@ namespace ET
             self.View.E_NextButton.AddListener(self.OnNextPageHandler);
 
             self.View.E_BagItemsLoopVerticalScrollRect.AddItemRefreshListener(self.OnLoopItemRefreshHandler);
+            ResourcesComponent.Instance.LoadBundle("icons.unity3d");
+            self.saIcon = ResourcesComponent.Instance.GetAsset("icons.unity3d", "Icons") as SpriteAtlas;
         }
 
         public static void OnTopToggleSelectedHandler(this DlgBag self, int index)
@@ -28,7 +32,9 @@ namespace ET
 
         public static void OnNextPageHandler(this DlgBag self)
         {
-            int allItemTypeCount = 10;
+            var bagCpt = self.ZoneScene().GetComponent<BagComponent>();
+            int allItemTypeCount = bagCpt.GetCurBagItemCountByType(self.curType);
+            ;
             if (self.curPageIdx + 1 > allItemTypeCount) return;
             ++self.curPageIdx;
             self.RefreshUI();
@@ -44,23 +50,30 @@ namespace ET
         public static void RefreshUI(this DlgBag self)
         {
             //页数，
-            int allItemTypeCount = 10;
-            int allPage = Mathf.Min(1, (allItemTypeCount / self.onePageItemCount) + (allItemTypeCount % self.onePageItemCount == 0? 0 : 1));
+            var bagCpt = self.ZoneScene().GetComponent<BagComponent>();
+
+            int allItemTypeCount = bagCpt.GetCurBagItemCountByType(self.curType);
+
+            int allPage = Mathf.Max(1, (allItemTypeCount / self.onePageItemCount) + (allItemTypeCount % self.onePageItemCount == 0? 0 : 1));
             self.View.E_PageText.SetText($"{self.curPageIdx + 1}/{allPage}");
             //滚动列表刷新
-            self.AddUIScrollItems(ref self.ScrollItemBagItems, self.onePageItemCount);
-            self.View.E_BagItemsLoopVerticalScrollRect.SetVisible(true, self.onePageItemCount);
+
+            self.AddUIScrollItems(ref self.ScrollItemBagItems, allItemTypeCount);
+
+            self.View.E_BagItemsLoopVerticalScrollRect.SetVisible(allItemTypeCount != 0, allItemTypeCount);
         }
 
         public static void OnLoopItemRefreshHandler(this DlgBag self, Transform transform, int index)
         {
-            List<Item> itemList = null;
             Scroll_Item_bagItem scrollItemBagItem = self.ScrollItemBagItems[index].BindTrans(transform);
             index = (self.curPageIdx * self.onePageItemCount) + index;
             //data    itemList[index]
+            var bagCpt = self.ZoneScene().GetComponent<BagComponent>();
+            Item item = bagCpt.mlItem[(int)self.curType][index];
 
             //ui  scrollItemBagItem
-            // scrollItemBagItem.E_IconImage =
+            scrollItemBagItem.E_IconImage.sprite = self.saIcon.GetSprite(item.Config.Icon);
+            // scrollItemBagItem.E_QualityImage.sprite = 
         }
 
         public static void ShowWindow(this DlgBag self, Entity contextData = null)

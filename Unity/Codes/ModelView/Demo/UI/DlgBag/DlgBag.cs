@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.U2D;
 
 namespace ET
 {
@@ -23,5 +25,7 @@ namespace ET
 		public Dictionary<int, Scroll_Item_bagItem> ScrollItemBagItems;
 
 		public int onePageItemCount = 30;
+
+		public SpriteAtlas saIcon;
 	}
 }

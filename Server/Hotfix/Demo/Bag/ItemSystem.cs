@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,16 +16,6 @@ namespace ET
     }
 
     [ObjectSystem]
-    public class ItemInfoAwakeSystem: AwakeSystem<Item, ItemInfo>
-    {
-        public override void Awake(Item self, ItemInfo info)
-        {
-            self.configID = info.ConfigID;
-            self.quality = (ItemQulityType)info.Quality;
-        }
-    }
-
-    [ObjectSystem]
     public class ItemDestroySystem: DestroySystem<Item>
     {
         public override void Destroy(Item self)
@@ -36,8 +26,13 @@ namespace ET
     [FriendClass(typeof (Item))]
     public static class ItemSystem
     {
-        public static void ReadAccountInfo(this Item self, long accountId, string token)
+        public static ItemInfo ToMsgData(this Item self)
         {
+            ItemInfo item = new ItemInfo();
+            item.Uid = self.Id;
+            item.ConfigID = self.configID;
+            item.Quality = (int)self.quality;
+            return item;
         }
     }
 }

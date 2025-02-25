@@ -1044,4 +1044,36 @@ namespace ET
 
 	}
 
+//通知客户端 背包刷新
+	[Message(OuterOpcode.ItemInfo)]
+	[ProtoContract]
+	public partial class ItemInfo: Object
+	{
+		[ProtoMember(1)]
+		public long Uid { get; set; }
+
+		[ProtoMember(2)]
+		public int ConfigID { get; set; }
+
+		[ProtoMember(3)]
+		public int Quality { get; set; }
+
+	}
+
+//通知客户端 背包刷新
+	[Message(OuterOpcode.M2C_BagUpdateItem)]
+	[ProtoContract]
+	public partial class M2C_BagUpdateItem: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int NetItemOp { get; set; }
+
+		[ProtoMember(2)]
+		public ItemInfo ItemInfo { get; set; }
+
+	}
+
 }

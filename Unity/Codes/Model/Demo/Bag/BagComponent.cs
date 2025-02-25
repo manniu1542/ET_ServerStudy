@@ -3,11 +3,13 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ET
 {
-    [ChildType(typeof(Item))]
-    [ComponentOf(typeof (Unit))]
+    [ChildType(typeof (Item))]
+
 #if SERVER
+       [ComponentOf(typeof (Unit))]
        public class BagComponent: Entity, IAwake, IDestroy, ITransfer, IUnitChache
 #else
+    [ComponentOf(typeof (Scene))]
     public class BagComponent: Entity, IAwake, IDestroy
 #endif
 
@@ -20,8 +22,10 @@ namespace ET
    [BsonIgnore]
 #endif
         public MultiMap<int, Item> mlItem = new MultiMap<int, Item>();
-        
-        
-        
+
+#if SERVER
+       [BsonIgnore]
+        public M2C_BagUpdateItem m2c_bagItem = new M2C_BagUpdateItem();
+#endif
     }
 }

@@ -195,7 +195,7 @@ namespace ET
                 {
                     unitM = unitCpt.Get(self.listCacheEnemyId[i]);
                     unitM.ConfigId = config.MonsterIds[i];
-                    var numMonsterCpt = unitM.AddComponent<NumericComponent>();
+                    var numMonsterCpt = unitM.GetComponent<NumericComponent>();
                     numMonsterCpt.SetNoEvent(NumericType.IsAlive, 0);
                     numMonsterCpt.SetNoEvent(NumericType.Hp, unitM.Config.MaxHP);
                     numMonsterCpt.SetNoEvent(NumericType.MaxHp, unitM.Config.MaxHP);

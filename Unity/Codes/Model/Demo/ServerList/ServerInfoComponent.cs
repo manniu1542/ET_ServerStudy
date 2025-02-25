@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ET
 {
+    /// <summary>
+    /// 服务区信息
+    /// </summary>
     [ChildType(typeof(ServerInfo))]
     [ComponentOf(typeof(Scene))]
     public class ServerInfoComponent : Entity, IAwake, IDestroy

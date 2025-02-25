@@ -13,7 +13,7 @@ namespace ET
             Unit unit = request.Unit;
 
             unitComponent.Add(unit);
-            //里面应该又 属性组件NumCpt的 
+            //里面应该有 属性组件NumCpt的 
             foreach (Entity entity in request.Entitys)
             {
                 unit.AddComponent(entity);

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ET
 {
+    /// <summary>
+    /// 账号数据信息
+    /// </summary>
     [ComponentOf(typeof(Scene))]
     public class AccountInfoComponent : Entity, IAwake, IDestroy
     {
