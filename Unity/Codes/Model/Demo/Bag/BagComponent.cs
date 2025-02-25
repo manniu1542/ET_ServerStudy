@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace ET
@@ -7,7 +8,7 @@ namespace ET
 
 #if SERVER
        [ComponentOf(typeof (Unit))]
-       public class BagComponent: Entity, IAwake, IDestroy, ITransfer, IUnitChache
+       public class BagComponent: Entity, IAwake, IDestroy,IDeserialize, ITransfer, IUnitChache
 #else
     [ComponentOf(typeof (Scene))]
     public class BagComponent: Entity, IAwake, IDestroy

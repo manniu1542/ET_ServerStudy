@@ -23,6 +23,22 @@ namespace ET
         }
     }
 
+    [ObjectSystem]
+    public class BagComponentDeserializeSystem: DeserializeSystem<BagComponent>
+    {
+        public override void Deserialize(BagComponent self)
+        {
+            foreach (var tmp in self.Children)
+            {
+                var item = tmp.Value as Item;
+                if (item != null)
+                {
+                    self.AddBagContent(item);
+                }
+            }
+        }
+    }
+
     [FriendClass(typeof (BagComponent))]
     [FriendClassAttribute(typeof (ET.Item))]
     public static class BagComponentSystem

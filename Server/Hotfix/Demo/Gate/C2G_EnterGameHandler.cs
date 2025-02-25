@@ -2,14 +2,15 @@
 
 namespace ET
 {
-    [FriendClass(typeof (GateMapComponent))]
-    [FriendClass(typeof (SessionStateComponent))]
-    [FriendClass(typeof (SessionPlayerComponent))]
-    [FriendClass(typeof (PlayerComponent))]
-    public class C2G_EnterGameHandler: AMRpcHandler<C2G_EnterGame, G2C_EnterGame>
+    [FriendClass(typeof(GateMapComponent))]
+    [FriendClass(typeof(SessionStateComponent))]
+    [FriendClass(typeof(SessionPlayerComponent))]
+    [FriendClass(typeof(PlayerComponent))]
+    public class C2G_EnterGameHandler : AMRpcHandler<C2G_EnterGame, G2C_EnterGame>
     {
         protected override async ETTask Run(Session session, C2G_EnterGame request, G2C_EnterGame response, Action reply)
         {
+            
             //请求的服务器类型
             SceneType st = session.DomainScene().SceneType;
             if (st != SceneType.Gate)
@@ -126,7 +127,7 @@ namespace ET
 
                         //unit的信息 是如果 通过gate网关 发送消息给客户端呢？ （答：也是通过基础的socket传递给客户端的）
                         unit.AddComponent<UnitGateComponent, long>(player.InstanceId);
-
+               
                         await UnitHelper.InitUnit(unit, isNewUnit);
                         response.UnitID = unit.Id;
                         //提前回复客户端 ，防止 TransferHelper.Transfer 传送unit的消息比 进入游戏消息早到客户端。导致顺序错乱
