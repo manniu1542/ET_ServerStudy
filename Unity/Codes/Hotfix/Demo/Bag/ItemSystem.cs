@@ -16,16 +16,6 @@ namespace ET
     }
 
     [ObjectSystem]
-    public class ItemInfoAwakeSystem: AwakeSystem<Item, ItemInfo>
-    {
-        public override void Awake(Item self, ItemInfo info)
-        {
-            self.configID = info.ConfigID;
-            self.quality = (ItemQulityType)info.Quality;
-        }
-    }
-
-    [ObjectSystem]
     public class ItemDestroySystem: DestroySystem<Item>
     {
         public override void Destroy(Item self)
@@ -34,10 +24,25 @@ namespace ET
     }
 
     [FriendClass(typeof (Item))]
+    [FriendClassAttribute(typeof (ET.EquipInfoComponent))]
     public static class ItemSystem
     {
-        public static void ReadAccountInfo(this Item self, long accountId, string token)
+        public static void ResetFormItemInfo(this Item self, ItemInfo info)
         {
+            self.quality = (ItemQulityType)info.Quality;
+            self.configID = info.ConfigID;
+            switch ((ItemType)self.Config.Type)
+            {
+                case ItemType.Weapon:
+                case ItemType.Armor:
+                case ItemType.Ring:
+                    var equipInfo = self.AddComponent<EquipInfoComponent>();
+                    equipInfo.sign = info.EquipInfo.sign;
+                    break;
+                case ItemType.Prop:
+
+                    break;
+            }
         }
     }
 }

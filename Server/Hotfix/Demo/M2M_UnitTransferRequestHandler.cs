@@ -4,7 +4,8 @@ using UnityEngine;
 namespace ET
 {
     [ActorMessageHandler]
-    public class M2M_UnitTransferRequestHandler: AMActorRpcHandler<Scene, M2M_UnitTransferRequest, M2M_UnitTransferResponse>
+    [FriendClassAttribute(typeof(ET.BagComponent))]
+    public class M2M_UnitTransferRequestHandler : AMActorRpcHandler<Scene, M2M_UnitTransferRequest, M2M_UnitTransferResponse>
     {
         protected override async ETTask Run(Scene scene, M2M_UnitTransferRequest request, M2M_UnitTransferResponse response, Action reply)
         {
@@ -30,12 +31,15 @@ namespace ET
             unit.AddComponent<UnitSaveDBComponent>();
             //战斗检查
             unit.AddComponent<AdventureCheckComponent>();
-            
-            
+
             // 通知客户端创建My Unit
             M2C_CreateMyUnit m2CCreateUnits = new M2C_CreateMyUnit();
             m2CCreateUnits.Unit = UnitHelper.CreateUnitInfo(unit);
             MessageHelper.SendToClient(unit, m2CCreateUnits);
+
+            ItemHelper.AsyncAllBagItemData(unit);
+         
+            
 
             // 加入aoi
             // unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);

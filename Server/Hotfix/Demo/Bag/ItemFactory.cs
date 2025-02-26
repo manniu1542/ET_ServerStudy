@@ -16,7 +16,8 @@ namespace ET
             }
             Item item = entity.AddChild<Item, int>(configId);
 
-            
+            item.RandomItemQuality();
+            item.AddItemTypeCpt();
             
             return item;
         }

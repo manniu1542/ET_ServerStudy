@@ -1044,7 +1044,6 @@ namespace ET
 
 	}
 
-//通知客户端 背包刷新
 	[Message(OuterOpcode.ItemInfo)]
 	[ProtoContract]
 	public partial class ItemInfo: Object
@@ -1058,21 +1057,54 @@ namespace ET
 		[ProtoMember(3)]
 		public int Quality { get; set; }
 
+		[ProtoMember(4)]
+		public EquipInfo EquipInfo { get; set; }
+
 	}
 
-//通知客户端 背包刷新
-	[Message(OuterOpcode.M2C_BagUpdateItem)]
+	[Message(OuterOpcode.EquipInfo)]
 	[ProtoContract]
-	public partial class M2C_BagUpdateItem: Object, IActorMessage
+	public partial class EquipInfo: Object
+	{
+//临时占位的装备组件所需数据
+		[ProtoMember(1)]
+		public int sign { get; set; }
+
+	}
+
+//通知客户端 道具刷新（可能是背包道具，也可能是人的装备道具）
+	[Message(OuterOpcode.M2C_UpdateSomeOneItem)]
+	[ProtoContract]
+	public partial class M2C_UpdateSomeOneItem: Object, IActorMessage
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+//道具操作类型 0 是添加，1是移除，
 		[ProtoMember(1)]
 		public int NetItemOp { get; set; }
 
 		[ProtoMember(2)]
 		public ItemInfo ItemInfo { get; set; }
+
+		[ProtoMember(3)]
+		public int NetItemPut { get; set; }
+
+	}
+
+//所有道具放置(背包道具/人的装备道具)
+	[Message(OuterOpcode.M2C_UpdatePutAllItem)]
+	[ProtoContract]
+	public partial class M2C_UpdatePutAllItem: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int NetItemPut { get; set; }
+
+		[ProtoMember(2)]
+		public List<ItemInfo> ItemInfo = new List<ItemInfo>();
 
 	}
 

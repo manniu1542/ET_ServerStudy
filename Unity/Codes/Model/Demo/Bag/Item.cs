@@ -12,11 +12,11 @@ namespace ET
 
     public enum ItemQulityType
     {
-        Normal = 0,
-        Good = 1,
-        Excellent = 2,
-        Epic = 3,
-        Legendary = 4,
+        Normal = 0, // 2
+        Good = 1, //4
+        Excellent = 2,//6000
+        Epic = 3,//8500
+        Legendary = 4,//9500
     }
 
     /// <summary>
@@ -28,11 +28,20 @@ namespace ET
         Remove = 1
     }
 
+    /// <summary>
+    /// 请求Item放置到哪里（背包/人物装备上）
+    /// </summary>
+    public enum NetItemPut
+    {
+        Bag = 0,
+        Role = 1
+    }
+
     [ChildType(typeof (BagComponent))]
 #if SERVER
     public class Item: Entity, IAwake<int>, IDestroy, ISerializeToEntity
 #else
-    public class Item: Entity, IAwake<int>, IAwake<ItemInfo>, IDestroy
+    public class Item: Entity, IAwake<int>,IDestroy
 #endif
     {
         public int configID;

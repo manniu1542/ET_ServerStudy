@@ -517,22 +517,39 @@ message M2C_NumericUpLevel // IActorLocationResponse
   string Message = 92;
 }
 
-//通知客户端 背包刷新
-message ItemInfo 
+
+message ItemInfo
 {
   int64 Uid = 1;
-  
   int32 ConfigID = 2;
   int32 Quality = 3;
+  
+  EquipInfo EquipInfo = 4;
+
+}
+message EquipInfo
+{
+  //临时占位的装备组件所需数据
+  int32 sign = 1;
 }
 
+//通知客户端 道具刷新（可能是背包道具，也可能是人的装备道具）
+message M2C_UpdateSomeOneItem // IActorMessage
+{
+  int32 RpcId = 90;
+  //道具操作类型 0 是添加，1是移除，
+  int32 NetItemOp = 1;
+  ItemInfo ItemInfo = 2;
+  int32 NetItemPut = 3;
+  
+}
 
-//通知客户端 背包刷新
-message M2C_BagUpdateItem // IActorMessage
+//所有道具放置(背包道具/人的装备道具)
+message M2C_UpdatePutAllItem // IActorMessage
 {
   int32 RpcId = 90;
 
-  int32 NetItemOp = 1;
-  ItemInfo ItemInfo = 2;
+  int32 NetItemPut = 1;
+  repeated ItemInfo ItemInfo = 2;
+     
 }
-

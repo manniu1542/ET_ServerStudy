@@ -1,8 +1,7 @@
 ﻿namespace ET
 {
-#if SERVER
-    [ChildType(typeof (Unit))]
-#endif
+ 
+
     [EnableMethod]
     public sealed class Scene: Entity
     {

@@ -53,7 +53,7 @@ namespace ET
         /// 获取UnitChache      
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public static async ETTask<Unit> GetUnitChache(Scene scene, long unitID)
+        public static async ETTask<Unit> GetUnitChache(Entity scene, long unitID)
         {
             G2U_GetUnitChache message = new G2U_GetUnitChache() { UnitId = unitID };
             long sceneID = StartSceneConfigCategory.Instance.GetUnitChacheConfig(unitID).InstanceId;

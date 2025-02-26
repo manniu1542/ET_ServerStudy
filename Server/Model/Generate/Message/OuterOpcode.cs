@@ -66,6 +66,8 @@ namespace ET
 		 public const ushort C2M_NumericUpLevel = 10063;
 		 public const ushort M2C_NumericUpLevel = 10064;
 		 public const ushort ItemInfo = 10065;
-		 public const ushort M2C_BagUpdateItem = 10066;
+		 public const ushort EquipInfo = 10066;
+		 public const ushort M2C_UpdateSomeOneItem = 10067;
+		 public const ushort M2C_UpdatePutAllItem = 10068;
 	}
 }
