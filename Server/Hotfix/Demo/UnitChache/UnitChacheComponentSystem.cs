@@ -60,7 +60,7 @@ namespace ET
                 }
                 unitChache.AddOrUpdate(cpt);
             }
-
+     
             //更新缓存服的数据
             if (listCpt.Count > 0)
                 await DBManagerComponent.Instance.GetZoneDB(self.DomainZone()).Save(UnitId, listCpt);

@@ -94,7 +94,7 @@ namespace ET
                     player.Dispose();
 
                     //一些session 上的异步移除组件 给的等待时间
-                    await TimerComponent.Instance.WaitAsync(300);
+                    await TimerComponent.Instance.WaitAsync(1000);
                 }
             }
         }

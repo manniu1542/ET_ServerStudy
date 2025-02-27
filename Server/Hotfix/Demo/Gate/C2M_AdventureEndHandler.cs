@@ -15,10 +15,15 @@ namespace ET
             var numCpt = unit.GetComponent<NumericComponent>();
             var levelId = numCpt.GetAsInt(NumericType.AdventureState);
             var config = BattleLevelConfigCategory.Instance.Get(levelId);
+
+            //战斗结束！
+
             if (config == null)
             {
                 Log.Error("不可以进入战斗，没有该管卡在表里：" + levelId);
                 response.Error = ErrorCode.ERR_AdventureEndCheckCant;
+                RestBattle(unit);
+
                 reply();
                 return;
             }
@@ -28,6 +33,8 @@ namespace ET
             {
                 Log.Error("战斗回合数有问题" + request.RoundCount);
                 response.Error = ErrorCode.ERR_AdventureEndCheckCant;
+
+                RestBattle(unit);
                 reply();
                 return;
             }
@@ -40,6 +47,7 @@ namespace ET
                 {
                     Log.Error("战斗验证没有通过！");
                     response.Error = ErrorCode.ERR_AdventureEndCheckCant;
+                    RestBattle(unit);
                     reply();
                     return;
                 }
@@ -48,9 +56,7 @@ namespace ET
             {
                 //濒死状态
                 numCpt.Set(NumericType.DyingState, 1);
-                //战斗结束！
-                numCpt.Set(NumericType.AdventureState, 0);
-                numCpt.Set(NumericType.AdventureStartTime, 0);
+                RestBattle(unit);
                 reply();
                 return;
             } //战斗结果有问题 
@@ -58,13 +64,12 @@ namespace ET
             {
                 Log.Error("战斗结果有问题" + request.AdventureBattleRoundState);
                 response.Error = ErrorCode.ERR_AdventureEndCheckCant;
+                RestBattle(unit);
                 reply();
                 return;
             }
 
-            //战斗结束！
-            numCpt.Set(NumericType.AdventureState, 0);
-            numCpt.Set(NumericType.AdventureStartTime, 0);
+            RestBattle(unit);
 
             //发送经验值
             int curLevel = numCpt.GetAsInt(NumericType.Level);
@@ -84,6 +89,13 @@ namespace ET
 
             reply();
             await ETTask.CompletedTask;
+        }
+
+        public void RestBattle(Unit unit)
+        {
+            var numCpt = unit.GetComponent<NumericComponent>();
+            numCpt.Set(NumericType.AdventureState, 0);
+            numCpt.Set(NumericType.AdventureStartTime, 0);
         }
     }
 }

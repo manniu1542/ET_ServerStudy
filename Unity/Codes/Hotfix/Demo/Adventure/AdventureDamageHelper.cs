@@ -3,7 +3,7 @@ namespace ET
     public static class AdventureDamageHelper
     {
         //计算伤害（护甲  攻击）
-        public static int CaclutaionDamage(NumericComponent attNumCpt, NumericComponent targetNumCpt, ref SRandom random)
+    public static int CaclutaionDamage(NumericComponent attNumCpt, NumericComponent targetNumCpt, ref SRandom random)
         {
             int damage = 0;
             //攻击值
