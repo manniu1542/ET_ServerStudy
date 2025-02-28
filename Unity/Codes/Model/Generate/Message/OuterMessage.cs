@@ -1108,4 +1108,33 @@ namespace ET
 
 	}
 
+//售卖道具
+	[ResponseType(nameof(M2C_SellItem))]
+	[Message(OuterOpcode.C2M_SellItem)]
+	[ProtoContract]
+	public partial class C2M_SellItem: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long ItemUid { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_SellItem)]
+	[ProtoContract]
+	public partial class M2C_SellItem: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 }

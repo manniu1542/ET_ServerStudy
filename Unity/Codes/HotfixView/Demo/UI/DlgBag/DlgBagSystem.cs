@@ -73,7 +73,15 @@ namespace ET
 
             //ui  scrollItemBagItem
             scrollItemBagItem.E_IconImage.sprite = self.saIcon.GetSprite(item.Config.Icon);
-            // scrollItemBagItem.E_QualityImage.sprite = 
+            // scrollItemBagItem.E_QualityImage.sprite =  
+
+            EUIHelper.AddListenerAsync(scrollItemBagItem.E_SelectButton,
+                async () =>
+                {
+                    var uiCpt = self.ZoneScene().GetComponent<UIComponent>();
+                    await uiCpt.ShowWindowAsync(WindowID.WindowID_ItemPopUp);
+                    uiCpt.GetDlgLogic<DlgItemPopUp>().RefreshUI(item.Id);
+                });
         }
 
         public static void ShowWindow(this DlgBag self, Entity contextData = null)

@@ -15,7 +15,18 @@ namespace ET
             m2c.ItemInfo = item.ToMsgData();
             MessageHelper.SendToClient(unit, m2c);
         }
-
+        /// <summary>
+        /// 同步移除item的数据
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="item"></param>
+        /// <param name="m2c"></param>
+        public static void AsyncRemoveItemData(Unit unit, Item item, M2C_UpdateSomeOneItem m2c)
+        {
+            m2c.NetItemOp = (int)NetItemOp.Remove;
+            m2c.ItemInfo = item.ToMsgData();
+            MessageHelper.SendToClient(unit, m2c);
+        }
         /// <summary>
         /// 同步添加item的数据
         /// </summary>

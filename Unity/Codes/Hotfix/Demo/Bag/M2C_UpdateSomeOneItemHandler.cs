@@ -7,7 +7,6 @@ namespace ET
     {
         protected override void Run(Session session, M2C_UpdateSomeOneItem message)
         {
-     
             //添加道具
             if (message.NetItemOp == (int)NetItemOp.Add)
             {
@@ -16,6 +15,7 @@ namespace ET
             }
             else if (message.NetItemOp == (int)NetItemOp.Remove)
             {
+                ItemHelper.RemoveItem(session.ZoneScene(), message.ItemInfo.Uid, (NetItemPut)message.NetItemPut);
                 
             }
         }

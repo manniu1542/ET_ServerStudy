@@ -523,7 +523,7 @@ message ItemInfo
   int64 Uid = 1;
   int32 ConfigID = 2;
   int32 Quality = 3;
-  
+
   EquipInfo EquipInfo = 4;
 
 }
@@ -541,7 +541,7 @@ message M2C_UpdateSomeOneItem // IActorMessage
   int32 NetItemOp = 1;
   ItemInfo ItemInfo = 2;
   int32 NetItemPut = 3;
-  
+
 }
 
 //所有道具放置(背包道具/人的装备道具)
@@ -551,5 +551,22 @@ message M2C_UpdatePutAllItem // IActorMessage
 
   int32 NetItemPut = 1;
   repeated ItemInfo ItemInfo = 2;
-     
+
+}
+
+
+//售卖道具
+//ResponseType M2C_SellItem
+message C2M_SellItem // IActorLocationRequest
+{
+  int32 RpcId = 90;
+  int64 ItemUid = 1;
+  
+}
+
+message M2C_SellItem // IActorLocationResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
 }

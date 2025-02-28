@@ -79,10 +79,22 @@ namespace ET
         /// </summary>
         /// <param name="self"></param>
         /// <returns></returns>
-        public static void RemoveBagContent(this BagComponent self, Item item)
+        public static void RemoveItem(this BagComponent self, Item item, bool isSendToClientMsg = false)
         {
             self.dicItems.Remove(item.Id);
             self.mlItem.Remove(item.Config.Type, item);
+
+            if (isSendToClientMsg)
+            {
+                ItemHelper.AsyncRemoveItemData(self.GetParent<Unit>(), item, self.m2c_bagItem);
+            }
+            item.Dispose();
+        }
+
+        public static Item GetItem(this BagComponent self, long itemId)
+        {
+            self.dicItems.TryGetValue(itemId, out var item);
+            return item;
         }
 
         /// <summary>
@@ -134,7 +146,7 @@ namespace ET
                     {
                         foreach (var tmp in list)
                         {
-                            self.RemoveBagContent(tmp);
+                            self.RemoveItem(tmp);
                         }
 
                         return false;

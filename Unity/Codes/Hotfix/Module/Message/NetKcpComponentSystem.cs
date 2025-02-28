@@ -74,7 +74,7 @@ namespace ET
             session.Dispose();
         }
 
-        // 这个channelId是由CreateAcceptChannelId生成的
+        // 这个channelId是由CreateAcceptChannelId生成的 
         public static void OnAccept(this NetKcpComponent self, long channelId, IPEndPoint ipEndPoint)
         {
             Session session = self.AddChildWithId<Session, AService>(channelId, self.Service);

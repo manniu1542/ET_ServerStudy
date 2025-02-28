@@ -65,6 +65,10 @@ namespace ET
         public const int ERR_AdventureEndCheckCant = 200019;
         /// <summary> 升级失败 </summary>
         public const int ERR_NumUpLevelCant = 200020;
+        
+        /// <summary> 售卖失败 </summary>
+        public const int ERR_SellItemFail = 200021;
+        
 
     }
 }

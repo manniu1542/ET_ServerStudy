@@ -69,5 +69,7 @@ namespace ET
 		 public const ushort EquipInfo = 10066;
 		 public const ushort M2C_UpdateSomeOneItem = 10067;
 		 public const ushort M2C_UpdatePutAllItem = 10068;
+		 public const ushort C2M_SellItem = 10069;
+		 public const ushort M2C_SellItem = 10070;
 	}
 }

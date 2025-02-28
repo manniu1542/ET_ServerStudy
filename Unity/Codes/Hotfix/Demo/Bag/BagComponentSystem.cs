@@ -90,7 +90,11 @@ namespace ET
 
             return false;
         }
-
+        public static Item GetItem(this BagComponent self, long id)
+        {
+            self.dicItems.TryGetValue(id, out var item);
+            return item;
+        }
         /// <summary>
         ///可以添加该道具
         /// </summary>
