@@ -38,6 +38,10 @@
       <Link>Demo\Bag\EquipInfoComponent.cs</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Codes\Model\Demo\Bag\EquipmentAffixes.cs">
+      <Link>Demo\Bag\EquipmentAffixes.cs</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Codes\Model\Demo\Bag\Item.cs">
       <Link>Demo\Bag\Item.cs</Link>
     </Compile>

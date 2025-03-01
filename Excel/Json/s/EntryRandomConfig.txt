@@ -1,0 +1,15 @@
+{"list":[
+{"_t":"EntryRandomConfig","_id":1,"NormalRandMinCount":1,"NormalRandMaxCount":1,"SpecialRandMinCount":1,"SpecialRandMaxCount":1,"NormalLevel":1,"SpecialEntryLevel":1},
+{"_t":"EntryRandomConfig","_id":2,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":1,"SpecialEntryLevel":1},
+{"_t":"EntryRandomConfig","_id":3,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":1,"SpecialEntryLevel":1},
+{"_t":"EntryRandomConfig","_id":4,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":2,"SpecialEntryLevel":2},
+{"_t":"EntryRandomConfig","_id":5,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":2,"SpecialEntryLevel":2},
+{"_t":"EntryRandomConfig","_id":6,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":2,"SpecialEntryLevel":2},
+{"_t":"EntryRandomConfig","_id":7,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":2,"SpecialEntryLevel":2},
+{"_t":"EntryRandomConfig","_id":8,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":3,"SpecialEntryLevel":3},
+{"_t":"EntryRandomConfig","_id":9,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":3,"SpecialEntryLevel":3},
+{"_t":"EntryRandomConfig","_id":10,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":3,"SpecialEntryLevel":3},
+{"_t":"EntryRandomConfig","_id":11,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":3,"SpecialEntryLevel":3},
+{"_t":"EntryRandomConfig","_id":12,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":3,"SpecialEntryLevel":3},
+{"_t":"EntryRandomConfig","_id":13,"NormalRandMinCount":2,"NormalRandMaxCount":2,"SpecialRandMinCount":2,"SpecialRandMaxCount":2,"NormalLevel":3,"SpecialEntryLevel":3},
+]}

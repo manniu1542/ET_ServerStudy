@@ -1062,13 +1062,35 @@ namespace ET
 
 	}
 
+//装备词条
+	[Message(OuterOpcode.EquipmentAffixesInfo)]
+	[ProtoContract]
+	public partial class EquipmentAffixesInfo: Object
+	{
+		[ProtoMember(1)]
+		public int NumType { get; set; }
+
+		[ProtoMember(2)]
+		public long NumValue { get; set; }
+
+		[ProtoMember(3)]
+		public int EpAffType { get; set; }
+
+	}
+
+//装备信息
 	[Message(OuterOpcode.EquipInfo)]
 	[ProtoContract]
 	public partial class EquipInfo: Object
 	{
-//临时占位的装备组件所需数据
 		[ProtoMember(1)]
-		public int sign { get; set; }
+		public bool IsCreateAffixes { get; set; }
+
+		[ProtoMember(2)]
+		public int Score { get; set; }
+
+		[ProtoMember(3)]
+		public List<EquipmentAffixesInfo> EquipmentAffixesInfos = new List<EquipmentAffixesInfo>();
 
 	}
 

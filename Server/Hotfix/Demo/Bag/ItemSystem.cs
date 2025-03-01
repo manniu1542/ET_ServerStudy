@@ -23,30 +23,28 @@ namespace ET
         }
     }
 
-    [FriendClass(typeof(Item))]
-    [FriendClassAttribute(typeof(ET.EquipInfoComponent))]
+    [FriendClass(typeof (Item))]
+    [FriendClassAttribute(typeof (ET.EquipInfoComponent))]
     public static class ItemSystem
     {
-        public static ItemInfo ToMsgData(this Item self)
+        public static ItemInfo ToMsgData(this Item self, bool isNeedItemTypeInfo = true)
         {
             ItemInfo item = new ItemInfo();
             item.Uid = self.Id;
             item.ConfigID = self.configID;
             item.Quality = (int)self.quality;
+            if (isNeedItemTypeInfo)
+                switch ((ItemType)self.Config.Type)
+                {
+                    case ItemType.Weapon:
+                    case ItemType.Armor:
+                    case ItemType.Ring:
+                        item.EquipInfo = self.GetComponent<EquipInfoComponent>().ToMsgData();
+                        break;
+                    case ItemType.Prop:
 
-            switch ((ItemType)self.Config.Type)
-            {
-                case ItemType.Weapon:
-                case ItemType.Armor:
-                case ItemType.Ring:
-                    var equipInfo = self.GetComponent<EquipInfoComponent>();
-                    
-                    item.EquipInfo = new EquipInfo() { sign = equipInfo.sign };
-                    break;
-                case ItemType.Prop:
-
-                    break;
-            }
+                        break;
+                }
 
             return item;
         }

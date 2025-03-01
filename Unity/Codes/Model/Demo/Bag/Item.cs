@@ -9,7 +9,9 @@ namespace ET
         Ring = 2,
         Prop = 3,
     }
-
+    /// <summary>
+    /// 道具的质量（作用：在装备中 表示： 装备 普通词条数量 = 道具质量等级 +  随机词条数量 ）
+    /// </summary>
     public enum ItemQulityType
     {
         Normal = 0, // 2
@@ -46,6 +48,7 @@ namespace ET
     {
         public int configID;
 
+        
         public ItemQulityType quality;
 
         [BsonIgnore]

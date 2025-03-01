@@ -527,11 +527,24 @@ message ItemInfo
   EquipInfo EquipInfo = 4;
 
 }
+
+//装备词条
+message EquipmentAffixesInfo
+{
+  int32 NumType = 1;
+  int64 NumValue = 2;
+  int32 EpAffType = 3;
+}
+//装备信息
 message EquipInfo
 {
-  //临时占位的装备组件所需数据
-  int32 sign = 1;
+  bool IsCreateAffixes = 1;
+  int32 Score = 2;
+  repeated  EquipmentAffixesInfo EquipmentAffixesInfos = 3;
 }
+
+
+
 
 //通知客户端 道具刷新（可能是背包道具，也可能是人的装备道具）
 message M2C_UpdateSomeOneItem // IActorMessage

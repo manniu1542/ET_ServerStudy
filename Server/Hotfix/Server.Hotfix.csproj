@@ -60,6 +60,10 @@
     <Compile Update="Demo\Bag\BagComponentSystem.cs">
       <Link>Codes\Hotfix\Demo\AI\BagComponentSystem.cs</Link>
     </Compile>
+
+    <Compile Update="Demo\Bag\EquipInfoComponentSystem.cs">
+      <Link>Codes\Hotfix\Demo\AI\BagComponentSystem.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Tools\Analyzer\Analyzer.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />

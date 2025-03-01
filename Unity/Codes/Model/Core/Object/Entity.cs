@@ -9,10 +9,10 @@ namespace ET
     public enum EntityStatus: byte
     {
         None = 0,
-        IsFromPool = 1,
-        IsRegister = 1 << 1,
-        IsComponent = 1 << 2,
-        IsCreated = 1 << 3,
+        IsFromPool = 1,//是否从对象池里拿
+        IsRegister = 1 << 1,//是否 注册了 运行时唯一id
+        IsComponent = 1 << 2, //是否是组件
+        IsCreated = 1 << 3,//是否创建完毕（序列化 自己的组件子级到子级的池子里，反序列化 自己完成）
         IsNew = 1 << 4,
     }
 
@@ -269,7 +269,6 @@ namespace ET
                 {
                     this.InstanceId = IdGenerater.Instance.GenerateInstanceId();
                     this.IsRegister = true;
-                    
                     // 反序列化出来的需要设置父子关系
                     if (this.componentsDB != null)
                     {
@@ -288,8 +287,6 @@ namespace ET
                             component.parent = this;
                         }));
 #endif
-                        
-
                     }
 
                     if (this.childrenDB != null)

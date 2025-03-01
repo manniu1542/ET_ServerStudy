@@ -24,7 +24,7 @@ namespace ET
         public static void AsyncRemoveItemData(Unit unit, Item item, M2C_UpdateSomeOneItem m2c)
         {
             m2c.NetItemOp = (int)NetItemOp.Remove;
-            m2c.ItemInfo = item.ToMsgData();
+            m2c.ItemInfo = item.ToMsgData(false);
             MessageHelper.SendToClient(unit, m2c);
         }
         /// <summary>

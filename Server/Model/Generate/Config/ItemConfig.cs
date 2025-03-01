@@ -96,7 +96,7 @@ namespace ET
 		/// <summary>最大累加数量</summary>
 		[ProtoMember(7)]
 		public int MaxSumCount { get; set; }
-		/// <summary>s词条随机Id</summary>
+		/// <summary>s词条随机表中的Id</summary>
 		[ProtoMember(8)]
 		public int EntryRandomId { get; set; }
 		/// <summary>售卖的基础价格</summary>
