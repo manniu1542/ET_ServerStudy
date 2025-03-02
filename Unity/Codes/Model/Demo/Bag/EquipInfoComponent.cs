@@ -30,6 +30,6 @@ namespace ET
 #if SERVER
         [BsonIgnore]
 #endif
-        public List<EquipmentAffixes> listAffixes;
+        public List<EquipmentAffixes> listAffixes = new List<EquipmentAffixes>();
     }
 }

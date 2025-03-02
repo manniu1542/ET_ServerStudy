@@ -7,18 +7,19 @@ namespace ET
 {
     public partial class PlayerNumericConfigCategory
     {
-        public List< PlayerNumericConfig> listNeedShow = new List<PlayerNumericConfig>();
-        
+        public List<PlayerNumericConfig> listNeedShow = new List<PlayerNumericConfig>();
+ 
         public override void AfterEndInit()
         {
             listNeedShow.Clear();
             foreach (var item in this.GetAll())
             {
-                if(item.Value.isNeedShow==1)
+                if (item.Value.isNeedShow == 1)
                     listNeedShow.Add(item.Value);
+                
             }
-            
-      
         }
+
+  
     }
 }

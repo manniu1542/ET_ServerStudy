@@ -9,6 +9,9 @@ using UnityEngine.UI;
 namespace ET
 {
     [FriendClass(typeof (DlgItemPopUp))]
+    [FriendClassAttribute(typeof (ET.EquipInfoComponent))]
+    [FriendClassAttribute(typeof (ET.EquipmentAffixes))]
+    [FriendClassAttribute(typeof (ET.Scroll_Item_entry))]
     public static class DlgItemPopUpSystem
     {
         public static void RegisterUIEvent(this DlgItemPopUp self)
@@ -19,6 +22,23 @@ namespace ET
 
             ResourcesComponent.Instance.LoadBundle("icons.unity3d");
             self.saIcon = ResourcesComponent.Instance.GetAsset("icons.unity3d", "Icons") as SpriteAtlas;
+
+            self.View.E_EntrysLoopVerticalScrollRect.AddItemRefreshListener(self.OnLoopItemRefreshHandler);
+        }
+
+        public static void OnLoopItemRefreshHandler(this DlgItemPopUp self, Transform transform, int index)
+        {
+            Scroll_Item_entry scrollItemEntryItem = self.dicScroll_Item_entry[index].BindTrans(transform);
+            //data   
+            EquipInfoComponent equpCpt = self.item.GetComponent<EquipInfoComponent>();
+            var eqpAff = equpCpt.listAffixes[index];
+            //ui  
+            var config = PlayerNumericConfigCategory.Instance.Get(eqpAff.numType);
+            scrollItemEntryItem.E_EntryNameText.SetText(config.Name);
+            scrollItemEntryItem.E_EntryValueText.SetText(config.isPrecent == 1? (eqpAff.numValue / 100_00).ToString("0.00") + "%"
+                    : eqpAff.numValue.ToString());
+            scrollItemEntryItem.uiTransform.GetComponent<UnityEngine.UI.Image>().color =
+                    eqpAff.type == EquipmentAffixesType.Normal? Color.green : Color.red;
         }
 
         public static async ETTask OnSell(this DlgItemPopUp self)
@@ -50,6 +70,8 @@ namespace ET
 
         public static void ShowWindow(this DlgItemPopUp self, Entity contextData = null)
         {
+            
+            
         }
 
         public static void RefreshUI(this DlgItemPopUp self, long itemId)
@@ -62,8 +84,15 @@ namespace ET
             self.View.E_DescText.SetText(self.item.Config.Desc);
             self.View.E_PriceText.SetText(self.item.Config.SellBasePrice.ToString());
 
-            // self.item.GetComponent<EquipInfoComponent>();
-            // self.View.E_ScoreText.SetText(self.item.);
+            EquipInfoComponent equpCpt = self.item.GetComponent<EquipInfoComponent>();
+            self.View.E_EntrysLoopVerticalScrollRect.SetVisible(false);
+            self.View.E_ScoreText.SetVisible(equpCpt != null);
+            if (equpCpt != null)
+            {
+                self.View.E_ScoreText.SetText(equpCpt.score.ToString());
+                self.AddUIScrollItems(ref self.dicScroll_Item_entry, equpCpt.listAffixes.Count);
+                self.View.E_EntrysLoopVerticalScrollRect.SetVisible(true, equpCpt.listAffixes.Count);
+            }
         }
     }
 }

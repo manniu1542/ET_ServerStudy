@@ -29,12 +29,13 @@ namespace ET
     {
         public override void Deserialize(EquipInfoComponent self)
         {
+            self.listAffixes.Clear();
             foreach (var tmp in self.Children)
             {
                 var item = tmp.Value as EquipmentAffixes;
                 if (item != null)
                 {
-                    // s(item);
+                    self.listAffixes.Add(item);
                 }
             }
         }
@@ -53,8 +54,19 @@ namespace ET
         {
             if (self.isCreateAffixes) return;
             self.isCreateAffixes = true;
-
+            self.ResetAffixes();
             self.GenerateAffixes();
+        }
+
+        public static void ResetAffixes(this EquipInfoComponent self)
+        {
+            self.score = 0;
+            foreach (var aff in self.listAffixes)
+            {
+                aff.Dispose();
+            }
+
+            self.listAffixes.Clear();
         }
 
         /// <summary>
@@ -80,9 +92,11 @@ namespace ET
             {
                 config = EntryConfigCategory.Instance.GetRandomConfigByEqpAffTypeAndLevel(EquipmentAffixesType.Normal, entryRandomConfig.NormalLevel);
                 equipmentAffixes = self.AddChild<EquipmentAffixes>();
-                equipmentAffixes.type = (EquipmentAffixesType)config.AttributeType;
+                equipmentAffixes.type = (EquipmentAffixesType)config.EntryType;
                 equipmentAffixes.numType = config.AttributeType;
                 equipmentAffixes.numValue = RandomHelper.RandomNumber(config.AttributeMinValue, config.AttributeMaxValue);
+                self.score += config.EntryScore;
+                self.listAffixes.Add(equipmentAffixes);
             }
 
             //生成特殊词条
@@ -92,9 +106,11 @@ namespace ET
                 config = EntryConfigCategory.Instance.GetRandomConfigByEqpAffTypeAndLevel(EquipmentAffixesType.Special,
                     entryRandomConfig.SpecialEntryLevel);
                 equipmentAffixes = self.AddChild<EquipmentAffixes>();
-                equipmentAffixes.type = (EquipmentAffixesType)config.AttributeType;
+                equipmentAffixes.type = (EquipmentAffixesType)config.EntryType;
                 equipmentAffixes.numType = config.AttributeType;
                 equipmentAffixes.numValue = RandomHelper.RandomNumber(config.AttributeMinValue, config.AttributeMaxValue);
+                self.score += config.EntryScore;
+                self.listAffixes.Add(equipmentAffixes);
             }
         }
 
@@ -116,7 +132,7 @@ namespace ET
                 EquipmentAffixesInfo equipmentAffixesInfo;
                 for (int i = 0; i < self.listAffixes.Count; i++)
                 {
-                    equipmentAffixesInfo = self.listAffixes[0].ToMsgData();
+                    equipmentAffixesInfo = self.listAffixes[i].ToMsgData();
                     equipInfo.EquipmentAffixesInfos.Add(equipmentAffixesInfo);
                 }
             }

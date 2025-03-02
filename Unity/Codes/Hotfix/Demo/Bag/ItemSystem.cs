@@ -31,13 +31,14 @@ namespace ET
         {
             self.quality = (ItemQulityType)info.Quality;
             self.configID = info.ConfigID;
+
             switch ((ItemType)self.Config.Type)
             {
                 case ItemType.Weapon:
                 case ItemType.Armor:
                 case ItemType.Ring:
                     var equipInfo = self.AddComponent<EquipInfoComponent>();
-                    equipInfo.sign = info.EquipInfo.sign;
+                    equipInfo.ResetDataFormMsg(info.EquipInfo);
                     break;
                 case ItemType.Prop:
 

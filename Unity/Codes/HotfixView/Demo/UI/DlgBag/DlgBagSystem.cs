@@ -34,7 +34,7 @@ namespace ET
         {
             var bagCpt = self.ZoneScene().GetComponent<BagComponent>();
             int allItemTypeCount = bagCpt.GetCurBagItemCountByType(self.curType);
-            ;
+          
             if (self.curPageIdx + 1 > allItemTypeCount) return;
             ++self.curPageIdx;
             self.RefreshUI();

@@ -1,4 +1,5 @@
-﻿using UnityEngine.U2D;
+﻿using System.Collections.Generic;
+using UnityEngine.U2D;
 
 namespace ET
 {
@@ -10,6 +11,7 @@ namespace ET
 
 		public Item item;
 		public SpriteAtlas saIcon;
+		public Dictionary<int, Scroll_Item_entry> dicScroll_Item_entry;
 	}
 
 }

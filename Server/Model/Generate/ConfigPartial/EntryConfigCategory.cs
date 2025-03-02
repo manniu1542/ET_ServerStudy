@@ -10,7 +10,7 @@ namespace ET
         /// <summary>
         /// 词条的类型，【  词条的等级  】
         /// </summary>
-        public Dictionary<int, MultiMap<int, EntryConfig>> dicMmEntryConfig = new();
+        public Dictionary<int, MultiMap<int, EntryConfig>> dicMmEntryConfig = new Dictionary<int, MultiMap<int, EntryConfig>>();
 
         public override void AfterEndInit()
         {
@@ -44,7 +44,7 @@ namespace ET
                 int randIdx = RandomHelper.RandomNumber(0, maxCout);
                 config = mmConfig[level][randIdx];
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Log.Error("获取表格失败：" + type.ToString() + level);
                 config = null;
