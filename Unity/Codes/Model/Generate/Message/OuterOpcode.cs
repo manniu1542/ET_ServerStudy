@@ -72,5 +72,9 @@ namespace ET
 		 public const ushort M2C_UpdatePutAllItem = 10069;
 		 public const ushort C2M_SellItem = 10070;
 		 public const ushort M2C_SellItem = 10071;
+		 public const ushort C2M_DressUpItem = 10072;
+		 public const ushort M2C_DressUpItem = 10073;
+		 public const ushort C2M_UnloadItem = 10074;
+		 public const ushort M2C_UnloadItem = 10075;
 	}
 }

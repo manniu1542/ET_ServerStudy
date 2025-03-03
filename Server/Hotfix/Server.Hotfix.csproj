@@ -64,6 +64,12 @@
     <Compile Update="Demo\Bag\EquipInfoComponentSystem.cs">
       <Link>Codes\Hotfix\Demo\AI\BagComponentSystem.cs</Link>
     </Compile>
+
+    <Compile Remove="Codes\**" />
+
+    <Compile Update="Demo\RoleInfo\RoleEquipComponentSystem.cs">
+      <Link>Codes\Hotfix\Demo\AI\RoleEquipComponentSystem.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Tools\Analyzer\Analyzer.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
@@ -71,11 +77,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Module\Numeric\**" />
+    <EmbeddedResource Remove="Codes\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Module\Numeric\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Codes\Hotfix\Demo\AI\" />
+    <None Remove="Codes\**" />
   </ItemGroup>
 </Project>

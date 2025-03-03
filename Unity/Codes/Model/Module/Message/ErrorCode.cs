@@ -69,6 +69,12 @@ namespace ET
         /// <summary> 售卖失败 </summary>
         public const int ERR_SellItemFail = 200021;
         
+        /// <summary> 穿衣失败 </summary>
+        public const int ERR_DressUpItemFail = 200022;
+        /// <summary> 脱衣失败 </summary>
+        public const int ERR_UnloadItemFail = 200023;
+        
+        
 
     }
 }

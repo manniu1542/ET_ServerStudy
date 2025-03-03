@@ -96,7 +96,32 @@ namespace ET
             self.dicItems.TryGetValue(itemId, out var item);
             return item;
         }
+        /// <summary>
+        /// 是否可以添加item（例如 ：提供给用户装备，还给背包的时候检查下。）
+        /// </summary>
+        public static bool IsCanAddItem(this BagComponent self, Item item)
+        {
+            if (item == null || item.IsDisposed)
+            {
+                Log.Error("添加道具失败 道具是空的！");
+                return false;
+            }
 
+            //判断是否可以添加（配置里面虽大数量）
+            if (self.IsMaxCapacity())
+                return false;
+
+            //添加背包的容器
+            if (!self.dicItems.ContainsKey(item.Id))
+                return false;
+
+            //添加道具进入背包 数据库db
+            if (item.Parent == self)
+                return false;
+
+           
+            return true;
+        }
         /// <summary>
         /// 是否可以添加该道具
         /// </summary>

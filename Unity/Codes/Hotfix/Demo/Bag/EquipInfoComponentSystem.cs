@@ -13,12 +13,25 @@ namespace ET
     {
         public override void Destroy(EquipInfoComponent self)
         {
+            self.isCreateAffixes = false;
+            self.ResetAffixes();
         }
     }
 
     [FriendClassAttribute(typeof (ET.EquipInfoComponent))]
     public static class EquipInfoComponentSystem
     {
+        public static void ResetAffixes(this EquipInfoComponent self)
+        {
+            self.score = 0;
+            foreach (var aff in self.listAffixes)
+            {
+                aff.Dispose();
+            }
+
+            self.listAffixes.Clear();
+        }
+
         public static void ResetDataFormMsg(this EquipInfoComponent self, EquipInfo info)
         {
             self.score = info.Score;

@@ -583,3 +583,38 @@ message M2C_SellItem // IActorLocationResponse
   int32 Error = 91;
   string Message = 92;
 }
+
+
+//穿戴道具
+//ResponseType M2C_DressUpItem
+message C2M_DressUpItem // IActorLocationRequest
+{
+  int32 RpcId = 90;
+  int64 ItemBagUid = 1;
+
+}
+
+message M2C_DressUpItem // IActorLocationResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+}
+
+//卸下道具
+//ResponseType M2C_UnloadItem
+message C2M_UnloadItem // IActorLocationRequest
+{
+  int32 RpcId = 90;
+  int32 roleEquipPosition = 1;
+
+}
+
+message M2C_UnloadItem // IActorLocationResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+}
+
+    

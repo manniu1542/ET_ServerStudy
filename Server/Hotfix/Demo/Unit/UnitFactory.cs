@@ -38,6 +38,8 @@ namespace ET
                     }
 
                     unit.AddComponent<BagComponent>();
+                    
+                    unit.AddComponent<RoleEquipComponent>();
                     // 加入aoi
                     // unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);
                     return unit;

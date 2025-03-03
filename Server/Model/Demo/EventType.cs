@@ -59,5 +59,15 @@ namespace ET
 			public AOIEntity A;
 			public AOIEntity B;
 		}
+		/// <summary>
+		/// 角色因为某件装备的操作导致属性更变
+		/// </summary>
+		public struct NumCpt_RoleEquipChange
+		{
+			public Unit Unit;
+			public Item item;
+			public RoleItemOp op;
+
+		}
 	}
 }

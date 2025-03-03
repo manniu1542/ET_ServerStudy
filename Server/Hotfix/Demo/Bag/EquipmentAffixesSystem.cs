@@ -20,6 +20,9 @@ namespace ET
     {
         public override void Destroy(EquipmentAffixes self)
         {
+            self.numType = 0;
+            self.type = EquipmentAffixesType.Normal;
+            self.numValue = 0;
         }
     }
 

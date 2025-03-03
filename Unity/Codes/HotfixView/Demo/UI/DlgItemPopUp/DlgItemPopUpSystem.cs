@@ -43,35 +43,50 @@ namespace ET
 
         public static async ETTask OnSell(this DlgItemPopUp self)
         {
-            try
+            bool isFinish = await ItemUseHelper.SellItem(self.ZoneScene(), self.item);
+            if (isFinish)
             {
-                C2M_SellItem msg = new C2M_SellItem() { ItemUid = self.item.Id };
-
-                var gateSession = self.ZoneScene().GetComponent<SessionComponent>().Session;
-
-                M2C_SellItem response = await gateSession.Call(msg) as M2C_SellItem;
-
-                if (response.Error == ErrorCode.ERR_Success)
-                {
-                    self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgBag>().RefreshUI();
-                    //关闭页面
-                    self.View.E_CloseButton.onClick.Invoke();
-                }
-                else
-                {
-                    Log.Error("售卖道具失败：错误码：" + response.Error);
-                }
+                
+                self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgBag>()?.RefreshUI();
+                //关闭页面
+                self.View.E_CloseButton.onClick.Invoke();
             }
-            catch (Exception e)
+          
+        }
+
+        public static async ETTask OnDressUpItem(this DlgItemPopUp self)
+        {
+            
+            
+            bool isFinish = await ItemUseHelper.DressUpItem(self.ZoneScene(), self.item);
+            if (isFinish)
             {
-                Log.Error("售卖道具失败：" + e.ToString());
+                
+                self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgRoleInfo>()?.RefreshUI();
+                self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgBag>()?.RefreshUI();
+                //关闭页面
+                self.View.E_CloseButton.onClick.Invoke();
+            }
+          
+        }
+
+        public static async ETTask OnUnloadItem(this DlgItemPopUp self)
+        {
+
+            int roleItemPos = 2;//self.item ,根据这个装备找到 他在玩家 穿戴上的位置
+            bool isFinish = await ItemUseHelper.UnloadItem(self.ZoneScene(), roleItemPos);
+            if (isFinish)
+            {
+                
+                self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgRoleInfo>()?.RefreshUI();
+                self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgBag>()?.RefreshUI();
+                //关闭页面
+                self.View.E_CloseButton.onClick.Invoke();
             }
         }
 
         public static void ShowWindow(this DlgItemPopUp self, Entity contextData = null)
         {
-            
-            
         }
 
         public static void RefreshUI(this DlgItemPopUp self, long itemId)

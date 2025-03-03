@@ -21,6 +21,8 @@ namespace ET
     {
         public override void Destroy(EquipInfoComponent self)
         {
+            self.isCreateAffixes = false;
+            self.ResetAffixes();
         }
     }
 
@@ -29,6 +31,7 @@ namespace ET
     {
         public override void Deserialize(EquipInfoComponent self)
         {
+            
             self.listAffixes.Clear();
             foreach (var tmp in self.Children)
             {

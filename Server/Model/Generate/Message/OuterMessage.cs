@@ -1159,4 +1159,62 @@ namespace ET
 
 	}
 
+//穿戴道具
+	[ResponseType(nameof(M2C_DressUpItem))]
+	[Message(OuterOpcode.C2M_DressUpItem)]
+	[ProtoContract]
+	public partial class C2M_DressUpItem: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long ItemBagUid { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_DressUpItem)]
+	[ProtoContract]
+	public partial class M2C_DressUpItem: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+//卸下道具
+	[ResponseType(nameof(M2C_UnloadItem))]
+	[Message(OuterOpcode.C2M_UnloadItem)]
+	[ProtoContract]
+	public partial class C2M_UnloadItem: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int roleEquipPosition { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_UnloadItem)]
+	[ProtoContract]
+	public partial class M2C_UnloadItem: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 }
