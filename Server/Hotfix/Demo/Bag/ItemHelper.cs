@@ -1,6 +1,7 @@
 namespace ET
 {
-    [FriendClassAttribute(typeof (ET.BagComponent))]
+    [FriendClassAttribute(typeof(ET.BagComponent))]
+    [FriendClassAttribute(typeof(ET.RoleEquipComponent))]
     public static class ItemHelper
     {
         /// <summary>
@@ -36,9 +37,27 @@ namespace ET
         public static void AsyncAllBagItemData(Unit unit)
         {
             // 通知客户端重置背包 
-            M2C_UpdatePutAllItem m2CUpdatePutAllItem = new M2C_UpdatePutAllItem() { NetItemPut = (int)NetItemPut.Bag, };
+            M2C_UpdatePutAllItem m2CUpdatePutAllItem = new M2C_UpdatePutAllItem() { NetItemPut = (int)NetItemPut.Bag };
             var bagCpt = unit.GetComponent<BagComponent>();
             foreach (var item in bagCpt.dicItems.Values)
+            {
+                m2CUpdatePutAllItem.ItemInfo.Add(item.ToMsgData());
+            }
+
+            MessageHelper.SendToClient(unit, m2CUpdatePutAllItem);
+        }
+        /// <summary>
+        /// 同步添加item的数据
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="item"></param>
+        /// <param name="m2c"></param>
+        public static void AsyncAllRoleEqpItemData(Unit unit)
+        {
+            // 通知客户端重置背包 
+            M2C_UpdatePutAllItem m2CUpdatePutAllItem = new M2C_UpdatePutAllItem() { NetItemPut = (int)NetItemPut.Role };
+            var bagCpt = unit.GetComponent<RoleEquipComponent>();
+            foreach (var item in bagCpt.dicEquips.Values)
             {
                 m2CUpdatePutAllItem.ItemInfo.Add(item.ToMsgData());
             }

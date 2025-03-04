@@ -72,15 +72,15 @@ namespace ET
             Item item = bagCpt.mlItem[(int)self.curType][index];
 
             //ui  scrollItemBagItem
-            scrollItemBagItem.E_IconImage.sprite = self.saIcon.GetSprite(item.Config.Icon);
-            // scrollItemBagItem.E_QualityImage.sprite =  
+            scrollItemBagItem.E_IconImage.overrideSprite = self.saIcon.GetSprite(item.Config.Icon);
+            scrollItemBagItem.E_QualityImage.color = item.ItemQualityColor();
 
             EUIHelper.AddListenerAsync(scrollItemBagItem.E_SelectButton,
                 async () =>
                 {
                     var uiCpt = self.ZoneScene().GetComponent<UIComponent>();
                     await uiCpt.ShowWindowAsync(WindowID.WindowID_ItemPopUp);
-                    uiCpt.GetDlgLogic<DlgItemPopUp>().RefreshUI(item.Id);
+                    uiCpt.GetDlgLogic<DlgItemPopUp>().RefreshUI(item.Id, NetItemPut.Bag);
                 });
         }
 

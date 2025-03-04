@@ -38,8 +38,9 @@ namespace ET
             MessageHelper.SendToClient(unit, m2CCreateUnits);
 
             ItemHelper.AsyncAllBagItemData(unit);
-         
-            
+
+            ItemHelper.AsyncAllRoleEqpItemData(unit);
+
 
             // 加入aoi
             // unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);

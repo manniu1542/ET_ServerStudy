@@ -57,6 +57,8 @@
       <Link>Demo\Bag\ItemFactory.cs</Link>
     </Compile>
 
+    <Compile Remove="Codes\**" />
+
     <Compile Update="Demo\Bag\BagComponentSystem.cs">
       <Link>Codes\Hotfix\Demo\AI\BagComponentSystem.cs</Link>
     </Compile>
@@ -65,10 +67,8 @@
       <Link>Codes\Hotfix\Demo\AI\BagComponentSystem.cs</Link>
     </Compile>
 
-    <Compile Remove="Codes\**" />
-
     <Compile Update="Demo\RoleInfo\RoleEquipComponentSystem.cs">
-      <Link>Codes\Hotfix\Demo\AI\RoleEquipComponentSystem.cs</Link>
+      <Link>Demo\Bag\RoleEquipComponentSystem.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

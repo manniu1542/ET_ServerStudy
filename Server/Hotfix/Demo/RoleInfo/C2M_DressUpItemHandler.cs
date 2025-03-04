@@ -14,11 +14,13 @@ namespace ET
             var item = bagCpt.GetItem(request.ItemBagUid);
             if (item == null)
             {
-                Log.Error("穿衣失败。背包里面没有改ItemId" + request.ItemBagUid);
+                Log.Error("穿衣失败。背包里面没有该ItemId" + request.ItemBagUid);
                 response.Error = ErrorCode.ERR_DressUpItemFail;
                 reply();
                 return;
             }
+
+            item = bagCpt.RemoveItemNotDispose(item, true);
 
             var roleEqpCpt = unit.GetComponent<RoleEquipComponent>();
 
@@ -41,7 +43,7 @@ namespace ET
             // 穿戴上 新的道具 。属性 添加 
             if (!roleEqpCpt.DressUpItem(item))
             {
-                Log.Error("穿衣失败。背包里面没有改ItemId" + request.ItemBagUid);
+                Log.Error("穿衣失败。角色该位置不是null" + request.ItemBagUid);
                 response.Error = ErrorCode.ERR_DressUpItemFail;
                 reply();
                 return;

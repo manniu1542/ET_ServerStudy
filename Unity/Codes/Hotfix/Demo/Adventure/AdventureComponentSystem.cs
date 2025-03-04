@@ -115,7 +115,7 @@ namespace ET
         /// <param name="zoneScene"></param>
         public static async ETTask StartAdventure(this AdventureComponent self)
         {
-            Log.Error("开始冒险!!");
+           
             //重置冒险，
             await self.ResetAdventure();
             //生成冒险的敌人

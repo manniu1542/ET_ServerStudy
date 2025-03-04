@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 namespace ET
 {
@@ -12,5 +13,7 @@ namespace ET
             get => this.Parent.GetComponent<DlgRoleInfoViewComponent>();
         }
         public Dictionary<int, Scroll_Item_attribute> ScrollItemAttributes;
+        public SpriteAtlas saIcon;
+        public Dictionary<RoleEuipPosType, ES_EquipItem> dicEquipUI =new();
     }
 }

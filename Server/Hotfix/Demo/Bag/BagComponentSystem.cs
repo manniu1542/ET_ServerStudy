@@ -88,7 +88,26 @@ namespace ET
             {
                 ItemHelper.AsyncRemoveItemData(self.GetParent<Unit>(), item, self.m2c_bagItem);
             }
+
             item.Dispose();
+        }
+
+        /// <summary>
+        /// 移除背包中的item并把它返回出来
+        /// </summary>
+        /// <param name="self"></param>
+        /// <returns></returns>
+        public static Item RemoveItemNotDispose(this BagComponent self, Item item, bool isSendToClientMsg = false)
+        {
+            self.dicItems.Remove(item.Id);
+            self.mlItem.Remove(item.Config.Type, item);
+
+            if (isSendToClientMsg)
+            {
+                ItemHelper.AsyncRemoveItemData(self.GetParent<Unit>(), item, self.m2c_bagItem);
+            }
+
+            return item;
         }
 
         public static Item GetItem(this BagComponent self, long itemId)
@@ -96,6 +115,7 @@ namespace ET
             self.dicItems.TryGetValue(itemId, out var item);
             return item;
         }
+
         /// <summary>
         /// 是否可以添加item（例如 ：提供给用户装备，还给背包的时候检查下。）
         /// </summary>
@@ -112,16 +132,16 @@ namespace ET
                 return false;
 
             //添加背包的容器
-            if (!self.dicItems.ContainsKey(item.Id))
+            if (self.dicItems.ContainsKey(item.Id))
                 return false;
 
             //添加道具进入背包 数据库db
             if (item.Parent == self)
                 return false;
 
-           
             return true;
         }
+
         /// <summary>
         /// 是否可以添加该道具
         /// </summary>

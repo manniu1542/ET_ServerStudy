@@ -25,7 +25,7 @@ namespace ET
     /// 账号角色信息组件
     /// </summary>
     /// 
-    [ComponentOf(typeof (Unit))]
+    [ComponentOf]
     [ChildType(typeof (Item))]
 #if SERVER
     public class RoleEquipComponent: Entity, IAwake, IDestroy, ITransfer, IUnitChache, IDeserialize
@@ -37,11 +37,11 @@ namespace ET
 #if SERVER
         [BsonIgnore]
 #endif
-        public Dictionary<int, Item> dicEquips;
+        public Dictionary<int, Item> dicEquips = new Dictionary<int, Item>();
 
 #if SERVER
         [BsonIgnore]
-#endif
         public M2C_UpdateSomeOneItem m2c_roleEqpItem = new M2C_UpdateSomeOneItem() { NetItemPut = (int)NetItemPut.Role };
+#endif
     }
 }

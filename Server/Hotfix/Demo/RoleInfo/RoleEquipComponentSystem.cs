@@ -13,10 +13,7 @@ namespace ET
     {
         public override void Awake(RoleEquipComponent self)
         {
-            for (int i = (int)RoleEuipPosType.None + 1; i < (int)RoleEuipPosType.Count; i++)
-            {
-                self.dicEquips.Add(i, null);
-            }
+        
         }
     }
 
@@ -38,6 +35,7 @@ namespace ET
                 var item = tmp.Value as Item;
                 if (item != null)
                 {
+                    self.dicEquips.Add(item.Config.EquipPosition, item);
                 }
             }
         }
@@ -71,16 +69,17 @@ namespace ET
                 return false;
             }
 
-            self.dicEquips[item.Config.EquipPosition] = item;
+            self.dicEquips.Add(item.Config.EquipPosition, item);
 
             self.AddChild(item);
-            
+
             Game.EventSystem.Publish(new EventType.NumCpt_RoleEquipChange() { Unit = self.GetParent<Unit>(), item = item, op = RoleItemOp.DressUp });
 
             if (isSendToClientMsg)
             {
                 ItemHelper.AsyncAddItemData(self.GetParent<Unit>(), item, self.m2c_roleEqpItem);
             }
+
             return true;
         }
 
@@ -103,8 +102,8 @@ namespace ET
             {
                 ItemHelper.AsyncRemoveItemData(self.GetParent<Unit>(), item, self.m2c_roleEqpItem);
             }
-            
-            self.dicEquips[pos] = null;
+
+            self.dicEquips.Remove(pos);
             return item;
         }
     }

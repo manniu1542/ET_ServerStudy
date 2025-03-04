@@ -2,6 +2,7 @@
 using ILRuntime.Runtime;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 namespace ET
@@ -23,21 +24,30 @@ namespace ET
             });
 
             self.RegisterCloseEvent<DlgRoleInfo>(self.View.E_CloseButton);
-           
+
             RedDotHelper.AddRedDotNodeView(self.ZoneScene(), RedDotType.Role_Level, self.View.E_UpLevelButton.gameObject, Vector3.one,
                 new Vector3(75, 55, 0));
             RedDotHelper.AddRedDotNodeView(self.ZoneScene(), RedDotType.Role_AttributePoint, self.View.E_AttributePointText.gameObject, Vector3.one,
                 new Vector3(75, 55, 0));
+
+            self.dicEquipUI.Add(RoleEuipPosType.Head, self.View.ES_EquipItem_Head);
+            self.dicEquipUI.Add(RoleEuipPosType.Clothes, self.View.ES_EquipItem_Clothes);
+            self.dicEquipUI.Add(RoleEuipPosType.Shoes, self.View.ES_EquipItem_Shoes);
+            self.dicEquipUI.Add(RoleEuipPosType.Ring, self.View.ES_EquipItem_Ring);
+            self.dicEquipUI.Add(RoleEuipPosType.Weapon, self.View.ES_EquipItem_Weapon);
+            self.dicEquipUI.Add(RoleEuipPosType.Shield, self.View.ES_EquipItem_Shield);
+            ResourcesComponent.Instance.LoadBundle("icons.unity3d");
+            self.saIcon = ResourcesComponent.Instance.GetAsset("icons.unity3d", "Icons") as SpriteAtlas;
         }
 
         public static void UnloadWindow(this DlgRoleInfo self)
         {
-     
             RedDotMonoView redView = self.View.E_UpLevelButton.GetComponent<RedDotMonoView>();
             RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.Role_Level, out redView);
             redView = self.View.E_AttributePointText.GetComponent<RedDotMonoView>();
             RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.Role_AttributePoint, out redView);
         }
+
         public static void HideWindow(this DlgRoleInfo self)
         {
             self.RemoveUIScrollItems(ref self.ScrollItemAttributes);
@@ -55,6 +65,7 @@ namespace ET
 
         public static void RefreshUI(this DlgRoleInfo self)
         {
+            self.RefreshRoleEquip();
             var unit = UnitHelper.GetMyUnitFromCurrentScene(self.ZoneScene().CurrentScene());
             var numCpt = unit?.GetComponent<NumericComponent>();
             if (numCpt == null) return;
@@ -71,6 +82,16 @@ namespace ET
             int count = PlayerNumericConfigCategory.Instance.listNeedShow.Count;
             self.AddUIScrollItems(ref self.ScrollItemAttributes, count);
             self.View.E_AttributesLoopVerticalScrollRect.SetVisible(true, count);
+        }
+
+        public static void RefreshRoleEquip(this DlgRoleInfo self)
+        {
+            var roleEqpCpt = self.ZoneScene().GetComponent<RoleEquipComponent>();
+           
+            for (int i = (int)RoleEuipPosType.None + 1; i < (int)RoleEuipPosType.Count; i++)
+            {
+                self.dicEquipUI[(RoleEuipPosType)i].RefreshUI(roleEqpCpt.GetItemByPos(i), self.saIcon);
+            }
         }
 
         public static void OnAttributeItemRefreshHandler(this DlgRoleInfo self, Transform transform, int index)

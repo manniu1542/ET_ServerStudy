@@ -19,7 +19,8 @@ namespace ET
             self.RegisterCloseEvent<DlgItemPopUp>(self.View.E_CloseButton);
 
             EUIHelper.AddListenerAsync(self.View.E_SellButton, self.OnSell);
-
+            EUIHelper.AddListenerAsync(self.View.E_UnEquipButton, self.OnUnloadItem);
+            EUIHelper.AddListenerAsync(self.View.E_EquipButton, self.OnDressUpItem);
             ResourcesComponent.Instance.LoadBundle("icons.unity3d");
             self.saIcon = ResourcesComponent.Instance.GetAsset("icons.unity3d", "Icons") as SpriteAtlas;
 
@@ -46,38 +47,30 @@ namespace ET
             bool isFinish = await ItemUseHelper.SellItem(self.ZoneScene(), self.item);
             if (isFinish)
             {
-                
                 self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgBag>()?.RefreshUI();
                 //关闭页面
                 self.View.E_CloseButton.onClick.Invoke();
             }
-          
         }
 
         public static async ETTask OnDressUpItem(this DlgItemPopUp self)
         {
-            
-            
             bool isFinish = await ItemUseHelper.DressUpItem(self.ZoneScene(), self.item);
             if (isFinish)
             {
-                
                 self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgRoleInfo>()?.RefreshUI();
                 self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgBag>()?.RefreshUI();
                 //关闭页面
                 self.View.E_CloseButton.onClick.Invoke();
             }
-          
         }
 
         public static async ETTask OnUnloadItem(this DlgItemPopUp self)
         {
-
-            int roleItemPos = 2;//self.item ,根据这个装备找到 他在玩家 穿戴上的位置
+            int roleItemPos = self.item.Config.EquipPosition; 
             bool isFinish = await ItemUseHelper.UnloadItem(self.ZoneScene(), roleItemPos);
             if (isFinish)
             {
-                
                 self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgRoleInfo>()?.RefreshUI();
                 self.ZoneScene().GetComponent<UIComponent>().GetDlgLogic<DlgBag>()?.RefreshUI();
                 //关闭页面
@@ -89,13 +82,16 @@ namespace ET
         {
         }
 
-        public static void RefreshUI(this DlgItemPopUp self, long itemId)
+        public static void RefreshUI(this DlgItemPopUp self, long itemId, NetItemPut type)
         {
-            var bagCpt = self.ZoneScene().GetComponent<BagComponent>();
-            self.item = bagCpt.GetItem(itemId);
+            self.item = ItemHelper.GetItem(self.ZoneScene(), itemId, type);
+
+            self.View.E_EquipButton.SetVisible(type == NetItemPut.Bag && self.item.Config.EquipPosition != (int)RoleEuipPosType.None);
+            self.View.E_UnEquipButton.SetVisible(type == NetItemPut.Role);
 
             self.View.E_NameText.SetText(self.item.Config.Name);
             self.View.E_IconImage.sprite = self.saIcon.GetSprite(self.item.Config.Icon);
+            self.View.E_QualityImage.color = self.item.ItemQualityColor();
             self.View.E_DescText.SetText(self.item.Config.Desc);
             self.View.E_PriceText.SetText(self.item.Config.SellBasePrice.ToString());
 

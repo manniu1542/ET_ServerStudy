@@ -16,7 +16,6 @@ namespace ET
             else if (message.NetItemOp == (int)NetItemOp.Remove)
             {
                 ItemHelper.RemoveItem(session.ZoneScene(), message.ItemInfo.Uid, (NetItemPut)message.NetItemPut);
-                
             }
         }
     }

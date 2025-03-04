@@ -20,7 +20,7 @@ namespace ET
                 reply();
                 return;
             }
-            if (roleEqpCpt.IsContainItem(request.roleEquipPosition))
+            if (!roleEqpCpt.IsContainItem(request.roleEquipPosition))
             {
                 Log.Error("托衣失败，在旧的位置没有衣服");
                 response.Error = ErrorCode.ERR_UnloadItemFail;
