@@ -24,4 +24,6 @@
 {"_t":"PlayerNumericConfig","_id":3013,"Name":"濒死状态","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 {"_t":"PlayerNumericConfig","_id":3014,"Name":"战斗随机数","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 {"_t":"PlayerNumericConfig","_id":3015,"Name":"背包容量","BaseValue":500,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
+{"_t":"PlayerNumericConfig","_id":3016,"Name":"精铁矿石","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
+{"_t":"PlayerNumericConfig","_id":3017,"Name":"皮革","BaseValue":0,"isNeedShow":0,"isAddPoint":0,"isPrecent":0},
 ]}

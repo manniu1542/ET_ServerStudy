@@ -135,6 +135,15 @@
        
         
         public const int BagCapacity   = 3015;//背包容量
+        /// <summary>
+        /// 精铁矿石（打造使用）
+        /// </summary>
+        public const int Ironstone   = 3016;
+        
+        /// <summary>
+        /// 皮革（打造使用）   
+        /// </summary>
+        public const int Leather   = 3017;
         #endregion
 
 

@@ -574,7 +574,7 @@ message C2M_SellItem // IActorLocationRequest
 {
   int32 RpcId = 90;
   int64 ItemUid = 1;
-  
+
 }
 
 message M2C_SellItem // IActorLocationResponse
@@ -616,5 +616,32 @@ message M2C_UnloadItem // IActorLocationResponse
   int32 Error = 91;
   string Message = 92;
 }
+//打造产品的信息
+message  ForgeProductionInfo
+{
+  int64 StartForgeTime = 1;
+  int64 EndForgeTime = 2;
+  int32 ForgeProductionConfigID = 3;
+  int32 ProductionReceiveState = 4;
+  int32 ProdictionId = 5;
+}
+//发送打造item（装备等道具）请求
+//ResponseType M2C_ForgeItem
+message C2M_ForgeItem // IActorLocationRequest
+{
+  int32 RpcId = 90;
+  int32 ForgeProductionConfigId = 1;
+
+}
+
+message M2C_ForgeItem // IActorLocationResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+
+  ForgeProductionInfo ForgeProInfo = 1;
+}
+
 
     

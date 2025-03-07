@@ -77,7 +77,7 @@ namespace ET
             numCpt[NumericType.Exp] += levelConfig.RewardExp;
             //TODO:发送奖励道具  
 
-            //测试添加道具
+            //测试添加道具(装备)
             for (int j = 0; j < 30; j++)
             {
                 //加入30个道具
@@ -86,7 +86,10 @@ namespace ET
                     Log.Error("有道具添加失败！");
                 }
             }
-
+            //测试添加材料
+            numCpt[NumericType.Ironstone] += 1000;
+            numCpt[NumericType.Leather] += 1000;
+            
             reply();
             await ETTask.CompletedTask;
         }

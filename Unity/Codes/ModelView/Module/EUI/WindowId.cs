@@ -16,5 +16,6 @@ namespace ET
 		WindowID_Adventure,
 		WindowID_ItemPopUp,
 		WindowID_Bag,
+		WindowID_Forge,
 	}
 }

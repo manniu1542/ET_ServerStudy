@@ -81,6 +81,9 @@ namespace ET
 		/// <summary>所需经验值</summary>
 		[ProtoMember(2)]
 		public long NeedExp { get; set; }
+		/// <summary>打造队列数量</summary>
+		[ProtoMember(3)]
+		public int ForgeTheNumOfQueues { get; set; }
 
 	}
 }

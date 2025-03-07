@@ -76,5 +76,8 @@ namespace ET
 		 public const ushort M2C_DressUpItem = 10073;
 		 public const ushort C2M_UnloadItem = 10074;
 		 public const ushort M2C_UnloadItem = 10075;
+		 public const ushort ForgeProductionInfo = 10076;
+		 public const ushort C2M_ForgeItem = 10077;
+		 public const ushort M2C_ForgeItem = 10078;
 	}
 }

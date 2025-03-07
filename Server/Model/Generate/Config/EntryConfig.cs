@@ -87,7 +87,7 @@ namespace ET
 		/// <summary>词条评分</summary>
 		[ProtoMember(4)]
 		public int EntryScore { get; set; }
-		/// <summary>属性类型</summary>
+		/// <summary>属性类型（需要有推导属性才行）</summary>
 		[ProtoMember(5)]
 		public int AttributeType { get; set; }
 		/// <summary>属性值最小范围</summary>

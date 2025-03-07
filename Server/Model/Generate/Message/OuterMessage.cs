@@ -1217,4 +1217,58 @@ namespace ET
 
 	}
 
+//打造产品的信息
+	[Message(OuterOpcode.ForgeProductionInfo)]
+	[ProtoContract]
+	public partial class ForgeProductionInfo: Object
+	{
+		[ProtoMember(1)]
+		public long StartForgeTime { get; set; }
+
+		[ProtoMember(2)]
+		public long EndForgeTime { get; set; }
+
+		[ProtoMember(3)]
+		public int ForgeProductionConfigID { get; set; }
+
+		[ProtoMember(4)]
+		public int ProductionReceiveState { get; set; }
+
+		[ProtoMember(5)]
+		public int ProdictionId { get; set; }
+
+	}
+
+//发送打造item（装备等道具）请求
+	[ResponseType(nameof(M2C_ForgeItem))]
+	[Message(OuterOpcode.C2M_ForgeItem)]
+	[ProtoContract]
+	public partial class C2M_ForgeItem: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int ForgeProductionConfigId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_ForgeItem)]
+	[ProtoContract]
+	public partial class M2C_ForgeItem: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public ForgeProductionInfo ForgeProInfo { get; set; }
+
+	}
+
 }

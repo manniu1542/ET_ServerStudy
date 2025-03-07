@@ -47,5 +47,11 @@ namespace ET
                 uiCpt.GetDlgLogic<DlgItemPopUp>().RefreshUI(item.Id, NetItemPut.Role);
             });
         }
+        public static void RefreshUI(this ES_EquipItem self, int configId,SpriteAtlas sa)
+        {
+            var icon = ItemConfigCategory.Instance.Get(configId).Icon;
+            self.E_IconImage.overrideSprite = sa.GetSprite(icon);
+            self.E_QualityImage.color = Color.gray;
+        }
     }
 }
