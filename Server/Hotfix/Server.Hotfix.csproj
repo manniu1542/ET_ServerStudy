@@ -59,17 +59,11 @@
 
     <Compile Remove="Codes\**" />
 
-    <Compile Update="Demo\Bag\BagComponentSystem.cs">
-      <Link>Codes\Hotfix\Demo\AI\BagComponentSystem.cs</Link>
-    </Compile>
-
-    <Compile Update="Demo\Bag\EquipInfoComponentSystem.cs">
-      <Link>Codes\Hotfix\Demo\AI\BagComponentSystem.cs</Link>
-    </Compile>
-
     <Compile Update="Demo\RoleInfo\RoleEquipComponentSystem.cs">
       <Link>Demo\Bag\RoleEquipComponentSystem.cs</Link>
     </Compile>
+
+    <Compile Remove="Demo\Bag\EquipInfoComponentSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Tools\Analyzer\Analyzer.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />

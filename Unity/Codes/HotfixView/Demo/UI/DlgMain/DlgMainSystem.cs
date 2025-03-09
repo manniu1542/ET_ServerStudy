@@ -19,16 +19,22 @@ namespace ET
             {
                 self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Bag);
             });
+            EUIHelper.AddListener(self.View.E_MakeButton, () =>
+            {
+                self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Forge);
+            });
             EUIHelper.AddListener(self.View.E_BattleButton,
                 () => { self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Adventure); });
             
             RedDotHelper.AddRedDotNodeView(self.ZoneScene(),RedDotType.Role, self.View.E_RoleButton.gameObject, Vector3.one, new Vector3(75,55,0));
+            RedDotHelper.AddRedDotNodeView(self.ZoneScene(),RedDotType.Forge, self.View.E_MakeButton.gameObject, Vector3.one, new Vector3(75,55,0));
         }
         public static void UnloadWindow(this DlgMain self)
         {
             RedDotMonoView redView = self.View.E_RoleButton.GetComponent<RedDotMonoView>();
             RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.Role,out redView);
-  
+            redView = self.View.E_MakeButton.GetComponent<RedDotMonoView>();
+            RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.Forge,out redView);
         }
         public static void ShowWindow(this DlgMain self, Entity contextData = null)
         {

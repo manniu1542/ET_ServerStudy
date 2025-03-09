@@ -46,6 +46,14 @@
       <Link>Demo\Bag\Item.cs</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Codes\Model\Demo\Forge\ForgeComponent.cs">
+      <Link>Demo\Forge\ForgeComponent.cs</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Codes\Model\Demo\Forge\Production.cs">
+      <Link>Demo\Forge\Production.cs</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Codes\Model\Demo\RoleInfo\RoleEquipComponent.cs">
       <Link>Demo\RoleInfo\RoleEquipComponent.cs</Link>
     </Compile>

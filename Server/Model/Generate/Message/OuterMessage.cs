@@ -1130,6 +1130,19 @@ namespace ET
 
 	}
 
+//所有道具放置(背包道具/人的装备道具)
+	[Message(OuterOpcode.M2C_UpdateAllForgeProduction)]
+	[ProtoContract]
+	public partial class M2C_UpdateAllForgeProduction: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(2)]
+		public List<ForgeProductionInfo> ProductionInfos = new List<ForgeProductionInfo>();
+
+	}
+
 //售卖道具
 	[ResponseType(nameof(M2C_SellItem))]
 	[Message(OuterOpcode.C2M_SellItem)]
@@ -1235,7 +1248,7 @@ namespace ET
 		public int ProductionReceiveState { get; set; }
 
 		[ProtoMember(5)]
-		public int ProdictionId { get; set; }
+		public long ProdictionId { get; set; }
 
 	}
 
@@ -1268,6 +1281,35 @@ namespace ET
 
 		[ProtoMember(1)]
 		public ForgeProductionInfo ForgeProInfo { get; set; }
+
+	}
+
+//发送领取打造item（装备等道具）请求
+	[ResponseType(nameof(M2C_ReceiveProductionItem))]
+	[Message(OuterOpcode.C2M_ReceiveProductionItem)]
+	[ProtoContract]
+	public partial class C2M_ReceiveProductionItem: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long ForgeProductionId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_ReceiveProductionItem)]
+	[ProtoContract]
+	public partial class M2C_ReceiveProductionItem: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
 
 	}
 

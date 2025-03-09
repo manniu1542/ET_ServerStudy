@@ -5,14 +5,14 @@ namespace ET
     public enum ProductionReceiveState
     {
         Making = 1,
-        Received = 2,
+        NeedReceive = 2,
     }
 
     [ChildType(typeof (BagComponent))]
 #if SERVER
-    public class Production: Entity, IAwake<int>, IDestroy, ISerializeToEntity
+    public class Production: Entity, IAwake, IDestroy, ISerializeToEntity
 #else
-    public class Production: Entity, IAwake<int>, IDestroy
+    public class Production: Entity, IAwake, IDestroy
 #endif
     {
         public int configID;
@@ -22,7 +22,8 @@ namespace ET
         public long startTime;
 
         public long endTime;
-
+         
+        
         [BsonIgnore]
         public ForgeProductionConfig Config => ForgeProductionConfigCategory.Instance.Get(this.configID);
     }

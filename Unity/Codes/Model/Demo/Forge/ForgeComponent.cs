@@ -17,5 +17,10 @@ namespace ET
    [BsonIgnore]
 #endif
         public Dictionary<long, Production> dicProductions = new Dictionary<long, Production>();
+
+#if !SERVER
+        [BsonIgnore]
+        public List<Production> listProductions = new List<Production>();
+#endif
     }
 }

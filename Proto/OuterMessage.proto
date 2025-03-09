@@ -566,6 +566,15 @@ message M2C_UpdatePutAllItem // IActorMessage
   repeated ItemInfo ItemInfo = 2;
 
 }
+//所有道具放置(背包道具/人的装备道具)
+message M2C_UpdateAllForgeProduction // IActorMessage
+{
+  int32 RpcId = 90;
+
+  
+  repeated ForgeProductionInfo ProductionInfos = 2;
+
+}
 
 
 //售卖道具
@@ -623,7 +632,7 @@ message  ForgeProductionInfo
   int64 EndForgeTime = 2;
   int32 ForgeProductionConfigID = 3;
   int32 ProductionReceiveState = 4;
-  int32 ProdictionId = 5;
+  int64 ProdictionId = 5;
 }
 //发送打造item（装备等道具）请求
 //ResponseType M2C_ForgeItem
@@ -641,6 +650,24 @@ message M2C_ForgeItem // IActorLocationResponse
   string Message = 92;
 
   ForgeProductionInfo ForgeProInfo = 1;
+}
+//发送领取打造item（装备等道具）请求
+//ResponseType M2C_ReceiveProductionItem
+message C2M_ReceiveProductionItem // IActorLocationRequest
+{
+  int32 RpcId = 90;
+  
+  int64 ForgeProductionId = 1;
+
+}
+
+message M2C_ReceiveProductionItem // IActorLocationResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+
+
 }
 
 

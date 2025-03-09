@@ -16,7 +16,10 @@ namespace ET
             zoneScene.AddComponent<RoleInfoComponent>();
             zoneScene.AddComponent<BagComponent>();
             zoneScene.AddComponent<RoleEquipComponent>();
-
+            zoneScene.AddComponent<ForgeComponent>();
+            
+            
+            
             Game.EventSystem.Publish(new EventType.AfterCreateZoneScene() {ZoneScene = zoneScene});
             return zoneScene;
         }

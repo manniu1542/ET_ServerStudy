@@ -16,7 +16,8 @@
         
         
         
-        public const int AdventureStartEnterRound = 1006; 
+        public const int AdventureStartEnterRound = 1007; 
+        public const int SpawnForgeRemainTime = 1008; 
         
         
     }

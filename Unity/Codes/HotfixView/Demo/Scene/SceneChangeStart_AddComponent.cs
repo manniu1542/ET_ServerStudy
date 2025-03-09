@@ -4,10 +4,16 @@ namespace ET
     {
         protected override void Run(EventType.SceneChangeStart args)
         {
+            RedDotHelper.AddRedDotNode(args.ZoneScene, RedDotType.Root, RedDotType.Main, false);
+            
+            RedDotHelper.AddRedDotNode(args.ZoneScene, RedDotType.Main, RedDotType.Role, false);
+            RedDotHelper.AddRedDotNode(args.ZoneScene, RedDotType.Main, RedDotType.Forge, false);
             
             //红点注册
             RedDotHelper.AddRedDotNode(args.ZoneScene, RedDotType.Role, RedDotType.Role_Level, false);
             RedDotHelper.AddRedDotNode(args.ZoneScene, RedDotType.Role, RedDotType.Role_AttributePoint, false);
+     
+            
             
             args.ZoneScene.GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Loading);
             RunAsync(args).Coroutine();

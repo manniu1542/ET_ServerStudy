@@ -16,6 +16,6 @@ namespace ET
 		public SpriteAtlas saIcon;
 		public Dictionary<int, Scroll_Item_production> ScrollItems = new();
 
-		
+		public long SpawnForgeRemainTimeID;
 	}
 }

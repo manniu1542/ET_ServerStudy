@@ -2,7 +2,7 @@
 
 namespace ET
 {
-    [FriendClass(typeof(RedDotComponent))]
+    [FriendClass(typeof (RedDotComponent))]
     public static class RedDotHelper
     {
         /// <summary>
@@ -12,7 +12,7 @@ namespace ET
         /// <param name="parent"></param>
         /// <param name="target"></param>
         /// <param name="isNeedShowNum"></param>
-        public static void AddRedDotNode(Scene ZoneScene, string parent, string target,bool isNeedShowNum)
+        public static void AddRedDotNode(Scene ZoneScene, string parent, string target, bool isNeedShowNum)
         {
             RedDotComponent RedDotComponent = ZoneScene.GetComponent<RedDotComponent>();
             if (RedDotComponent == null)
@@ -27,7 +27,7 @@ namespace ET
 
             RedDotComponent.AddRedDotNode(parent, target, isNeedShowNum);
         }
-        
+
         /// <summary>
         /// 移除逻辑红点
         /// </summary>
@@ -48,28 +48,27 @@ namespace ET
                 RedDotComponent.RemoveRedDotView(target, out RedDotMonoView redDotMonoView);
             }
         }
-        
-        
+
         /// <summary>
         /// 增加红点节点显示层
         /// </summary>
         /// <param name="ZoneScene"></param>
         /// <param name="target"></param>
         /// <param name="monoView"></param>
-        public static void AddRedDotNodeView(Scene ZoneScene, string target, GameObject gameObject,Vector3 RedDotScale,Vector2 PositionOffset )
+        public static void AddRedDotNodeView(Scene ZoneScene, string target, GameObject gameObject, Vector3 RedDotScale, Vector2 PositionOffset)
         {
             RedDotComponent RedDotComponent = ZoneScene.GetComponent<RedDotComponent>();
             if (RedDotComponent == null)
             {
                 return;
             }
-            RedDotMonoView monoView = gameObject.GetComponent<RedDotMonoView>()??gameObject.AddComponent<RedDotMonoView>();
+
+            RedDotMonoView monoView = gameObject.GetComponent<RedDotMonoView>() ?? gameObject.AddComponent<RedDotMonoView>();
             monoView.RedDotScale = RedDotScale;
             monoView.PositionOffset = PositionOffset;
             RedDotComponent.AddRedDotView(target, monoView);
         }
-        
-        
+
         /// <summary>
         /// 增加红点节点显示层
         /// </summary>
@@ -83,6 +82,7 @@ namespace ET
             {
                 return;
             }
+
             RedDotComponent.AddRedDotView(target, monoView);
         }
 
@@ -103,7 +103,7 @@ namespace ET
 
             RedDotComponent.RemoveRedDotView(target, out monoView);
         }
-        
+
         /// <summary>
         /// 隐藏逻辑红点
         /// </summary>
@@ -117,9 +117,10 @@ namespace ET
             {
                 return false;
             }
+
             return redDotComponent.HideRedDotNode(target);
         }
-        
+
         /// <summary>
         /// 显示逻辑红点
         /// </summary>
@@ -132,14 +133,16 @@ namespace ET
             {
                 return false;
             }
+
             RedDotComponent redDotComponent = ZoneScene.GetComponent<RedDotComponent>();
             if (redDotComponent == null)
             {
                 return false;
             }
+
             return redDotComponent.ShowRedDotNode(target);
         }
-        
+
         /// <summary>
         /// 逻辑红点是否已经处于显示状态
         /// </summary>
@@ -159,10 +162,10 @@ namespace ET
             {
                 return false;
             }
-            
+
             return redDotComponent.RedDotNodeRetainCount[target] >= 1;
         }
-        
+
         /// <summary>
         /// 刷新红点显示层的文本数量
         /// </summary>
@@ -176,7 +179,8 @@ namespace ET
             {
                 return;
             }
-            redDotComponent.RefreshRedDotViewCount(target,Count);
+
+            redDotComponent.RefreshRedDotViewCount(target, Count);
         }
     }
 }

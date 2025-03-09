@@ -73,8 +73,10 @@ namespace ET
         public const int ERR_DressUpItemFail = 200022;
         /// <summary> 脱衣失败 </summary>
         public const int ERR_UnloadItemFail = 200023;
-        
-        
+        /// <summary> 打造item失败 </summary>
+        public const int ERR_ForgeItemFail = 200024;
+        /// <summary> 接收打造产品失败 </summary>
+        public const int ERR_ReceiveProductionFail = 200024;
 
     }
 }

@@ -173,5 +173,10 @@ namespace ET
             public long unitId;
             public long damgeValue;
         }
+
+        public struct RefreshForgeRedPoint
+        {
+            public Scene ZoneScene;
+        }
     }
 }

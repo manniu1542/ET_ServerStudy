@@ -5,10 +5,19 @@ namespace ET
 {
     public static class RedDotType
     {
+        public static readonly string Root = "Root";
+        
+        public static readonly string Main = "Main";
+        //角色的红点
         public static readonly string Role = "Role";
 
         public static readonly string Role_Level = "Role_Level";
         public static readonly string Role_AttributePoint = "Role_AttributePoint";
+        
+        //打造的红点
+        public static readonly string Forge = "Forge";
+
+        
     }
     
     

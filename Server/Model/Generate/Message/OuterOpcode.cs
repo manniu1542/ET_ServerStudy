@@ -70,14 +70,17 @@ namespace ET
 		 public const ushort EquipInfo = 10067;
 		 public const ushort M2C_UpdateSomeOneItem = 10068;
 		 public const ushort M2C_UpdatePutAllItem = 10069;
-		 public const ushort C2M_SellItem = 10070;
-		 public const ushort M2C_SellItem = 10071;
-		 public const ushort C2M_DressUpItem = 10072;
-		 public const ushort M2C_DressUpItem = 10073;
-		 public const ushort C2M_UnloadItem = 10074;
-		 public const ushort M2C_UnloadItem = 10075;
-		 public const ushort ForgeProductionInfo = 10076;
-		 public const ushort C2M_ForgeItem = 10077;
-		 public const ushort M2C_ForgeItem = 10078;
+		 public const ushort M2C_UpdateAllForgeProduction = 10070;
+		 public const ushort C2M_SellItem = 10071;
+		 public const ushort M2C_SellItem = 10072;
+		 public const ushort C2M_DressUpItem = 10073;
+		 public const ushort M2C_DressUpItem = 10074;
+		 public const ushort C2M_UnloadItem = 10075;
+		 public const ushort M2C_UnloadItem = 10076;
+		 public const ushort ForgeProductionInfo = 10077;
+		 public const ushort C2M_ForgeItem = 10078;
+		 public const ushort M2C_ForgeItem = 10079;
+		 public const ushort C2M_ReceiveProductionItem = 10080;
+		 public const ushort M2C_ReceiveProductionItem = 10081;
 	}
 }
