@@ -23,6 +23,10 @@ namespace ET
             {
                 self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Forge);
             });
+            EUIHelper.AddListener(self.View.E_TaskButton, () =>
+            {
+                self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Task);
+            });
             EUIHelper.AddListener(self.View.E_BattleButton,
                 () => { self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Adventure); });
             

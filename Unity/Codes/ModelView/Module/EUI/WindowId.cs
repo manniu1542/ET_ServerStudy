@@ -17,5 +17,6 @@ namespace ET
 		WindowID_ItemPopUp,
 		WindowID_Bag,
 		WindowID_Forge,
+		WindowID_Task,
 	}
 }

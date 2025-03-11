@@ -31,7 +31,7 @@ namespace ET
     {
         public static void RegisterUIEvent(this DlgForge self)
         {
-            self.RegisterCloseEvent<DlgBag>(self.View.E_CloseButton);
+            self.RegisterCloseEvent<DlgForge>(self.View.E_CloseButton);
             ResourcesComponent.Instance.LoadBundle("icons.unity3d");
             self.saIcon = ResourcesComponent.Instance.GetAsset("icons.unity3d", "Icons") as SpriteAtlas;
 

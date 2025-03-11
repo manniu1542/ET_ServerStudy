@@ -62,6 +62,14 @@
 
     <Compile Include="..\..\Unity\Codes\Model\Demo\ServerList\ServerInfo.cs" Link="Demo\ServerList\ServerInfo.cs" />
 
+    <Compile Include="..\..\Unity\Codes\Model\Demo\Task\GameTask.cs">
+      <Link>Demo\Task\GameTask.cs</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Codes\Model\Demo\Task\TaskComponent.cs">
+      <Link>Demo\Task\TaskComponent.cs</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Codes\Model\Demo\Unit\UnitType.cs">
       <Link>Demo\Unit\UnitType.cs</Link>
     </Compile>
