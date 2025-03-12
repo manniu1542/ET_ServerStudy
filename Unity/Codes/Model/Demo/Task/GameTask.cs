@@ -28,7 +28,7 @@ namespace ET
     /// <summary>
     /// 任务推进类型
     /// </summary>
-    public enum GameTaskTaskAdvancingType
+    public enum GameTaskAdvancingType
     {
         Add = 1,
         Reduce = 2,
@@ -38,7 +38,7 @@ namespace ET
     /// <summary>
     /// 任务 执行的类型
     /// </summary>
-    public enum GameTaskTaskActionType
+    public enum GameTaskActionType
     {
         UpdateLevel = 1,
         Forge = 2,

@@ -84,7 +84,7 @@ namespace ET
 		 public const ushort M2C_ForgeItem = 10081;
 		 public const ushort C2M_ReceiveProductionItem = 10082;
 		 public const ushort M2C_ReceiveProductionItem = 10083;
-		 public const ushort M2C_UpdateGameTaskProgress = 10084;
+		 public const ushort M2C_UpdateGameTaskInfo = 10084;
 		 public const ushort C2M_ReceiveGameTaskReward = 10085;
 		 public const ushort M2C_ReceiveGameTaskReward = 10086;
 	}

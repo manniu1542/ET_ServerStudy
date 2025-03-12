@@ -1342,18 +1342,15 @@ namespace ET
 	}
 
 //推送任务进度的更新
-	[Message(OuterOpcode.M2C_UpdateGameTaskProgress)]
+	[Message(OuterOpcode.M2C_UpdateGameTaskInfo)]
 	[ProtoContract]
-	public partial class M2C_UpdateGameTaskProgress: Object, IActorMessage
+	public partial class M2C_UpdateGameTaskInfo: Object, IActorMessage
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
 		[ProtoMember(1)]
-		public int GameTaskConfigId { get; set; }
-
-		[ProtoMember(2)]
-		public int GameTaskProgress { get; set; }
+		public GameTaskInfo GameTaskInfo { get; set; }
 
 	}
 
@@ -1367,7 +1364,7 @@ namespace ET
 		public int RpcId { get; set; }
 
 		[ProtoMember(1)]
-		public long TaskConfigId { get; set; }
+		public int TaskConfigId { get; set; }
 
 	}
 

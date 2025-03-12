@@ -87,9 +87,9 @@ namespace ET
 		/// <summary>任务行为类型</summary>
 		[ProtoMember(4)]
 		public int TaskActionType { get; set; }
-		/// <summary>任务目标Id</summary>
+		/// <summary>任务目标Id（与目标相关的参数，打造中就是表示 在打造表里的id，冒险中就表示，冒险的管卡等级）</summary>
 		[ProtoMember(5)]
-		public int TaskTargetId { get; set; }
+		public int TaskTargetParm { get; set; }
 		/// <summary>任务目标数量</summary>
 		[ProtoMember(6)]
 		public int TaskTargetCount { get; set; }

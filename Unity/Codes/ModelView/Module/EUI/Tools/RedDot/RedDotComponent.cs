@@ -16,7 +16,9 @@ namespace ET
         
         //打造的红点
         public static readonly string Forge = "Forge";
-
+        
+        //任务的红点
+        public static readonly string GameTask = "GameTask";
         
     }
     

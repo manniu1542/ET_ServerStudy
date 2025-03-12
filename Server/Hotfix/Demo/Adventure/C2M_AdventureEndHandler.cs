@@ -13,14 +13,14 @@ namespace ET
         {
             //验证 关卡是否 有  ，验
             var numCpt = unit.GetComponent<NumericComponent>();
-            var levelId = numCpt.GetAsInt(NumericType.AdventureState);
-            var config = BattleLevelConfigCategory.Instance.Get(levelId);
+            var battleConfigId = numCpt.GetAsInt(NumericType.AdventureState);
+            var config = BattleLevelConfigCategory.Instance.Get(battleConfigId);
 
             //战斗结束！
 
             if (config == null)
             {
-                Log.Error("不可以进入战斗，没有该管卡在表里：" + levelId);
+                Log.Error("不可以进入战斗，没有该管卡在表里：" + battleConfigId);
                 response.Error = ErrorCode.ERR_AdventureEndCheckCant;
                 RestBattle(unit);
 
@@ -43,7 +43,7 @@ namespace ET
             if (request.AdventureBattleRoundState == 1)
             {
                 var adcCpt = unit.GetComponent<AdventureCheckComponent>();
-                if (!adcCpt.CheckWinBattle(request.RoundCount, levelId))
+                if (!adcCpt.CheckWinBattle(request.RoundCount, battleConfigId))
                 {
                     Log.Error("战斗验证没有通过！");
                     response.Error = ErrorCode.ERR_AdventureEndCheckCant;
@@ -86,10 +86,12 @@ namespace ET
                     Log.Error("有道具添加失败！");
                 }
             }
+
             //测试添加材料
             numCpt[NumericType.Ironstone] += 1000;
             numCpt[NumericType.Leather] += 1000;
-            
+
+            Game.EventSystem.Publish(new EventType.AdventureWinGameTask() { UnitInstanceId = unit.InstanceId, adventureConfigId = battleConfigId });
             reply();
             await ETTask.CompletedTask;
         }

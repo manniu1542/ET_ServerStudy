@@ -48,6 +48,10 @@ namespace ET
             var production = forgeCpt.AddProductionByConfig(request.ForgeProductionConfigId);
             response.ForgeProInfo = production.ToMsgData();
 
+            Game.EventSystem.Publish(new EventType.ForgeProductionGameTask()
+            {
+                UnitInstanceId = unit.InstanceId, ProductionID = request.ForgeProductionConfigId
+            });
             reply();
             await ETTask.CompletedTask;
         }

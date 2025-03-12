@@ -47,7 +47,10 @@ namespace ET
                 self.sdicItems.Add(gameTaskInfo.TaskConfigID, gameTask);
                 self.listTasks.Add(gameTask);
             }
+
             gameTask.ResetFormGameTaskInfo(gameTaskInfo);
+
+            Game.EventSystem.Publish(new EventType.UpdateGameTaskInfo() { ZoneScene = self.ZoneScene() });
         }
 
         public static GameTask GetGameTask(this TaskComponent self, int taskConfigID)
@@ -82,6 +85,24 @@ namespace ET
                 return self.listTasks[idx];
 
             return null;
+        }
+
+        /// <summary>
+        /// 当前有没有领取奖励的任务
+        /// </summary>
+        /// <param name="self"></param>
+        /// <returns></returns>
+        public static bool IsCurCanReceivedAnyTaskRewards(this TaskComponent self)
+        {
+            foreach (GameTask selfListTask in self.listTasks)
+            {
+                if (selfListTask.IsTaskState(GameTaskState.Finish))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

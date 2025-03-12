@@ -178,5 +178,9 @@ namespace ET
         {
             public Scene ZoneScene;
         }
+        public struct UpdateGameTaskInfo
+        {
+            public Scene ZoneScene;
+        }
     }
 }

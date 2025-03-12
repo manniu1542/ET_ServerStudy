@@ -32,6 +32,7 @@ namespace ET
             
             RedDotHelper.AddRedDotNodeView(self.ZoneScene(),RedDotType.Role, self.View.E_RoleButton.gameObject, Vector3.one, new Vector3(75,55,0));
             RedDotHelper.AddRedDotNodeView(self.ZoneScene(),RedDotType.Forge, self.View.E_MakeButton.gameObject, Vector3.one, new Vector3(75,55,0));
+            RedDotHelper.AddRedDotNodeView(self.ZoneScene(),RedDotType.GameTask, self.View.E_TaskButton.gameObject, Vector3.one, new Vector3(75,55,0));
         }
         public static void UnloadWindow(this DlgMain self)
         {
@@ -39,6 +40,8 @@ namespace ET
             RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.Role,out redView);
             redView = self.View.E_MakeButton.GetComponent<RedDotMonoView>();
             RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.Forge,out redView);
+            redView = self.View.E_TaskButton.GetComponent<RedDotMonoView>();
+            RedDotHelper.RemoveRedDotView(self.ZoneScene(), RedDotType.GameTask,out redView);
         }
         public static void ShowWindow(this DlgMain self, Entity contextData = null)
         {

@@ -27,9 +27,18 @@ namespace ET
         public List<GameTask> listTasks = new List<GameTask>();
 #endif
 
+    
+#if SERVER
+        /// <summary>
+        /// 存储当前任务的 id
+        /// </summary>
+        public HashSet<int> hsCurTasks = new HashSet<int>();
+#endif
+        
+        
 #if SERVER
        [BsonIgnore]
-        public M2C_UpdateGameTaskProgress m2c_bagItem = new M2C_UpdateGameTaskProgress() ;
+        public M2C_UpdateGameTaskInfo m2c_gameTaskInfo = new M2C_UpdateGameTaskInfo() ;
 #endif
     }
 }

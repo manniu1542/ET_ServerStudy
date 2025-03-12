@@ -682,12 +682,11 @@ message M2C_ReceiveProductionItem // IActorLocationResponse
 
 }
 //推送任务进度的更新
-message M2C_UpdateGameTaskProgress // IActorMessage
+message M2C_UpdateGameTaskInfo // IActorMessage
 {
   int32 RpcId = 90;
 
-  int32 GameTaskConfigId = 1;
-  int32 GameTaskProgress = 2;
+  GameTaskInfo GameTaskInfo = 1;
 }
 
 //领取任务奖励的请求
@@ -696,7 +695,7 @@ message C2M_ReceiveGameTaskReward // IActorLocationRequest
 {
   int32 RpcId = 90;
 
-  int64 TaskConfigId = 1;
+  int32 TaskConfigId = 1;
 
 }
 
