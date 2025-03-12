@@ -571,11 +571,24 @@ message M2C_UpdateAllForgeProduction // IActorMessage
 {
   int32 RpcId = 90;
 
-  
+
   repeated ForgeProductionInfo ProductionInfos = 2;
 
 }
+message GameTaskInfo
+{
+  int32 TaskConfigID = 1;
+  int32 TaskState = 2;
+  int32 TaskProgress = 3;
+}
+//所有任务推送
+message M2C_UpdateAllTask // IActorMessage
+{
+  int32 RpcId = 90;
 
+  repeated GameTaskInfo GameTaskInfos = 2;
+
+}
 
 //售卖道具
 //ResponseType M2C_SellItem
@@ -656,7 +669,7 @@ message M2C_ForgeItem // IActorLocationResponse
 message C2M_ReceiveProductionItem // IActorLocationRequest
 {
   int32 RpcId = 90;
-  
+
   int64 ForgeProductionId = 1;
 
 }
@@ -667,8 +680,32 @@ message M2C_ReceiveProductionItem // IActorLocationResponse
   int32 Error = 91;
   string Message = 92;
 
+}
+//推送任务进度的更新
+message M2C_UpdateGameTaskProgress // IActorMessage
+{
+  int32 RpcId = 90;
+
+  int32 GameTaskConfigId = 1;
+  int32 GameTaskProgress = 2;
+}
+
+//领取任务奖励的请求
+//ResponseType M2C_ReceiveGameTaskReward
+message C2M_ReceiveGameTaskReward // IActorLocationRequest
+{
+  int32 RpcId = 90;
+
+  int64 TaskConfigId = 1;
 
 }
 
+message M2C_ReceiveGameTaskReward // IActorLocationResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+
+}
 
     

@@ -57,15 +57,15 @@ namespace ET
 			Dictionary<string, byte[]> configBytes = new Dictionary<string, byte[]>();
 			self.ConfigLoader.GetAllConfigBytes(configBytes);
 
-			using (ListComponent<GameTask> listTasks = ListComponent<GameTask>.Create())
+			using (ListComponent<Task> listTasks = ListComponent<Task>.Create())
 			{
 				foreach (Type type in types)
 				{
-					GameTask task = GameTask.Run(() => self.LoadOneInThread(type, configBytes));
+					Task task = Task.Run(() => self.LoadOneInThread(type, configBytes));
 					listTasks.Add(task);
 				}
 
-				await GameTask.WhenAll(listTasks.ToArray());
+				await Task.WhenAll(listTasks.ToArray());
 			}
 		}
 

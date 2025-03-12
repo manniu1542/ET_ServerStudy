@@ -42,7 +42,7 @@ namespace ET
             ItemHelper.AsyncAllRoleEqpItemData(unit);
             ForgeHelper.AsyncForgeProducion(unit);
            
-            
+            TaskComponentHelper.AsyncGameTask(unit);
             
             // 加入aoi
             // unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);

@@ -1143,6 +1143,34 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.GameTaskInfo)]
+	[ProtoContract]
+	public partial class GameTaskInfo: Object
+	{
+		[ProtoMember(1)]
+		public int TaskConfigID { get; set; }
+
+		[ProtoMember(2)]
+		public int TaskState { get; set; }
+
+		[ProtoMember(3)]
+		public int TaskProgress { get; set; }
+
+	}
+
+//所有任务推送
+	[Message(OuterOpcode.M2C_UpdateAllTask)]
+	[ProtoContract]
+	public partial class M2C_UpdateAllTask: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(2)]
+		public List<GameTaskInfo> GameTaskInfos = new List<GameTaskInfo>();
+
+	}
+
 //售卖道具
 	[ResponseType(nameof(M2C_SellItem))]
 	[Message(OuterOpcode.C2M_SellItem)]
@@ -1301,6 +1329,51 @@ namespace ET
 	[Message(OuterOpcode.M2C_ReceiveProductionItem)]
 	[ProtoContract]
 	public partial class M2C_ReceiveProductionItem: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+//推送任务进度的更新
+	[Message(OuterOpcode.M2C_UpdateGameTaskProgress)]
+	[ProtoContract]
+	public partial class M2C_UpdateGameTaskProgress: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public int GameTaskConfigId { get; set; }
+
+		[ProtoMember(2)]
+		public int GameTaskProgress { get; set; }
+
+	}
+
+//领取任务奖励的请求
+	[ResponseType(nameof(M2C_ReceiveGameTaskReward))]
+	[Message(OuterOpcode.C2M_ReceiveGameTaskReward)]
+	[ProtoContract]
+	public partial class C2M_ReceiveGameTaskReward: Object, IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long TaskConfigId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_ReceiveGameTaskReward)]
+	[ProtoContract]
+	public partial class M2C_ReceiveGameTaskReward: Object, IActorLocationResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }

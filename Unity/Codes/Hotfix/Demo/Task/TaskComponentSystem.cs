@@ -29,6 +29,31 @@ namespace ET
     {
         public static void Clear(this TaskComponent self)
         {
+            foreach (GameTask selfListTask in self.listTasks)
+            {
+                selfListTask.Dispose();
+            }
+
+            self.listTasks.Clear();
+            self.sdicItems.Clear();
+        }
+
+        public static void AddOrUpdateGameTask(this TaskComponent self, GameTaskInfo gameTaskInfo)
+        {
+            var gameTask = self.GetGameTask(gameTaskInfo.TaskConfigID);
+            if (gameTask == null)
+            {
+                gameTask = self.AddChild<GameTask, int>(gameTaskInfo.TaskConfigID);
+                self.sdicItems.Add(gameTaskInfo.TaskConfigID, gameTask);
+                self.listTasks.Add(gameTask);
+            }
+            gameTask.ResetFormGameTaskInfo(gameTaskInfo);
+        }
+
+        public static GameTask GetGameTask(this TaskComponent self, int taskConfigID)
+        {
+            self.sdicItems.TryGetValue(taskConfigID, out GameTask gameTask);
+            return gameTask;
         }
 
         /// <summary>
@@ -55,7 +80,7 @@ namespace ET
         {
             if (idx >= 0 && self.listTasks.Count > idx)
                 return self.listTasks[idx];
-            
+
             return null;
         }
     }

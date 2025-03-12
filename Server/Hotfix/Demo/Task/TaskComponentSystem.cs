@@ -13,6 +13,7 @@ namespace ET
         public override void Awake(TaskComponent self)
         {
             self.AddOrUpdateTask(0, false);
+            Log.Error("111111");
         }
     }
 
@@ -28,12 +29,13 @@ namespace ET
     public class TaskComponentDeserializeSystem: DeserializeSystem<TaskComponent>
     {
         public override void Deserialize(TaskComponent self)
-        {
+        {       Log.Error("222222");
             foreach (var tmp in self.Children)
             {
                 var item = tmp.Value as GameTask;
                 if (item != null)
                 {
+                    self.AddTaskContainer(item);
                 }
             }
         }
@@ -44,6 +46,11 @@ namespace ET
     [FriendClassAttribute(typeof (ET.GameTask))]
     public static class TaskComponentSystem
     {
+        public static void AddTaskContainer(this TaskComponent self, GameTask gtask)
+        {
+            self.sdicItems.TryAdd(gtask.Config.Id, gtask);
+        }
+
         public static void AddOrUpdateTask(this TaskComponent self, int beforeId, bool isSendClient = true)
         {
             var listTask = TaskConfigCategory.Instance.GetAllConfigByBeforeId(beforeId);
@@ -54,14 +61,28 @@ namespace ET
             foreach (TaskConfig taskConfig in listTask)
             {
                 gameTask = self.AddChild<GameTask, int>(taskConfig.Id);
-                gameTask.InitTaskProgressCount();
+                self.InitTaskProgressCount(gameTask);
                 gameTask.state = (int)GameTaskState.OnGoing;
+                self.AddTaskContainer(gameTask);
             }
 
             if (isSendClient)
             {
                 MessageHelper.SendToClient(self.GetParent<Unit>(), self.m2c_bagItem);
             }
+        }
+
+        public static void InitTaskProgressCount(this TaskComponent self, GameTask gameTask)
+        {
+            ///升级任务的初始化。是当前的玩家等级，其余的都是次数是否完成
+            if (gameTask.Config.TaskActionType == (int)GameTaskTaskActionType.UpdateLevel)
+            {
+                var numCpt = self.GetParent<Unit>().GetComponent<NumericComponent>();
+                gameTask.progress = numCpt.GetAsInt(NumericType.Level);
+                return;
+            }
+
+            gameTask.progress = 0;
         }
     }
 }

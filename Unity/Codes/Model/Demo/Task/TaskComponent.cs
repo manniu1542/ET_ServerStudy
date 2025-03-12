@@ -19,7 +19,7 @@ namespace ET
         /// <summary>
         /// 所有任务的字典 
         /// </summary>
-        public SortedDictionary<long, GameTask> sdicItems = new SortedDictionary<long, GameTask>();
+        public SortedDictionary<int, GameTask> sdicItems = new SortedDictionary<int, GameTask>();
 #if !SERVER
         /// <summary>
         /// 任务列表
@@ -29,7 +29,7 @@ namespace ET
 
 #if SERVER
        [BsonIgnore]
+        public M2C_UpdateGameTaskProgress m2c_bagItem = new M2C_UpdateGameTaskProgress() ;
 #endif
-        public M2C_UpdateSomeOneItem m2c_bagItem = new M2C_UpdateSomeOneItem() { NetItemPut = (int)NetItemPut.Bag };
     }
 }

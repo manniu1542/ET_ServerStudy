@@ -65,7 +65,7 @@ namespace ET
                 try
                 {
                     ModeContex modeContex = self.GetComponent<ModeContex>();
-                    string line = await GameTask.Factory.StartNew(() =>
+                    string line = await Task.Factory.StartNew(() =>
                     {
                         Console.Write($"{modeContex?.Mode ?? ""}> ");
                         return Console.In.ReadLine();

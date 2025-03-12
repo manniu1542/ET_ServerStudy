@@ -41,7 +41,7 @@ namespace ET
                     
                     unit.AddComponent<RoleEquipComponent>();
                     unit.AddComponent<ForgeComponent>();
-                    
+                    unit.AddComponent<TaskComponent>();
                     // 加入aoi
                     // unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);
                     return unit;
