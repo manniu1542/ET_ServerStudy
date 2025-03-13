@@ -3,9 +3,9 @@
 namespace ET
 {
     [FriendClass(typeof (RoleInfo))]
-    public class C2A_GetRoleInfoInServerHandler: AMRpcHandler<C2A_GetRoleInfoInServer, A2C_GetRoleInfoInServer>
+    public class C2A_GetRoleInfoInServerHandler: AMRpcHandler<C2A_GetAllRoleInfoInServer, A2C_GetAllRoleInfoInServer>
     {
-        protected override async ETTask Run(Session session, C2A_GetRoleInfoInServer request, A2C_GetRoleInfoInServer response, Action reply)
+        protected override async ETTask Run(Session session, C2A_GetAllRoleInfoInServer request, A2C_GetAllRoleInfoInServer response, Action reply)
         {
             //请求的服务器类型
             SceneType st = session.DomainScene().SceneType;
@@ -57,16 +57,14 @@ namespace ET
                         Log.Error("数据库中，该账号该服务没有角色！");
                         return;
                     }
-                    else if (list.Count == 0)
-                    {
-                        response.RoleInfo = null;
-                    }
                     else
                     {
-                        var roleInfo = list[0];
+                        foreach (RoleInfo info in list)
+                        {
+                            response.RoleInfos.Add(info.ToMessage());
+                            info.Dispose();
+                        }
 
-                        response.RoleInfo = roleInfo.ToMessage();
-                        roleInfo.Dispose();
                         list.Clear();
                     }
 

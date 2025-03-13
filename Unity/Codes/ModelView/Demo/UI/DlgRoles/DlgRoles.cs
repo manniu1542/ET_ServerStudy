@@ -1,11 +1,11 @@
-﻿namespace ET
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace ET
 {
 	
-	public enum UIRoleInfoType
-	{
-		Create,
-		Enter,
-	}
+
 
 	 [ComponentOf(typeof(UIBaseWindow))]
 	public  class DlgRoles :Entity,IAwake,IUILogic
@@ -15,11 +15,8 @@
 
 		 
 		public string roleName;
-        
-		/// <summary>
-		/// UI的角色信息展示类型
-		/// </summary>
-		public UIRoleInfoType roleInfoType;
 
+		public Image imgClick;
+		public List<GameObject> listGORoleInfo=new List<GameObject>();
 	}
 }

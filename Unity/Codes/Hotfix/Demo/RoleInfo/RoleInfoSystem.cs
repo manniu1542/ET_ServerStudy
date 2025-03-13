@@ -38,7 +38,6 @@ namespace ET
             self.LastLoginTime = m.LastLoginTime;
             self.CreateRoleTime = m.CreateRoleTime;
 
-
         }
 
         public static MRoleInfo ToMessage(this RoleInfo self)
@@ -51,6 +50,7 @@ namespace ET
                 State = (int)self.State,
                 LastLoginTime = self.LastLoginTime,
                 CreateRoleTime = self.CreateRoleTime,
+                RoleId = self.Id,
             };
         }
 

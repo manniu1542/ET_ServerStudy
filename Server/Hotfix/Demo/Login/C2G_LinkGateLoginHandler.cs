@@ -3,7 +3,6 @@
 namespace ET
 {
     [FriendClass(typeof (SessionPlayerComponent))]
-    [FriendClass(typeof (RoleInfo))]
     public class C2G_LinkGateLoginHandler: AMRpcHandler<C2G_LinkGateLogin, G2C_LinkGateLogin>
     {
         protected override async ETTask Run(Session session, C2G_LinkGateLogin request, G2C_LinkGateLogin response, Action reply)
@@ -105,8 +104,8 @@ namespace ET
                     SessionPlayerComponent spc = session.AddComponent<SessionPlayerComponent>();
                     //获取到session，可以获取到玩家组件
                     spc.PlayerInstaceId = player.InstanceId;
-                    //知道玩家是哪一个，玩家的id就是RoleId
                     spc.AccountID = player.Account;
+                    //知道玩家是哪一个，玩家的id就是RoleId
                     spc.PlayerID = player.Id;
                 }
             }

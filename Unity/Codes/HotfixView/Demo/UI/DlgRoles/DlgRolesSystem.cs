@@ -34,12 +34,6 @@ namespace ET
             EUIHelper.AddListenerAsync(self.View.EEnterGameButton, async () => { await self.EnterGame(); });
             EUIHelper.AddListenerAsync(self.View.ECreateRoleButton, async () =>
             {
-                if (self.roleInfoType == UIRoleInfoType.Enter)
-                {
-                    Log.Warning("已有角色不可创建角色了！");
-                    return;
-                }
-
                 await LoginHelper.CreateRoleInfo(self.ZoneScene(), self.roleName);
                 self.UpdateUI();
             });
@@ -60,40 +54,49 @@ namespace ET
             Log.Info("登录完成！！！");
         }
 
-        public static void UpdateRole(this DlgRoles self)
-        {
-            if (self.roleInfoType == UIRoleInfoType.Enter)
-            {
-                var info = self.ZoneScene().GetComponent<RoleInfoComponent>().Get();
-                self.View.EGORoleRectTransform.GetComponentInChildren<Text>().text = info.Name;
-            
-                EUIHelper.AddListenerAsync(self.View.EGORoleRectTransform.GetComponentInChildren<Button>(), async () =>
-                {
-                    //删除角色
-                    await LoginHelper.DeleteRoleInfo(self.ZoneScene());
-                    self.UpdateUI();
-                });
-            }
-        }
-
         public static async void ShowWindow(this DlgRoles self, Entity contextData = null)
         {
             //获取所有角色
-            await LoginHelper.GetRoleInfo(self.ZoneScene());
+            await LoginHelper.GetAllRoleInfo(self.ZoneScene());
 
             self.UpdateUI();
         }
 
         public static void UpdateUI(this DlgRoles self)
         {
-            self.roleInfoType = self.ZoneScene().GetComponent<RoleInfoComponent>().Exit()? UIRoleInfoType.Enter : UIRoleInfoType.Create;
+            for (int i = self.listGORoleInfo.Count - 1; i >= 0; i--)
+            {
+                GameObject.Destroy(self.listGORoleInfo[i]);
+            }
 
-            self.View.EGORoleRectTransform.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Enter);
-            self.View.EEnterGameButton.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Enter);
+            self.listGORoleInfo.Clear();
+            var dic = self.ZoneScene().GetComponent<RoleInfoComponent>().dicRoleInfo;
+            foreach (var info in dic)
+            {
+                GameObject go = GameObject.Instantiate(self.View.EGORoleRectTransform.gameObject, self.View.EGORoleRectTransform.parent);
+                self.listGORoleInfo.Add(go);
+                go.SetActive(true);
 
-            self.View.EInputFieldNameInputField.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Create);
-            self.View.ECreateRoleButton.gameObject.SetActive(self.roleInfoType == UIRoleInfoType.Create);
-            self.UpdateRole();
+                go.GetComponentInChildren<Text>().text = info.Value.Name;
+
+                EUIHelper.AddListenerAsync(go.transform.Find("btn").GetComponent<Button>(), async () =>
+                {
+                    //删除角色
+                    await LoginHelper.DeleteRoleInfo(self.ZoneScene(), info.Key);
+                    self.UpdateUI();
+                });
+                
+                EUIHelper.AddListener(go.transform.Find("btnClick").GetComponent<Button>(), async () =>
+                {
+                    if (self.imgClick != null)
+                        self.imgClick.color = Color.green;
+                    self.imgClick = go.GetComponent<Image>();
+                    self.imgClick.color = Color.red;
+                    self.ZoneScene().GetComponent<RoleInfoComponent>().SetEnterGameRoleId(info.Key);
+                });
+            }
+
+            self.View.EEnterGameButton.gameObject.SetActive(dic.Count > 0);
         }
     }
 }

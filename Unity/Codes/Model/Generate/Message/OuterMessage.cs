@@ -619,6 +619,9 @@ namespace ET
 		[ProtoMember(6)]
 		public long CreateRoleTime { get; set; }
 
+		[ProtoMember(7)]
+		public long RoleId { get; set; }
+
 	}
 
 	[ResponseType(nameof(A2C_CreateRoleInfo))]
@@ -661,10 +664,10 @@ namespace ET
 
 	}
 
-	[ResponseType(nameof(A2C_GetRoleInfoInServer))]
-	[Message(OuterOpcode.C2A_GetRoleInfoInServer)]
+	[ResponseType(nameof(A2C_GetAllRoleInfoInServer))]
+	[Message(OuterOpcode.C2A_GetAllRoleInfoInServer)]
 	[ProtoContract]
-	public partial class C2A_GetRoleInfoInServer: Object, IRequest
+	public partial class C2A_GetAllRoleInfoInServer: Object, IRequest
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -680,9 +683,9 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode.A2C_GetRoleInfoInServer)]
+	[Message(OuterOpcode.A2C_GetAllRoleInfoInServer)]
 	[ProtoContract]
-	public partial class A2C_GetRoleInfoInServer: Object, IResponse
+	public partial class A2C_GetAllRoleInfoInServer: Object, IResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -694,7 +697,7 @@ namespace ET
 		public string Message { get; set; }
 
 		[ProtoMember(1)]
-		public MRoleInfo RoleInfo { get; set; }
+		public List<MRoleInfo> RoleInfos = new List<MRoleInfo>();
 
 	}
 
@@ -710,12 +713,15 @@ namespace ET
 		public long AccountId { get; set; }
 
 		[ProtoMember(2)]
-		public string Token { get; set; }
+		public long RoleId { get; set; }
 
 		[ProtoMember(3)]
-		public string Name { get; set; }
+		public string Token { get; set; }
 
 		[ProtoMember(4)]
+		public string Name { get; set; }
+
+		[ProtoMember(5)]
 		public long ServerId { get; set; }
 
 	}

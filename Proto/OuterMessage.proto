@@ -292,6 +292,7 @@ message A2C_GetServerInfo // IResponse
 
 message MRoleInfo
 {
+
   int64 AccountId = 1;
 
   int64 ServerId = 2;
@@ -303,7 +304,7 @@ message MRoleInfo
   int64 LastLoginTime = 5;
 
   int64 CreateRoleTime = 6;
-
+  int64 RoleId = 7;
 }
 
 //ResponseType A2C_CreateRoleInfo
@@ -324,8 +325,8 @@ message A2C_CreateRoleInfo // IResponse
   MRoleInfo RoleInfo = 1;
 }
 
-//ResponseType A2C_GetRoleInfoInServer
-message C2A_GetRoleInfoInServer // IRequest
+//ResponseType A2C_GetAllRoleInfoInServer
+message C2A_GetAllRoleInfoInServer // IRequest
 {
   int32 RpcId = 90;
   int64 AccountId = 1;
@@ -333,12 +334,12 @@ message C2A_GetRoleInfoInServer // IRequest
   int64  ServerId = 4;
 }
 
-message A2C_GetRoleInfoInServer // IResponse
+message A2C_GetAllRoleInfoInServer // IResponse
 {
   int32 RpcId = 90;
   int32 Error = 91;
   string Message = 92;
-  MRoleInfo RoleInfo = 1;
+  repeated MRoleInfo RoleInfos = 1;
 }
 
 
@@ -347,9 +348,10 @@ message C2A_DeleRoleInfo // IRequest
 {
   int32 RpcId = 90;
   int64 AccountId = 1;
-  string Token = 2;
-  string Name = 3;
-  int64  ServerId = 4;
+  int64 RoleId = 2;
+  string Token = 3;
+  string Name = 4;
+  int64  ServerId = 5;
 }
 
 message A2C_DeleRoleInfo // IResponse

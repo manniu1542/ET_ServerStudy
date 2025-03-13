@@ -15,5 +15,7 @@ namespace ET
         public Dictionary<int, Scroll_Item_attribute> ScrollItemAttributes;
         public SpriteAtlas saIcon;
         public Dictionary<RoleEuipPosType, ES_EquipItem> dicEquipUI =new();
+        
+        
     }
 }

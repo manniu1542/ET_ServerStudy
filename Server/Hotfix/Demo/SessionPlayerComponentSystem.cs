@@ -29,7 +29,7 @@ namespace ET
 
 		public static Player GetMyPlayer(this SessionPlayerComponent self)
 		{
-			return self.Domain.GetComponent<PlayerComponent>().Get(self.AccountID);
+			return self.Domain.GetComponent<PlayerComponent>().Get(self.PlayerID);
 		}
 	}
 }

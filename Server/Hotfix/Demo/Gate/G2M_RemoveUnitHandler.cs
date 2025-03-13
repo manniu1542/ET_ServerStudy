@@ -2,7 +2,7 @@ using System;
 
 namespace ET
 {
-    [FriendClass(typeof (RoleInfo))]
+
     public class G2M_RemoveUnitHandler: AMActorLocationRpcHandler<Unit, G2M_RemoveUnit, M2G_RemoveUnit>
     {
         protected override async ETTask Run(Unit unit, G2M_RemoveUnit request, M2G_RemoveUnit response, Action reply)

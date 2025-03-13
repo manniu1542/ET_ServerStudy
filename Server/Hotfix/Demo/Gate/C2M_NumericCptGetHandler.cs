@@ -2,7 +2,7 @@ using System;
 
 namespace ET
 {
-    [FriendClass(typeof (RoleInfo))]
+
     public class C2M_NumericCptGetHandler: AMActorLocationRpcHandler<Unit, C2M_NumericCptGet, M2C_NumericCptGet>
     {
         protected override async ETTask Run(Unit unit, C2M_NumericCptGet request, M2C_NumericCptGet response, Action reply)
