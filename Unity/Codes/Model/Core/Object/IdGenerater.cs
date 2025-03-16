@@ -94,11 +94,15 @@ namespace ET
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct UnitIdStruct
     {
-        public uint Time;        // 30bit 34年
-        public ushort Zone;      // 10bit 1024个区
-        public byte ProcessMode; // 8bit  Process % 256  一个区最多256个进程  
-        public ushort Value;     // 16bit 每秒每个进程最大16K个Unit
+        public uint Time;        // 30bit 34年       从34位开始  共占34位（十进制最大的时间戳就是这个）
+        public ushort Zone;      // 10bit 1024个区    从24位开始   共占10位
+        public byte ProcessMode; // 8bit  Process % 256  一个区最多256个进程      从第16位开始，共占8位
+        public ushort Value;     // 16bit 每秒每个进程最大16K个Unit   从第0位开始 攻占16位  
 
+        /// <summary>
+        /// long占 64位，从2020到目前的时间戳（秒） 应该不会占34位。 所以 用不完的 16+8+10+34（最大，大概率用不上34位的） = 68 位，
+        /// </summary>
+        /// <returns></returns>
         public long ToLong()
         {
             ulong result = 0;
@@ -106,9 +110,9 @@ namespace ET
             result |= (uint)this.ProcessMode << 16;
             result |= (ulong) this.Zone << 24;
             result |= (ulong) this.Time << 34;
-            return (long) result;
+            return (long) result;    //可能导致溢出或变负数 ,因为ulong表示的正整数比long多
         }
-
+        
         public UnitIdStruct(int zone, int process, uint time, ushort value)
         {
             this.Time = time;
@@ -256,13 +260,19 @@ namespace ET
             IdStruct idStruct = new IdStruct(this.lastIdTime, Game.Options.Process, value);
             return idStruct.ToLong();
         }
-        
+        /// <summary>
+        /// 传入区服，来创建 该unitid单位id
+        /// </summary>
+        /// <param name="zone"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public long GenerateUnitId(int zone)
         {
             if (zone > MaxZone)
             {
                 throw new Exception($"zone > MaxZone: {zone}");
             }
+            //从2020年到当前帧的时间 有多少秒 （大约是10位数）
             uint time = TimeSince2020();
 
             if (time > this.lastUnitIdTime)
