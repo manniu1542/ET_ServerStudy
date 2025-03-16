@@ -63,7 +63,7 @@ namespace ET
         public InstanceIdStruct(long id)
         {
             ulong result = (ulong) id;
-            this.Value = (uint)(result & IdGenerater.Mask18bit);
+            this.Value = (uint)(result & IdGenerater.Mask18bit);  //二进制计算从右到左， 取右边 （低）0-18位
             result >>= 18;
             this.Process = (int)(result & IdGenerater.Mask18bit);
             result >>= 18;
@@ -147,7 +147,11 @@ namespace ET
 
     public class IdGenerater: IDisposable
     {
-        public const int Mask18bit = 0x03ffff;
+        /// <summary>
+        /// 0x 表示 16进制， 16进制中的每个 数字都是2进制中的4位
+        /// 03 在二进制中表示 0000 0011 ，  后边的 ffff 表示 1111 1111 1111 1111
+        /// </summary>
+        public const int Mask18bit = 0x03ffff; 
         public static IdGenerater Instance = new IdGenerater();
 
         public const int MaxZone = 1024;
