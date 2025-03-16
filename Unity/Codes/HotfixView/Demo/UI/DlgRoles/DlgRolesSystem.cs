@@ -31,7 +31,11 @@ namespace ET
                 self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_ServerList);
             });
 
-            EUIHelper.AddListenerAsync(self.View.EEnterGameButton, async () => { await self.EnterGame(); });
+            EUIHelper.AddListenerAsync(self.View.EEnterGameButton, async () =>
+            {
+                if (self.ZoneScene().GetComponent<RoleInfoComponent>().IsChooseGameRoleId()) 
+                    await self.EnterGame();
+            });
             EUIHelper.AddListenerAsync(self.View.ECreateRoleButton, async () =>
             {
                 await LoginHelper.CreateRoleInfo(self.ZoneScene(), self.roleName);
@@ -85,8 +89,8 @@ namespace ET
                     await LoginHelper.DeleteRoleInfo(self.ZoneScene(), info.Key);
                     self.UpdateUI();
                 });
-                
-                EUIHelper.AddListener(go.transform.Find("btnClick").GetComponent<Button>(), async () =>
+
+                EUIHelper.AddListener(go.transform.Find("btnClick").GetComponent<Button>(), () =>
                 {
                     if (self.imgClick != null)
                         self.imgClick.color = Color.green;

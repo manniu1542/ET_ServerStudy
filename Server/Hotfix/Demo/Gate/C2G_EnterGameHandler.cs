@@ -78,7 +78,7 @@ namespace ET
                     {
                         try
                         {
-                            //TODO:还原之前 断线重连登录的逻辑
+                
                             M2G_RequestEnterGameState reqEnter =
                                     await MessageHelper.CallLocationActor(player.UintId,
                                         new G2M_RequestEnterGameState()) as M2G_RequestEnterGameState;
@@ -133,8 +133,8 @@ namespace ET
                         //提前回复客户端 ，防止 TransferHelper.Transfer 传送unit的消息比 进入游戏消息早到客户端。导致顺序错乱
                         reply();
 
-                        //TODO:当前只有一个服
-                        int zone = 1;
+                     
+                        int zone = UnitIdStruct.GetUnitZone(unit.Id);;
                         StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.GetBySceneName(zone, "Game");
                         await TransferHelper.Transfer(unit, realmConfig.InstanceId, realmConfig.Name);
 

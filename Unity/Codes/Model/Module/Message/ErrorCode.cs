@@ -80,6 +80,8 @@ namespace ET
         /// <summary> 领取任务奖励失败 </summary>
         public const int ERR_ReceiveGameTaskRewardFail = 200026;
     
-
+        /// <summary> 失败 获取某个服务器上的角色信息，该服务器没有正常开启呢 </summary>
+        public const int ERR_GetRoleInfoServerClose = 200027;
+ 
     }
 }

@@ -16,7 +16,7 @@ namespace ET
         {
             await ETTask.CompletedTask;
             Scene scene = EntitySceneFactory.CreateScene(id, instanceId, zone, sceneType, name, parent);
-
+ 
             scene.AddComponent<MailBoxComponent, MailboxType>(MailboxType.UnOrderMessageDispatcher);
         
             switch (scene.SceneType)
@@ -51,14 +51,13 @@ namespace ET
 
                     scene.AddComponent<LoginAccountInDistrictRecordComponent>();
 
-
+    
                     break;
                 case SceneType.UnitChache:
 
 
-                    scene.AddComponent<UnitChacheComponent>();
-
-
+                   var tt= scene.AddComponent<UnitChacheComponent>();
+                
                     break;
 
             }

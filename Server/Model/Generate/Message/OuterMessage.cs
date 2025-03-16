@@ -605,7 +605,7 @@ namespace ET
 		public long AccountId { get; set; }
 
 		[ProtoMember(2)]
-		public long ServerId { get; set; }
+		public int ServerId { get; set; }
 
 		[ProtoMember(3)]
 		public string Name { get; set; }
@@ -642,7 +642,7 @@ namespace ET
 		public string Name { get; set; }
 
 		[ProtoMember(4)]
-		public long ServerId { get; set; }
+		public int ServerId { get; set; }
 
 	}
 
@@ -679,7 +679,7 @@ namespace ET
 		public string Token { get; set; }
 
 		[ProtoMember(4)]
-		public long ServerId { get; set; }
+		public int ServerId { get; set; }
 
 	}
 
@@ -722,7 +722,7 @@ namespace ET
 		public string Name { get; set; }
 
 		[ProtoMember(5)]
-		public long ServerId { get; set; }
+		public int ServerId { get; set; }
 
 	}
 
@@ -756,7 +756,7 @@ namespace ET
 		public string Token { get; set; }
 
 		[ProtoMember(3)]
-		public long ServerId { get; set; }
+		public int ServerId { get; set; }
 
 	}
 

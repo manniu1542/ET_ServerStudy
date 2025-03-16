@@ -16,6 +16,6 @@ namespace ET
 
         public List<ServerInfo> ServerInfoList;
 
-        public long curServerId;
+        public int curServerId;
     }
 }

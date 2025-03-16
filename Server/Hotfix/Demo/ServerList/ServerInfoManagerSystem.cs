@@ -27,6 +27,24 @@ namespace ET
     [FriendClass(typeof(ServerInfoManager))]
     public static class ServerInfoManagerSystem
     {
+        /// <summary>
+        /// 查看 服务器是否在运行
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="serverId"></param>
+        /// <returns></returns>
+        public static  bool IsServerRuningByServerId(this ServerInfoManager self,int serverId)
+        {
+            foreach (ServerInfo serverInfo in self.ServerInfoList)
+            {
+                if (serverInfo.Id == serverId)
+                {
+                    return serverInfo.State == ServerInfoState.Normal;
+                }
+            }
+
+            return false;
+        }
 
         public static async void InitServerInfo(this ServerInfoManager self)
         {
@@ -36,7 +54,7 @@ namespace ET
             //数据库没有 存储ServerInfo，读表并写入数据库
             if (listServerInfo == null || listServerInfo.Count == 0)
             {
-                Log.Error("数据库中没有区服列表，需要存储 区服列表");
+       
                 listServerInfo = listServerInfo ?? new List<ServerInfo>();
                 foreach (var item in ServerInfoConfigCategory.Instance.GetAll())
                 {

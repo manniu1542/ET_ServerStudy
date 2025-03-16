@@ -84,5 +84,9 @@ namespace ET
             self.curEnterGameRoleId = roleid;
 
         }
+        public static bool IsChooseGameRoleId(this RoleInfoComponent self)
+        {
+           return self.curEnterGameRoleId != 0;
+        }
     }
 }

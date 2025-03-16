@@ -57,7 +57,7 @@ namespace ET
 
                             self.imgCurChoose = go.GetComponent<Image>();
                             self.imgCurChoose.color = Color.red;
-                            self.ZoneScene().GetComponent<ServerInfoComponent>().SetCurServerId(info.Id);
+                            self.ZoneScene().GetComponent<ServerInfoComponent>().SetCurServerId((int)info.Id);
                             Log.Info($"当前所选大区ID{info.Id}");
                         });
 

@@ -18,6 +18,17 @@ namespace ET
                 return;
             }
 
+            var sim = session.DomainScene().GetComponent<ServerInfoManager>();
+            //获取下该大区是否停服了
+            if (!sim.IsServerRuningByServerId(request.ServerId))
+            {
+                response.Error = ErrorCode.ERR_GetRoleInfoServerClose;
+                reply();
+                Log.Error("失败 获取某个服务器上的角色信息，该服务器没有正常开启呢");
+                return;
+            }
+            
+            
             //对比token
             string token = session.DomainScene().GetComponent<TokenComponent>().Get(request.AccountId);
 

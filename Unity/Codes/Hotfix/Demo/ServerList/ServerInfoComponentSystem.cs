@@ -47,7 +47,7 @@ namespace ET
 
         }
 
-        public static void SetCurServerId(this ServerInfoComponent self,long id)
+        public static void SetCurServerId(this ServerInfoComponent self,int id)
         {
             self.curServerId = id;
         }

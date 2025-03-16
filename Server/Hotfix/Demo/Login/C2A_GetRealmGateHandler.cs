@@ -46,14 +46,15 @@ namespace ET
 
             }
 
+       
             //防止一个客户端的 等待时候的重复点击。
             using (session.AddComponent<RepeatClickServerComponent>())
             {
                 //为什么用跟登录同一个协程锁呢。避免登录的时候，有玩家在过取realm网关服务器。（此时，刚登陆的号会把这个正在获取realm网关的人踢下线）
                 using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginCommonAccount, request.AccountId))
                 {
-
-                    StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.RealmGates[session.DomainZone()];
+                    
+                    StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.RealmGates[request.ServerId];
 
                     R2A_GetRealmInfo realmLinkInfo = await MessageHelper.CallActor(realmConfig.InstanceId, new A2R_GetRealmInfo() { AccountID = request.AccountId })
                         as R2A_GetRealmInfo;

@@ -3,7 +3,7 @@
 namespace ET
 {
     [FriendClass(typeof(ServerInfoManager))]
-    public class GetServerInfoHandler : AMRpcHandler<C2A_GetServerInfo, A2C_GetServerInfo>
+    public class C2A_GetServerInfoHandler : AMRpcHandler<C2A_GetServerInfo, A2C_GetServerInfo>
     {
         protected override async ETTask Run(Session session, C2A_GetServerInfo request, A2C_GetServerInfo response, Action reply)
         {

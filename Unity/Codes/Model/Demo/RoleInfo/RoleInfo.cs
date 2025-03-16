@@ -18,7 +18,7 @@ namespace ET
  
         public long AccountId;
 
-        public long ServerId;
+        public int ServerId;
 
         public string Name;
 

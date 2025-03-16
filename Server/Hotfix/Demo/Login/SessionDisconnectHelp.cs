@@ -60,6 +60,7 @@ namespace ET
 
                         break;
                     case PlayerState.Game:
+                        int zone = UnitIdStruct.GetUnitZone(player.UintId);
                         //在游戏中  给map发个消息 移除玩家的unit，保存玩家数据， locatin定位服务器也移除 玩家记录，给定位中心服务器也移除玩家
                         // 请求在map服务器的账号是否有该玩家 找到 Map服务器得到Unit 推送下线通知。
                         var removeUnit = await MessageHelper.CallLocationActor(player.UintId, new G2M_RemoveUnit()) as M2G_RemoveUnit;
@@ -68,13 +69,12 @@ namespace ET
                             Log.Error("移除失败！" + removeUnit.Error);
                         }
 
-                        int zone = 1;
                         long loginCenterId = StartSceneConfigCategory.Instance.LoginCenters[zone].InstanceId;
                         L2G_RemovePlayer lginfo = await MessageHelper.CallActor(loginCenterId,
-                            new G2L_RemovePlayer() { Account = player.Account, ServerId = player.DomainZone() }) as L2G_RemovePlayer;
+                            new G2L_RemovePlayer() { Account = player.Account, ServerId = zone }) as L2G_RemovePlayer;
                         if (lginfo.Error == ErrorCode.ERR_Success)
                         {
-                            Log.Info($"移除{ player.Account}成功！");
+                            Log.Info($"移除{player.Account}成功！");
                         }
                         else
                         {
