@@ -17,7 +17,7 @@ namespace ET
     {
         public static Options Instance { get; set; }
         
-        [Option("AppType", Required = false, Default = AppType.Server, HelpText = "AppType enum")]
+        [Option("AppType", Required = false, Default = AppType.Watcher, HelpText = "AppType enum")]
         public AppType AppType { get; set; }
 
         [Option("Process", Required = false, Default = 1)]
@@ -32,7 +32,7 @@ namespace ET
         [Option("Console", Required = false, Default = 0)]
         public int Console { get; set; } = 0;
 
-        [Option("StartConfig", Required = false, Default = "")]
+        [Option("StartConfig", Required = false, Default = "1")]
         public string StartConfig { get; set; } = "";
         
         // 进程启动是否创建该进程的scenes

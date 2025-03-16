@@ -41,7 +41,9 @@ namespace ET
             return $"process: {this.Process}, time: {this.Time}, value: {this.Value}";
         }
     }
-
+    /// <summary>
+    /// 唯一id的结构体  （进程的唯一表示）
+    /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct InstanceIdStruct
     {
@@ -94,7 +96,7 @@ namespace ET
     {
         public uint Time;        // 30bit 34年
         public ushort Zone;      // 10bit 1024个区
-        public byte ProcessMode; // 8bit  Process % 256  一个区最多256个进程
+        public byte ProcessMode; // 8bit  Process % 256  一个区最多256个进程  
         public ushort Value;     // 16bit 每秒每个进程最大16K个Unit
 
         public long ToLong()

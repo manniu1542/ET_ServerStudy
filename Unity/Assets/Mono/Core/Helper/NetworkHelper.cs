@@ -6,6 +6,10 @@ namespace ET
 {
 	public static class NetworkHelper
 	{
+		/// <summary>
+		/// 获取 局域网的ip地址（ipv4 和ipv6）
+		/// </summary>
+		/// <returns></returns>
 		public static string[] GetAddressIPs()
 		{
 			List<string> list = new List<string>();

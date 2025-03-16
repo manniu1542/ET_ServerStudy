@@ -40,7 +40,7 @@ namespace ET
                 Log.Error("重复请求！客户端防不住的通过处理");
                 return;
             }
-
+ 
             //防止一个客户端的 等待时候的重复点击。
             using (session.AddComponent<RepeatClickServerComponent>())
             {

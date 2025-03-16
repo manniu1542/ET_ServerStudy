@@ -6,8 +6,12 @@ namespace ET
     {
         private IPEndPoint innerIPPort;
 
+        //改进程的唯一id，最多256个进程。（18位-24位之间，2进制的左移，  一个正数在long（64位）中最多32位）
         public long SceneId;
 
+        /// <summary>
+        /// 内网的ip和端口,用来给服务器内部通信使用
+        /// </summary>
         public IPEndPoint InnerIPPort
         {
             get
@@ -21,8 +25,14 @@ namespace ET
             }
         }
 
+        /// <summary>
+        /// 这个进程的内网ip （是 该进程 所在的机器 当前的内网 ip）
+        /// </summary>
         public string InnerIP => this.StartMachineConfig.InnerIP;
 
+        /// <summary>
+        /// 这个进程的外网ip （是 该进程 所在的机器 当前的外网 ip）
+        /// </summary>
         public string OuterIP => this.StartMachineConfig.OuterIP;
 
         public StartMachineConfig StartMachineConfig => StartMachineConfigCategory.Instance.Get(this.MachineId);

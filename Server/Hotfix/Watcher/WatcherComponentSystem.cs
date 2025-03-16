@@ -7,11 +7,10 @@ namespace ET
     {
         public override void Awake(WatcherComponent self)
         {
-        
             WatcherComponent.Instance = self;
         }
     }
-    
+
     public class WatcherComponentDestroySystem: DestroySystem<WatcherComponent>
     {
         public override void Destroy(WatcherComponent self)
@@ -19,10 +18,15 @@ namespace ET
             WatcherComponent.Instance = null;
         }
     }
-    
-    [FriendClass(typeof(WatcherComponent))]
+
+    [FriendClass(typeof (WatcherComponent))]
     public static class WatcherComponentSystem
     {
+        /// <summary>
+        /// 启动所有配置表的进程 
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="createScenes"></param>
         public static void Start(this WatcherComponent self, int createScenes = 0)
         {
             string[] localIP = NetworkHelper.GetAddressIPs();
@@ -33,6 +37,7 @@ namespace ET
                 {
                     continue;
                 }
+
                 Process process = WatcherHelper.StartProcess(startProcessConfig.Id, createScenes);
                 self.Processes.Add(startProcessConfig.Id, process);
             }
