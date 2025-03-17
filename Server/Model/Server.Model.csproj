@@ -74,6 +74,10 @@
       <Link>Demo\Unit\UnitType.cs</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Codes\Model\Module\ActorRank\IActorRankMessage.cs">
+      <Link>Module\Rank\ActorRank\IActorRankMessage.cs</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Codes\Model\Module\Recast\**\*.cs">
       <Link>Module\Recast\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>

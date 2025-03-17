@@ -1389,4 +1389,20 @@ namespace ET
 
 	}
 
+//排行榜信息
+	[Message(OuterOpcode.MRankInfo)]
+	[ProtoContract]
+	public partial class MRankInfo: Object
+	{
+		[ProtoMember(1)]
+		public long UnitID { get; set; }
+
+		[ProtoMember(2)]
+		public long Count { get; set; }
+
+		[ProtoMember(3)]
+		public string Name { get; set; }
+
+	}
+
 }

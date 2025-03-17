@@ -709,4 +709,10 @@ message M2C_ReceiveGameTaskReward // IActorLocationResponse
 
 }
 
-    
+//排行榜信息
+message MRankInfo 
+{
+  int64 UnitID = 1;
+  int64 Count = 2;
+  string Name = 3;
+}

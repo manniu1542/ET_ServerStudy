@@ -18,5 +18,6 @@ namespace ET
 		WindowID_Bag,
 		WindowID_Forge,
 		WindowID_Task,
+		WindowID_Rank,
 	}
 }

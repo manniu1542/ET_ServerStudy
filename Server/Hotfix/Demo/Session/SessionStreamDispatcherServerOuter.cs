@@ -49,6 +49,17 @@ namespace ET
                     ActorLocationSenderComponent.Instance.Send(unitId, actorLocationMessage);
                     break;
                 }
+                case IActorRankMessage actorMessage:  
+                {
+                     //传递消息 到  
+                    break;
+                }
+                case IActorRankRequest actorMessage: 
+                {
+                    
+                    break;
+                }
+
                 case IActorRequest actorRequest:  // 分发IActorRequest消息，目前没有用到，需要的自己添加
                 {
                     break;
@@ -57,7 +68,7 @@ namespace ET
                 {
                     break;
                 }
-				
+           
                 default:
                 {
                     // 非Actor消息

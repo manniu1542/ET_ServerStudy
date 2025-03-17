@@ -18,7 +18,7 @@
         
         public const int AdventureStartEnterRound = 1007; 
         public const int SpawnForgeRemainTime = 1008; 
-        
+        public const int SpawnRankUI = 1009; 
         
     }
 }
