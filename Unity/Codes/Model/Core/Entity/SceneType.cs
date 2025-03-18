@@ -24,7 +24,11 @@
         /// 缓存服
         /// </summary>
         UnitChache = 9,
-
+        /// <summary>
+        /// 排行榜服
+        /// </summary>
+        Rank = 10,
+        
         // 客户端Model层
         Client = 30,
         Zone = 31,

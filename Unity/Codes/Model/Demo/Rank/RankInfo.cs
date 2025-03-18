@@ -1,9 +1,10 @@
 namespace ET
 {
-    [ChildType(typeof (RankInfoComponent))]
+
 #if SERVER
     public class RankInfo: Entity, IAwake, IDestroy
 #else
+    [ChildType(typeof (RankInfoComponent))]
     public class RankInfo: Entity, IAwake, IDestroy
 #endif
     {
