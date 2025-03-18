@@ -88,5 +88,7 @@ namespace ET
 		 public const ushort C2M_ReceiveGameTaskReward = 10085;
 		 public const ushort M2C_ReceiveGameTaskReward = 10086;
 		 public const ushort MRankInfo = 10087;
+		 public const ushort C2Rank_GetCurAllRankInfo = 10088;
+		 public const ushort Rank2C_GetCurAllRankInfo = 10089;
 	}
 }

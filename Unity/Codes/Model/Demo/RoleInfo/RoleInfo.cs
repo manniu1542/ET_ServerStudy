@@ -13,7 +13,11 @@ namespace ET
     }
 
     [ComponentOf()]
+#if SERVER
+    public class RoleInfo : Entity, IAwake, IDestroy, ITransfer, IUnitChache
+#else
     public class RoleInfo : Entity, IAwake, IDestroy
+#endif
     {
  
         public long AccountId;

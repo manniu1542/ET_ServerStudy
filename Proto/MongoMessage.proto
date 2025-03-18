@@ -31,5 +31,12 @@ message U2G_GetUnitChache // IActorResponse
 
 
 	repeated  Entity EntityType = 2;  //实体列表
-    repeated  string listComponentName = 3;  // 实体组件标识
+	repeated  string listComponentName = 3;  // 实体组件标识
+}
+
+//从map服务器出发,更新玩家排行榜数据，到数据库
+message  M2Rank_UpdateRankInfo //IActorRankMessage
+{
+	int32 RpcId = 90;
+	MRankInfo RankInfo = 1;
 }

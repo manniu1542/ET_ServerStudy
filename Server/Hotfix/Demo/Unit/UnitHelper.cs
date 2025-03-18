@@ -64,8 +64,11 @@ namespace ET
                 unit = UnitFactory.Create(gateMapComponent.Scene, player.UintId, UnitType.Player);
                 UnitChacheHelper.AddOrUpdateAllUnitChache(unit).Coroutine();
             }
-
-           
+            //TODO:查看下是否需要再添加一次 RoleInfo呢。（需要做到每次加载新的unit到内存都是再加载一次roleinfo这样子不重复给数据库添加重复信息）
+            var dbc = DBManagerComponent.Instance.GetZoneDB(unit.DomainZone());
+            var roleInfos = await dbc.Query<RoleInfo>(d=>d.Id == unit.Id);
+            unit.AddComponent(roleInfos[0]);
+            
             return (isNewUnit,unit);
         }
 

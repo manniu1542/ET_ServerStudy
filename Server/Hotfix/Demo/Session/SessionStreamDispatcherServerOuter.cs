@@ -3,7 +3,7 @@ using System.IO;
 
 namespace ET
 {
-    [FriendClass(typeof(SessionPlayerComponent))]
+    [FriendClass(typeof (SessionPlayerComponent))]
     [SessionStreamDispatcher(SessionStreamDispatcherType.SessionStreamDispatcherServerOuter)]
     public class SessionStreamDispatcherServerOuter: ISessionStreamDispatcher
     {
@@ -20,10 +20,10 @@ namespace ET
             }
 
             OpcodeHelper.LogMsg(session.DomainZone(), opcode, message);
-			
+
             DispatchAsync(session, opcode, message).Coroutine();
         }
-		
+
         public async ETTask DispatchAsync(Session session, ushort opcode, object message)
         {
             // 根据消息接口判断是不是Actor消息，不同的接口做不同的处理
@@ -41,6 +41,7 @@ namespace ET
                     {
                         session.Reply(response);
                     }
+
                     break;
                 }
                 case IActorLocationMessage actorLocationMessage:
@@ -49,26 +50,31 @@ namespace ET
                     ActorLocationSenderComponent.Instance.Send(unitId, actorLocationMessage);
                     break;
                 }
-                case IActorRankMessage actorMessage:  
+                case IActorRankMessage actorMessage:
                 {
-                     //传递消息 到  
+                    //传递消息 到   rank服务器
+                    var rankConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Rank");
+                    ActorMessageSenderComponent.Instance.Send(rankConfig.InstanceId, actorMessage);
+
                     break;
                 }
-                case IActorRankRequest actorMessage: 
+                case IActorRankRequest actorMessage:
                 {
-                    
+                    // map服务器到 rank服务器的消息。
+                    var rankConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Rank");
+                    await ActorMessageSenderComponent.Instance.Call(rankConfig.InstanceId, actorMessage);
                     break;
                 }
 
-                case IActorRequest actorRequest:  // 分发IActorRequest消息，目前没有用到，需要的自己添加
+                case IActorRequest actorRequest: // 分发IActorRequest消息，目前没有用到，需要的自己添加
                 {
                     break;
                 }
-                case IActorMessage actorMessage:  // 分发IActorMessage消息，目前没有用到，需要的自己添加
+                case IActorMessage actorMessage: // 分发IActorMessage消息，目前没有用到，需要的自己添加
                 {
                     break;
                 }
-           
+
                 default:
                 {
                     // 非Actor消息

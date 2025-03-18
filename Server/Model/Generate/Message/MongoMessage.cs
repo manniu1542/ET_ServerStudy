@@ -59,4 +59,17 @@ namespace ET
 
 	}
 
+//从map服务器出发,更新玩家排行榜数据，到数据库
+	[Message(MongoOpcode.M2Rank_UpdateRankInfo)]
+	[ProtoContract]
+	public partial class M2Rank_UpdateRankInfo: Object, IActorRankMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public MRankInfo RankInfo { get; set; }
+
+	}
+
 }

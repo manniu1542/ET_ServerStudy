@@ -54,6 +54,10 @@
       <Link>Demo\Forge\Production.cs</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Codes\Model\Demo\Rank\RankInfo.cs">
+      <Link>Demo\Rank\RankInfo.cs</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Codes\Model\Demo\RoleInfo\RoleEquipComponent.cs">
       <Link>Demo\RoleInfo\RoleEquipComponent.cs</Link>
     </Compile>
@@ -75,7 +79,7 @@
     </Compile>
 
     <Compile Include="..\..\Unity\Codes\Model\Module\ActorRank\IActorRankMessage.cs">
-      <Link>Module\Rank\ActorRank\IActorRankMessage.cs</Link>
+      <Link>Module\ActorRank\IActorRankMessage.cs</Link>
     </Compile>
 
     <Compile Include="..\..\Unity\Codes\Model\Module\Recast\**\*.cs">

@@ -716,3 +716,20 @@ message MRankInfo
   int64 Count = 2;
   string Name = 3;
 }
+
+//获取排行榜信息
+//ResponseType Rank2C_GetCurAllRankInfo
+message C2Rank_GetCurAllRankInfo // IActorRankRequest
+{
+  int32 RpcId = 90;
+}
+
+message Rank2C_GetCurAllRankInfo // IActorRankResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+  repeated MRankInfo RankInfos = 1;
+
+}
+

@@ -1,15 +1,15 @@
 ﻿namespace ET
 {
     // 不需要返回消息
-    public interface IActorRankMessage: IMessage
+    public interface IActorRankMessage: IActorMessage
     {
     }
 
-    public interface IActorRankRequest: IRequest
+    public interface IActorRankRequest: IActorRequest
     {
     }
 
-    public interface IActorRankResponse: IResponse
+    public interface IActorRankResponse: IActorResponse
     {
     }
 }

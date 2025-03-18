@@ -1405,4 +1405,33 @@ namespace ET
 
 	}
 
+//获取排行榜信息
+	[ResponseType(nameof(Rank2C_GetCurAllRankInfo))]
+	[Message(OuterOpcode.C2Rank_GetCurAllRankInfo)]
+	[ProtoContract]
+	public partial class C2Rank_GetCurAllRankInfo: Object, IActorRankRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.Rank2C_GetCurAllRankInfo)]
+	[ProtoContract]
+	public partial class Rank2C_GetCurAllRankInfo: Object, IActorRankResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public List<MRankInfo> RankInfos = new List<MRankInfo>();
+
+	}
+
 }

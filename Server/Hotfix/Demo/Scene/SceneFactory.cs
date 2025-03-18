@@ -1,5 +1,3 @@
-
-
 using System.Net;
 
 namespace ET
@@ -12,21 +10,24 @@ namespace ET
             return await Create(parent, instanceId, instanceId, parent.DomainZone(), name, sceneType);
         }
 
-        public static async ETTask<Scene> Create(Entity parent, long id, long instanceId, int zone, string name, SceneType sceneType, StartSceneConfig startSceneConfig = null)
+        public static async ETTask<Scene> Create(Entity parent, long id, long instanceId, int zone, string name, SceneType sceneType,
+        StartSceneConfig startSceneConfig = null)
         {
             await ETTask.CompletedTask;
             Scene scene = EntitySceneFactory.CreateScene(id, instanceId, zone, sceneType, name, parent);
- 
+
             scene.AddComponent<MailBoxComponent, MailboxType>(MailboxType.UnOrderMessageDispatcher);
-        
+
             switch (scene.SceneType)
             {
                 case SceneType.Realm:
-                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort, SessionStreamDispatcherType.SessionStreamDispatcherServerOuter);
+                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort,
+                        SessionStreamDispatcherType.SessionStreamDispatcherServerOuter);
                     scene.AddComponent<TokenComponent>();
                     break;
                 case SceneType.Gate:
-                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort, SessionStreamDispatcherType.SessionStreamDispatcherServerOuter);
+                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort,
+                        SessionStreamDispatcherType.SessionStreamDispatcherServerOuter);
                     scene.AddComponent<PlayerComponent>();
                     scene.AddComponent<GateSessionKeyComponent>();
                     break;
@@ -38,28 +39,28 @@ namespace ET
                     scene.AddComponent<LocationComponent>();
                     break;
                 case SceneType.Account:
-                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort, SessionStreamDispatcherType.SessionStreamDispatcherServerOuter);
+                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort,
+                        SessionStreamDispatcherType.SessionStreamDispatcherServerOuter);
                     scene.AddComponent<TokenComponent>();
                     scene.AddComponent<AccountLoginSessionComponent>();
                     scene.AddComponent<ServerInfoManager>();
 
-
-
                     break;
                 case SceneType.LoginCenter:
 
-
                     scene.AddComponent<LoginAccountInDistrictRecordComponent>();
 
-    
                     break;
                 case SceneType.UnitChache:
 
+                    scene.AddComponent<UnitChacheComponent>();
 
-                   var tt= scene.AddComponent<UnitChacheComponent>();
-                
                     break;
+                case SceneType.Rank:
 
+                    await scene.AddComponent<RankComponent>().InitRankInfo();
+
+                    break;
             }
 
             return scene;
