@@ -60,9 +60,18 @@ namespace ET
                 }
                 case IActorRankRequest actorMessage:
                 {
+                    int rpcId = actorMessage.RpcId; // 这里要保存客户端的rpcId
+                    long instanceId = session.InstanceId;
                     // map服务器到 rank服务器的消息。
                     var rankConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Rank");
-                    await ActorMessageSenderComponent.Instance.Call(rankConfig.InstanceId, actorMessage);
+                    IResponse response = await ActorMessageSenderComponent.Instance.Call(rankConfig.InstanceId, actorMessage);
+                    response.RpcId = rpcId;
+                    // session可能已经断开了，所以这里需要判断
+                    if (session.InstanceId == instanceId)
+                    {
+                        session.Reply(response);
+                    }
+
                     break;
                 }
 

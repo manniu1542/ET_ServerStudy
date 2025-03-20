@@ -59,7 +59,7 @@ namespace ET
                     }
 
                     RoleInfo roleInfo = session.AddChildWithId<RoleInfo>(IdGenerater.Instance.GenerateUnitId((int)request.ServerId));
-                    Log.Error("MESSAGE:"+UnitIdStruct.GetUnitZone(roleInfo.Id)); 
+            
                     roleInfo.Name = request.Name;
                     roleInfo.AccountId = request.AccountId;
                     roleInfo.ServerId = request.ServerId;

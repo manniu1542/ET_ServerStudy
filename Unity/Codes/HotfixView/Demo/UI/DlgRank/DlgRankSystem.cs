@@ -71,11 +71,11 @@ namespace ET
 
         public static async ETTask<bool> ReqGetRank(this DlgRank self)
         {
-            M2C_ForgeItem m2c_ForgeItem;
+            Rank2C_GetCurAllRankInfo m2c_ForgeItem;
             var gateSession = self.ZoneScene().GetComponent<SessionComponent>().Session;
             try
             {
-                m2c_ForgeItem = await gateSession.Call(new C2M_ForgeItem() { ForgeProductionConfigId = configID }) as M2C_ForgeItem;
+                m2c_ForgeItem = await gateSession.Call(new C2Rank_GetCurAllRankInfo()) as Rank2C_GetCurAllRankInfo;
                 if (m2c_ForgeItem.Error != ErrorCode.ERR_Success)
                 {
                     Log.Error("请求 制作失败 错误码是：" + m2c_ForgeItem.Error);
@@ -83,6 +83,8 @@ namespace ET
                 }
                 else
                 {
+                    RankInfoComponent riCpt = self.ZoneScene().GetComponent<RankInfoComponent>();
+                    riCpt.ResetRankInfo(m2c_ForgeItem.RankInfos);
                     self.RefreshUI();
                 }
             }

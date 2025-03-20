@@ -40,6 +40,9 @@
         <Compile Include="..\..\Unity\Codes\Model\Generate\ConfigPartial\PlayerNumericConfig.cs">
           <Link>Generate\ConfigPartial\PlayerNumericConfig.cs</Link>
         </Compile>
+        <Compile Include="..\..\Unity\Codes\Model\Module\ActorRank\IActorRankMessage.cs">
+          <Link>Module\ActorRank\IActorRankMessage.cs</Link>
+        </Compile>
         <Compile Include="..\..\Unity\Codes\Model\Module\Config\**\*.cs">
             <Link>Module\Config\%(RecursiveDir)%(FileName)%(Extension)</Link>
         </Compile>

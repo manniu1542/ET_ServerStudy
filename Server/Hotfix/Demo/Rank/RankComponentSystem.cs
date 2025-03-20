@@ -66,6 +66,7 @@ namespace ET
 
             //重新加入 这个 容器
             var rankInfo = self.AddChild<RankInfo>(true);
+            rankInfo.ResetFormData(mrankInfo);
             self.slRankInfo.Add(rankInfo, mrankInfo.UnitID);
             self.dicRankInfo.Add(mrankInfo.UnitID, rankInfo);
 
