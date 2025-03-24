@@ -14,17 +14,7 @@ namespace ET
     {
         public static void RegisterUIEvent(this DlgRoles self)
         {
-            if (Define.IsEditor)
-            {
-                //不可用ILRunTime热更
-                self.View.EInputFieldNameInputField.onValueChanged.RemoveAllListeners();
-                self.View.EInputFieldNameInputField.onValueChanged.AddListener(str => { self.roleName = str; });
-            }
-            else
-            {
-                self.roleName = "tmp";
-            }
-
+            self.View.EInputFieldNameInputField.AddListener(self.OnMessageInputField);
             EUIHelper.AddListener(self.View.EBackButton, () =>
             {
                 self.ZoneScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Roles);
@@ -33,7 +23,7 @@ namespace ET
 
             EUIHelper.AddListenerAsync(self.View.EEnterGameButton, async () =>
             {
-                if (self.ZoneScene().GetComponent<RoleInfoComponent>().IsChooseGameRoleId()) 
+                if (self.ZoneScene().GetComponent<RoleInfoComponent>().IsChooseGameRoleId())
                     await self.EnterGame();
             });
             EUIHelper.AddListenerAsync(self.View.ECreateRoleButton, async () =>
@@ -41,6 +31,11 @@ namespace ET
                 await LoginHelper.CreateRoleInfo(self.ZoneScene(), self.roleName);
                 self.UpdateUI();
             });
+        }
+
+        public static void OnMessageInputField(this DlgRoles self, string newStr)
+        {
+            self.roleName = newStr;
         }
 
         public static async ETTask EnterGame(this DlgRoles self)

@@ -1434,4 +1434,61 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.MChatInfo)]
+	[ProtoContract]
+	public partial class MChatInfo: Object
+	{
+		[ProtoMember(1)]
+		public string name { get; set; }
+
+		[ProtoMember(2)]
+		public string content { get; set; }
+
+	}
+
+//发送消息内容
+	[ResponseType(nameof(Chat2C_SendMsg))]
+	[Message(OuterOpcode.C2Chat_SendMsg)]
+	[ProtoContract]
+	public partial class C2Chat_SendMsg: Object, IActorChatRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string msg { get; set; }
+
+	}
+
+	[Message(OuterOpcode.Chat2C_SendMsg)]
+	[ProtoContract]
+	public partial class Chat2C_SendMsg: Object, IActorChatResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+//同步步发送消息内容
+	[Message(OuterOpcode.Chat2C_SycChatMsg)]
+	[ProtoContract]
+	public partial class Chat2C_SycChatMsg: Object, IActorMessage
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public string name { get; set; }
+
+		[ProtoMember(2)]
+		public string msg { get; set; }
+
+	}
+
 }

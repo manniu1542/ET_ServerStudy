@@ -19,5 +19,6 @@ namespace ET
 		WindowID_Forge,
 		WindowID_Task,
 		WindowID_Rank,
+		WindowID_Chat,
 	}
 }

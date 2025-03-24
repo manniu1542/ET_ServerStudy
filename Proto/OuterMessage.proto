@@ -733,3 +733,31 @@ message Rank2C_GetCurAllRankInfo // IActorRankResponse
 
 }
 
+message MChatInfo 
+{
+  string name = 1;
+  string content = 2;
+}
+//发送消息内容
+//ResponseType Chat2C_SendMsg
+message C2Chat_SendMsg // IActorChatRequest
+{
+  int32 RpcId = 90;
+  string msg = 1;
+}
+
+message Chat2C_SendMsg // IActorChatResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+
+}
+
+//同步步发送消息内容
+message Chat2C_SycChatMsg // IActorMessage
+{
+  int32 RpcId = 90;
+  string name = 1;
+  string msg = 2;
+}

@@ -90,5 +90,9 @@ namespace ET
 		 public const ushort MRankInfo = 10087;
 		 public const ushort C2Rank_GetCurAllRankInfo = 10088;
 		 public const ushort Rank2C_GetCurAllRankInfo = 10089;
+		 public const ushort MChatInfo = 10090;
+		 public const ushort C2Chat_SendMsg = 10091;
+		 public const ushort Chat2C_SendMsg = 10092;
+		 public const ushort Chat2C_SycChatMsg = 10093;
 	}
 }
