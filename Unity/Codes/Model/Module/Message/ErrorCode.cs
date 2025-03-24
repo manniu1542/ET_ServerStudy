@@ -85,6 +85,11 @@ namespace ET
  
         /// <summary> 获取当前排行榜失败 </summary>
         public const int ERR_GetCurAllRankInfo = 200028;
- 
+        
+        /// <summary>聊天服务器退出失败，（没有找到chatunit）  </summary>
+        public const int ERR_ChatLeaveChatUnitNotExist = 200029;
+        
+        /// <summary>聊天服务器发送消息检验消息失败  </summary>
+        public const int ERR_ChatSendMsgCheckFail = 200030;
     }
 }

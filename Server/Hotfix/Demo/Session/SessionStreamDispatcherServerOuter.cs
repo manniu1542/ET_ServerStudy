@@ -74,7 +74,31 @@ namespace ET
 
                     break;
                 }
+                case IActorChatMessage actorMessage:
+                {
+                    
+                    //传递消息 到   rank服务器
+                    var rankConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Chat");
+                    ActorMessageSenderComponent.Instance.Send(rankConfig.InstanceId, actorMessage);
 
+                    break;
+                }
+                case IActorChatRequest actorMessage:
+                {
+                    int rpcId = actorMessage.RpcId; // 这里要保存客户端的rpcId
+                    long instanceId = session.InstanceId;
+                    // map服务器到 rank服务器的消息。
+                    var rankConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Chat");
+                    IResponse response = await ActorMessageSenderComponent.Instance.Call(rankConfig.InstanceId, actorMessage);
+                    response.RpcId = rpcId;
+                    // session可能已经断开了，所以这里需要判断
+                    if (session.InstanceId == instanceId)
+                    {
+                        session.Reply(response);
+                    }
+
+                    break;
+                }
                 case IActorRequest actorRequest: // 分发IActorRequest消息，目前没有用到，需要的自己添加
                 {
                     break;

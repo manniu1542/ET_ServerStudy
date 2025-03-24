@@ -81,10 +81,10 @@ namespace ET
                         //移除的  游戏玩家下线组件
                         player.RemoveComponent<PlayerLineOffComponent>();
                     }
-
+                 
                     //登录中心服 登录
                     StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.LoginCenters[session.DomainZone()];
-                   ;
+                   
                     L2G_RigestLoginCenterPlayer rigestLoginCenter = await MessageHelper.CallActor(realmConfig.InstanceId,
                                 new G2L_RigestLoginCenterPlayer() { AccountID = request.AccountId , ServerId = UnitIdStruct.GetUnitZone(player.UintId)})
                             as L2G_RigestLoginCenterPlayer;

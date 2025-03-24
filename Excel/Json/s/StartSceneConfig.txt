@@ -10,4 +10,5 @@
 {"_t":"StartSceneConfig","_id":9,"Process":1,"Zone":1,"SceneType":"UnitChache","Name":"UnitChache","OuterPort":0},
 {"_t":"StartSceneConfig","_id":10,"Process":1,"Zone":1,"SceneType":"Map","Name":"Game","OuterPort":0},
 {"_t":"StartSceneConfig","_id":11,"Process":1,"Zone":1,"SceneType":"Rank","Name":"Rank","OuterPort":0},
+{"_t":"StartSceneConfig","_id":12,"Process":1,"Zone":1,"SceneType":"Chat","Name":"Chat","OuterPort":0},
 ]}

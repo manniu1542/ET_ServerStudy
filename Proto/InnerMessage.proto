@@ -1,6 +1,39 @@
 syntax = "proto3";
 package ET;
 
+//ResponseType Chat2C_LoginResponse
+message G2Chat_LoginRequest // IActorChatRequest
+{
+  int32 RpcId = 90;
+  int64 UnitId = 1;
+  string Name = 2;
+  int64 GateSessionId = 3;
+}
+
+message Chat2G_LoginResponse // IActorChatResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+  int64 ChatUnitInstanceId = 3;
+}
+
+
+//ResponseType Chat2C_LoginResponse
+message G2Chat_LeaveRequest // IActorChatRequest
+{
+  int32 RpcId = 90;
+  int64 ChatUnitInstanceId = 1;
+}
+
+message Chat2G_LeaveResponse // IActorChatResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+}
+
+
 //ResponseType ObjectQueryResponse
 message ObjectQueryRequest // IActorRequest
 {

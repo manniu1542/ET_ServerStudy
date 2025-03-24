@@ -28,7 +28,10 @@
         /// 排行榜服
         /// </summary>
         Rank = 10,
-        
+        /// <summary>
+        /// 聊天服
+        /// </summary>
+        Chat = 11,
         // 客户端Model层
         Client = 30,
         Zone = 31,

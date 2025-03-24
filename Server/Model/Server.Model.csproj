@@ -82,6 +82,10 @@
       <Link>Module\ActorRank\IActorRankMessage.cs</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Codes\Model\Module\Actor\IActorChatMessage.cs">
+      <Link>Module\Actor\IActorChatMessage.cs</Link>
+    </Compile>
+
     <Compile Include="..\..\Unity\Codes\Model\Module\Recast\**\*.cs">
       <Link>Module\Recast\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>

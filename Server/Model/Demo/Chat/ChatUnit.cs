@@ -2,13 +2,12 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ET
 {
- 
     [ChildType(typeof (ChatUnitComponent))]
-    public class ChatInfo: Entity, IAwake,IDestroy
+    public class ChatUnit: Entity, IAwake, IDestroy
     {
+   
         public string name;
-        
-        public string content;
-        
+
+        public long gateSessionId;
     }
 }

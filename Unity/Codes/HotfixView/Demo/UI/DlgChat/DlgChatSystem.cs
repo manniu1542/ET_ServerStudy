@@ -32,6 +32,10 @@ namespace ET
                 {
                     Log.Error("请求 制作失败 错误码是：" + m2c_ForgeItem.Error);
                 }
+                else
+                {
+                    self.RefreshUI();
+                }
             }
             catch (Exception e)
             {
@@ -46,6 +50,7 @@ namespace ET
 
         public static void ShowWindow(this DlgChat self, Entity contextData = null)
         {
+            self.RefreshUI();
         }
 
         public static void HideWindow(this DlgChat self)

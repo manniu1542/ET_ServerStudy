@@ -12,6 +12,7 @@
                 self.UintId = roleId;
                 self.State = PlayerState.Disconect;
                 self.SessionInstanceId = 0;
+                self.ChatUnitInstanceId = 0;
             }
         }
 
@@ -24,6 +25,7 @@
                 self.UintId = 0;
                 self.State = PlayerState.Disconect;
                 self.SessionInstanceId = 0;
+                self.ChatUnitInstanceId = 0;
             }
         }
     }

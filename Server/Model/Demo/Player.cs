@@ -20,6 +20,7 @@
 		//会话实体id
         public long SessionInstanceId { get; set; }
         public PlayerState State { get; set; }
-
+        //聊天服务器上的用户id
+        public long ChatUnitInstanceId	{ get; set;}
     }
 }

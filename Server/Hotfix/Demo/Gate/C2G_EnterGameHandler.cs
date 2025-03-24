@@ -2,15 +2,15 @@
 
 namespace ET
 {
-    [FriendClass(typeof(GateMapComponent))]
-    [FriendClass(typeof(SessionStateComponent))]
-    [FriendClass(typeof(SessionPlayerComponent))]
-    [FriendClass(typeof(PlayerComponent))]
-    public class C2G_EnterGameHandler : AMRpcHandler<C2G_EnterGame, G2C_EnterGame>
+    [FriendClass(typeof (GateMapComponent))]
+    [FriendClass(typeof (SessionStateComponent))]
+    [FriendClass(typeof (SessionPlayerComponent))]
+    [FriendClass(typeof (PlayerComponent))]
+    [FriendClassAttribute(typeof (ET.RoleInfo))]
+    public class C2G_EnterGameHandler: AMRpcHandler<C2G_EnterGame, G2C_EnterGame>
     {
         protected override async ETTask Run(Session session, C2G_EnterGame request, G2C_EnterGame response, Action reply)
         {
-            
             //请求的服务器类型
             SceneType st = session.DomainScene().SceneType;
             if (st != SceneType.Gate)
@@ -78,7 +78,6 @@ namespace ET
                     {
                         try
                         {
-                
                             M2G_RequestEnterGameState reqEnter =
                                     await MessageHelper.CallLocationActor(player.UintId,
                                         new G2M_RequestEnterGameState()) as M2G_RequestEnterGameState;
@@ -127,14 +126,23 @@ namespace ET
 
                         //unit的信息 是如果 通过gate网关 发送消息给客户端呢？ （答：也是通过基础的socket传递给客户端的）
                         unit.AddComponent<UnitGateComponent, long>(player.InstanceId);
-               
+
                         await UnitHelper.InitUnit(unit, isNewUnit);
                         response.UnitID = unit.Id;
                         //提前回复客户端 ，防止 TransferHelper.Transfer 传送unit的消息比 进入游戏消息早到客户端。导致顺序错乱
                         reply();
 
-                     
-                        int zone = UnitIdStruct.GetUnitZone(unit.Id);;
+                        //登录聊天服 
+                        StartSceneConfig chatConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Chat");
+                        var chatLogin = await MessageHelper.CallActor(chatConfig.InstanceId,
+                            new G2Chat_LoginRequest()
+                            {
+                                UnitId = unit.Id, Name = unit.GetComponent<RoleInfo>().Name, GateSessionId = player.SessionInstanceId
+                            }) as Chat2G_LoginResponse;
+                        if (chatLogin.Error == ErrorCode.ERR_Success)
+                            player.ChatUnitInstanceId = chatLogin.ChatUnitInstanceId;
+
+                        int zone = UnitIdStruct.GetUnitZone(unit.Id);
                         StartSceneConfig realmConfig = StartSceneConfigCategory.Instance.GetBySceneName(zone, "Game");
                         await TransferHelper.Transfer(unit, realmConfig.InstanceId, realmConfig.Name);
 

@@ -3,6 +3,71 @@ using ProtoBuf;
 using System.Collections.Generic;
 namespace ET
 {
+	[ResponseType(nameof(Chat2C_LoginResponse))]
+	[Message(InnerOpcode.G2Chat_LoginRequest)]
+	[ProtoContract]
+	public partial class G2Chat_LoginRequest: Object, IActorChatRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long UnitId { get; set; }
+
+		[ProtoMember(2)]
+		public string Name { get; set; }
+
+		[ProtoMember(3)]
+		public long GateSessionId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.Chat2G_LoginResponse)]
+	[ProtoContract]
+	public partial class Chat2G_LoginResponse: Object, IActorChatResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(3)]
+		public long ChatUnitInstanceId { get; set; }
+
+	}
+
+	[ResponseType(nameof(Chat2C_LoginResponse))]
+	[Message(InnerOpcode.G2Chat_LeaveRequest)]
+	[ProtoContract]
+	public partial class G2Chat_LeaveRequest: Object, IActorChatRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long ChatUnitInstanceId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.Chat2G_LeaveResponse)]
+	[ProtoContract]
+	public partial class Chat2G_LeaveResponse: Object, IActorChatResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 	[ResponseType(nameof(ObjectQueryResponse))]
 	[Message(InnerOpcode.ObjectQueryRequest)]
 	[ProtoContract]

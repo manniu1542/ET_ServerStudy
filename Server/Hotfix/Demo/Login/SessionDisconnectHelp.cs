@@ -69,6 +69,13 @@ namespace ET
                             Log.Error("移除失败！" + removeUnit.Error);
                         }
 
+                        var chatUnit = await MessageHelper.CallActor(player.ChatUnitInstanceId, new G2Chat_LeaveRequest()) as Chat2G_LeaveResponse;
+                        if (chatUnit.Error != ErrorCode.ERR_Success)
+                        {
+                            Log.Error("退出聊天服务器失败！" + chatUnit.Error);
+                        }
+                        
+                        
                         long loginCenterId = StartSceneConfigCategory.Instance.LoginCenters[zone].InstanceId;
                         L2G_RemovePlayer lginfo = await MessageHelper.CallActor(loginCenterId,
                             new G2L_RemovePlayer() { Account = player.Account, ServerId = zone }) as L2G_RemovePlayer;
