@@ -9,5 +9,7 @@ namespace ET
     public class ChatUnitComponent: Entity, IAwake, IDestroy
     {
         public Dictionary<long, ChatUnit> dicChatUnit = new Dictionary<long, ChatUnit>();
+
+        public   Chat2C_SycChatMsg chat2C_SycChatMsg = new Chat2C_SycChatMsg() { ChatInfoData = new MChatInfo() };
     }
 }

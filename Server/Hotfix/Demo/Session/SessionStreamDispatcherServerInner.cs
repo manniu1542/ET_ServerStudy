@@ -53,6 +53,7 @@ namespace ET
                             Session sessionOther = Game.EventSystem.Get(player.SessionInstanceId) as Session;
                             if (sessionOther != null && !sessionOther.IsDisposed)
                             {
+                                
                                 //派发 网关消息
                                 memoryStream.Seek(Packet.OpcodeIndex, SeekOrigin.Begin);
                                 sessionOther.Send(0, memoryStream);

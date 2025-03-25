@@ -182,5 +182,9 @@ namespace ET
         {
             public Scene ZoneScene;
         }
+        public struct RefreshChatUI
+        {
+            public Scene ZoneScene;
+        }
     }
 }

@@ -36,14 +36,13 @@ namespace ET
             chatUnit.name = name;
             chatUnit.gateSessionId = gateSessionId;
             chatUnit.AddComponent<MailBoxComponent>();
-            
+
             self.dicChatUnit.Add(chatUnit.Id, chatUnit);
             return chatUnit;
         }
 
         public static void RemoveChatUnit(this ChatUnitComponent self, long unitId)
         {
-           
             if (self.dicChatUnit.ContainsKey(unitId))
             {
                 self.dicChatUnit[unitId]?.Dispose();
@@ -53,9 +52,11 @@ namespace ET
 
         public static void SendBoardMsg(this ChatUnitComponent self, string name, string msg)
         {
+            self.chat2C_SycChatMsg.ChatInfoData.name = name;
+            self.chat2C_SycChatMsg.ChatInfoData.content = msg;
             foreach (var cu in self.dicChatUnit)
             {
-                MessageHelper.SendActor(cu.Value.gateSessionId, new Chat2C_SycChatMsg() { name = name, msg = msg });
+                MessageHelper.SendActor(cu.Value.gateSessionId, self.chat2C_SycChatMsg);
             }
         }
     }

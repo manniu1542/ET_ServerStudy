@@ -3,7 +3,7 @@ using ProtoBuf;
 using System.Collections.Generic;
 namespace ET
 {
-	[ResponseType(nameof(Chat2C_LoginResponse))]
+	[ResponseType(nameof(Chat2G_LoginResponse))]
 	[Message(InnerOpcode.G2Chat_LoginRequest)]
 	[ProtoContract]
 	public partial class G2Chat_LoginRequest: Object, IActorChatRequest
@@ -40,7 +40,7 @@ namespace ET
 
 	}
 
-	[ResponseType(nameof(Chat2C_LoginResponse))]
+	[ResponseType(nameof(Chat2G_LeaveResponse))]
 	[Message(InnerOpcode.G2Chat_LeaveRequest)]
 	[ProtoContract]
 	public partial class G2Chat_LeaveRequest: Object, IActorChatRequest

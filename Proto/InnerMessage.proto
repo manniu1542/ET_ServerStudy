@@ -1,7 +1,7 @@
 syntax = "proto3";
 package ET;
 
-//ResponseType Chat2C_LoginResponse
+//ResponseType Chat2G_LoginResponse
 message G2Chat_LoginRequest // IActorChatRequest
 {
   int32 RpcId = 90;
@@ -19,7 +19,7 @@ message Chat2G_LoginResponse // IActorChatResponse
 }
 
 
-//ResponseType Chat2C_LoginResponse
+//ResponseType Chat2G_LeaveResponse
 message G2Chat_LeaveRequest // IActorChatRequest
 {
   int32 RpcId = 90;

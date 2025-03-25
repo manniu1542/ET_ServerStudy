@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace ET
 {
  
-    [ChildType(typeof (ChatUnitComponent))]
+    [ChildType(typeof (ChatComponent))]
     public class ChatInfo: Entity, IAwake,IDestroy
     {
         public string name;

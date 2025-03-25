@@ -10,6 +10,7 @@ namespace ET
     {
         public override void Awake(ChatComponent self)
         {
+   
         }
     }
 
@@ -18,6 +19,8 @@ namespace ET
     {
         public override void Destroy(ChatComponent self)
         {
+            self.queMsg.Clear();
+            self.queMsg = null;
         }
     }
 

@@ -758,6 +758,5 @@ message Chat2C_SendMsg // IActorChatResponse
 message Chat2C_SycChatMsg // IActorMessage
 {
   int32 RpcId = 90;
-  string name = 1;
-  string msg = 2;
+  MChatInfo ChatInfoData = 1;
 }

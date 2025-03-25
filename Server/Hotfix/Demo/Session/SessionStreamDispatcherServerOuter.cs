@@ -76,20 +76,30 @@ namespace ET
                 }
                 case IActorChatMessage actorMessage:
                 {
-                    
-                    //传递消息 到   rank服务器
-                    var rankConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Chat");
-                    ActorMessageSenderComponent.Instance.Send(rankConfig.InstanceId, actorMessage);
+                    long playerId = session.GetComponent<SessionPlayerComponent>().PlayerInstaceId;
+                    Player player = Game.EventSystem.Get(playerId) as Player;
+
+                    ActorMessageSenderComponent.Instance.Send(player.ChatUnitInstanceId, actorMessage);
 
                     break;
                 }
                 case IActorChatRequest actorMessage:
                 {
-                    int rpcId = actorMessage.RpcId; // 这里要保存客户端的rpcId
+                    long sendActorInstanceId = 0;
+                    if (actorMessage is G2Chat_LoginRequest)
+                    {
+                        sendActorInstanceId = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Chat").InstanceId;
+                    }
+                    else
+                    {
+                        long playerId = session.GetComponent<SessionPlayerComponent>().PlayerInstaceId;
+                        Player player = Game.EventSystem.Get(playerId) as Player;
+                        sendActorInstanceId = player.ChatUnitInstanceId;
+                    }
+
+                    int rpcId = actorMessage.RpcId;
                     long instanceId = session.InstanceId;
-                    // map服务器到 rank服务器的消息。
-                    var rankConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Chat");
-                    IResponse response = await ActorMessageSenderComponent.Instance.Call(rankConfig.InstanceId, actorMessage);
+                    IResponse response = await ActorMessageSenderComponent.Instance.Call(sendActorInstanceId, actorMessage);
                     response.RpcId = rpcId;
                     // session可能已经断开了，所以这里需要判断
                     if (session.InstanceId == instanceId)

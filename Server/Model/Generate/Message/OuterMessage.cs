@@ -1484,10 +1484,7 @@ namespace ET
 		public int RpcId { get; set; }
 
 		[ProtoMember(1)]
-		public string name { get; set; }
-
-		[ProtoMember(2)]
-		public string msg { get; set; }
+		public MChatInfo ChatInfoData { get; set; }
 
 	}
 

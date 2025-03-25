@@ -2,13 +2,10 @@
 
 namespace ET
 {
-    [FriendClass(typeof (GateMapComponent))]
-    [FriendClass(typeof (SessionStateComponent))]
-    [FriendClass(typeof (SessionPlayerComponent))]
-    [FriendClass(typeof (PlayerComponent))]
-    public class G2Chat_LeaveRequestHandler: AMActorRpcHandler<ChatUnit, G2Chat_LeaveRequest, Chat2G_LoginResponse>
+   
+    public class G2Chat_LeaveRequestHandler: AMActorRpcHandler<ChatUnit, G2Chat_LeaveRequest, Chat2G_LeaveResponse>
     {
-        protected override async ETTask Run(ChatUnit chatUnit, G2Chat_LeaveRequest request, Chat2G_LoginResponse response, Action reply)
+        protected override async ETTask Run(ChatUnit chatUnit, G2Chat_LeaveRequest request, Chat2G_LeaveResponse response, Action reply)
         {
             // var chatUnit = Game.EventSystem.Get(request.ChatUnitInstanceId) as ChatUnit;
             if (chatUnit == null)

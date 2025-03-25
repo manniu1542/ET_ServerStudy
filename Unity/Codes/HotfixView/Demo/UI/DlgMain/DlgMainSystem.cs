@@ -33,6 +33,10 @@ namespace ET
             {
                 self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Rank);
             });
+            EUIHelper.AddListener(self.View.E_ChatButton, () =>
+            {
+                self.ZoneScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Chat);
+            });
             RedDotHelper.AddRedDotNodeView(self.ZoneScene(),RedDotType.Role, self.View.E_RoleButton.gameObject, Vector3.one, new Vector3(75,55,0));
             RedDotHelper.AddRedDotNodeView(self.ZoneScene(),RedDotType.Forge, self.View.E_MakeButton.gameObject, Vector3.one, new Vector3(75,55,0));
             RedDotHelper.AddRedDotNodeView(self.ZoneScene(),RedDotType.GameTask, self.View.E_TaskButton.gameObject, Vector3.one, new Vector3(75,55,0));
