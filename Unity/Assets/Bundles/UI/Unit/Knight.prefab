@@ -136,7 +136,7 @@ MonoBehaviour:
   - key: HpBar
     gameObject: {fileID: 8229317428550063348}
   - key: HpText
-    gameObject: {fileID: 8750376265013073006}
+    gameObject: {fileID: 2042165354003969998}
   - key: HpBarGroup
     gameObject: {fileID: 7850160917320872968}
 --- !u!1001 &5090059916760198633
@@ -213,6 +213,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 269b9d162e23ebb4889d8e3fc8dd9d50, type: 3}
+--- !u!1 &2042165354003969998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6554070166680246823, guid: 269b9d162e23ebb4889d8e3fc8dd9d50,
+    type: 3}
+  m_PrefabInstance: {fileID: 5090059916760198633}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2331258851414542858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7420187347959850979, guid: 269b9d162e23ebb4889d8e3fc8dd9d50,
@@ -228,12 +234,6 @@ GameObject:
 --- !u!1 &8229317428550063348 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3789759428892981533, guid: 269b9d162e23ebb4889d8e3fc8dd9d50,
-    type: 3}
-  m_PrefabInstance: {fileID: 5090059916760198633}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8750376265013073006 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4597069520361699719, guid: 269b9d162e23ebb4889d8e3fc8dd9d50,
     type: 3}
   m_PrefabInstance: {fileID: 5090059916760198633}
   m_PrefabAsset: {fileID: 0}

@@ -15,38 +15,47 @@ namespace ET
 
         public static void InitILRuntime(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
         {
-            list.Add(typeof(Dictionary<int, ILTypeInstance>));
-            list.Add(typeof(Dictionary<long, ILTypeInstance>));
-            list.Add(typeof(Dictionary<string, ILTypeInstance>));
-            list.Add(typeof(Dictionary<int, int>));
-            list.Add(typeof(Dictionary<object, object>));
-            list.Add(typeof(Dictionary<int, object>));
-            list.Add(typeof(Dictionary<long, object>));
-            list.Add(typeof(Dictionary<long, int>));
-            list.Add(typeof(Dictionary<int, long>));
-            list.Add(typeof(Dictionary<string, long>));
-            list.Add(typeof(Dictionary<string, int>));
-            list.Add(typeof(Dictionary<string, object>));
-            list.Add(typeof(List<ILTypeInstance>));
-            list.Add(typeof(List<int>));
-            list.Add(typeof(List<long>));
-            list.Add(typeof(List<string>));
-            list.Add(typeof(List<object>));
-            list.Add(typeof(ETTask<int>));
-            list.Add(typeof(ETTask<long>));
-            list.Add(typeof(ETTask<string>));
-            list.Add(typeof(ETTask<object>));
-            list.Add(typeof(ETTask<AssetBundle>));
-            list.Add(typeof(ETTask<UnityEngine.Object[]>));
-            list.Add(typeof(ListComponent<ILTypeInstance>));
-            list.Add(typeof(ListComponent<ETTask>));
-            list.Add(typeof(ListComponent<Vector3>));
-            
-            
-            
+            list.Add(typeof (Dictionary<int, ILTypeInstance>));
+            list.Add(typeof (Dictionary<long, ILTypeInstance>));
+            list.Add(typeof (Dictionary<string, ILTypeInstance>));
+            list.Add(typeof (Dictionary<int, int>));
+            list.Add(typeof (Dictionary<object, object>));
+            list.Add(typeof (Dictionary<int, object>));
+            list.Add(typeof (Dictionary<long, object>));
+            list.Add(typeof (Dictionary<long, int>));
+            list.Add(typeof (Dictionary<int, long>));
+            list.Add(typeof (Dictionary<string, long>));
+            list.Add(typeof (Dictionary<string, int>));
+            list.Add(typeof (Dictionary<string, object>));
+            list.Add(typeof (List<ILTypeInstance>));
+            list.Add(typeof (List<int>));
+            list.Add(typeof (List<long>));
+            list.Add(typeof (List<string>));
+            list.Add(typeof (List<object>));
+            list.Add(typeof (ETTask<int>));
+            list.Add(typeof (ETTask<long>));
+            list.Add(typeof (ETTask<string>));
+            list.Add(typeof (ETTask<object>));
+            list.Add(typeof (ETTask<AssetBundle>));
+            list.Add(typeof (ETTask<UnityEngine.Object[]>));
+            list.Add(typeof (ListComponent<ILTypeInstance>));
+            list.Add(typeof (ListComponent<ETTask>));
+            list.Add(typeof (ListComponent<Vector3>));
+
             // 注册重定向函数
 
             // 注册委托
+            // 注册委托转换器
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<string>>((act) =>
+            {
+                return new UnityEngine.Events.UnityAction<string>((arg0) => { ((Action<string>)act)(arg0); });
+            });
+
+            // 如果需要 UnityAction<string, string>，也可以这样注册
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<string, string>>((act) =>
+            {
+                return new UnityEngine.Events.UnityAction<string, string>((arg0, arg1) => { ((Action<string, string>)act)(arg0, arg1); });
+            });
             appdomain.DelegateManager.RegisterMethodDelegate<List<object>>();
             appdomain.DelegateManager.RegisterMethodDelegate<object>();
             appdomain.DelegateManager.RegisterMethodDelegate<bool>();
@@ -56,11 +65,11 @@ namespace ET
             appdomain.DelegateManager.RegisterMethodDelegate<long, MemoryStream>();
             appdomain.DelegateManager.RegisterMethodDelegate<long, IPEndPoint>();
             appdomain.DelegateManager.RegisterMethodDelegate<ILTypeInstance>();
-            appdomain.DelegateManager.RegisterMethodDelegate<Transform,int>();
+            appdomain.DelegateManager.RegisterMethodDelegate<Transform, int>();
             appdomain.DelegateManager.RegisterMethodDelegate<AsyncOperation>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Type, ILRuntime.Runtime.Intepreter.ILTypeInstance>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Int64, ILRuntime.Runtime.Intepreter.ILTypeInstance>();
-            
+
             appdomain.DelegateManager.RegisterFunctionDelegate<UnityEngine.Events.UnityAction>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Object, ET.ETTask>();
             appdomain.DelegateManager.RegisterFunctionDelegate<ILTypeInstance, bool>();
@@ -69,25 +78,25 @@ namespace ET
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<System.String, System.Int32>, System.Int32>();
             appdomain.DelegateManager.RegisterFunctionDelegate<List<int>, int>();
             appdomain.DelegateManager.RegisterFunctionDelegate<List<int>, bool>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<int, bool>();//Linq
-            appdomain.DelegateManager.RegisterFunctionDelegate<int, int, int>();//Linq
+            appdomain.DelegateManager.RegisterFunctionDelegate<int, bool>(); //Linq
+            appdomain.DelegateManager.RegisterFunctionDelegate<int, int, int>(); //Linq
             appdomain.DelegateManager.RegisterFunctionDelegate<KeyValuePair<int, List<int>>, bool>();
             appdomain.DelegateManager.RegisterFunctionDelegate<KeyValuePair<int, int>, KeyValuePair<int, int>, int>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Int64, System.Collections.Generic.List<System.Int64>>();
-            appdomain.DelegateManager.RegisterMethodDelegate<System.Int64, System.Collections.Generic.List<ILRuntime.Runtime.Intepreter.ILTypeInstance>>();
+            appdomain.DelegateManager
+                    .RegisterMethodDelegate<System.Int64, System.Collections.Generic.List<ILRuntime.Runtime.Intepreter.ILTypeInstance>>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Int64, System.Collections.Generic.List<System.Int64>, System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<System.Int64, System.Collections.Generic.List<ILRuntime.Runtime.Intepreter.ILTypeInstance>, System.Boolean>();
+            appdomain.DelegateManager
+                    .RegisterFunctionDelegate<System.Int64, System.Collections.Generic.List<ILRuntime.Runtime.Intepreter.ILTypeInstance>,
+                        System.Boolean>();
 
             appdomain.DelegateManager.RegisterMethodDelegate<ET.AService>();
 
             appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction>((act) =>
             {
-                return new UnityEngine.Events.UnityAction(() =>
-                {
-                    ((Action)act)();
-                });
+                return new UnityEngine.Events.UnityAction(() => { ((Action)act)(); });
             });
-            
+
             appdomain.DelegateManager.RegisterDelegateConvertor<Comparison<KeyValuePair<int, int>>>((act) =>
             {
                 return new Comparison<KeyValuePair<int, int>>((x, y) =>
@@ -95,25 +104,21 @@ namespace ET
                     return ((Func<KeyValuePair<int, int>, KeyValuePair<int, int>, int>)act)(x, y);
                 });
             });
-            
+
             appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction>((act) =>
             {
-                return new UnityEngine.Events.UnityAction(() =>
-                {
-                    ((Action)act)();
-                });
+                return new UnityEngine.Events.UnityAction(() => { ((Action)act)(); });
             });
 
             // 注册适配器
             RegisterAdaptor(appdomain);
-            
+
             //注册Json的CLR
             LitJson.JsonMapper.RegisterILRuntimeCLRRedirection(appdomain);
-            
+
             //注册ProtoBuf的CLR
             PType.RegisterILRuntime(appdomain, typeFullName => CodeLoader.Instance.GetHotfixType(typeFullName));
-           
-            
+
             ////////////////////////////////////
             // CLR绑定的注册，一定要记得将CLR绑定的注册写在CLR重定向的注册后面，因为同一个方法只能被重定向一次，只有先注册的那个才能生效
             ////////////////////////////////////
@@ -124,14 +129,14 @@ namespace ET
             }
             //ILRuntime.Runtime.Generated.CLRBindings.Initialize(appdomain);
         }
-        
+
         public static void RegisterAdaptor(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
         {
             //注册自己写的适配器
             appdomain.RegisterCrossBindingAdaptor(new IAsyncStateMachineClassInheritanceAdaptor());
-            appdomain.RegisterValueTypeBinder(typeof(Vector2), new Vector2Binder());
-            appdomain.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());
-            appdomain.RegisterValueTypeBinder(typeof(Quaternion), new QuaternionBinder());
+            appdomain.RegisterValueTypeBinder(typeof (Vector2), new Vector2Binder());
+            appdomain.RegisterValueTypeBinder(typeof (Vector3), new Vector3Binder());
+            appdomain.RegisterValueTypeBinder(typeof (Quaternion), new QuaternionBinder());
         }
     }
 }

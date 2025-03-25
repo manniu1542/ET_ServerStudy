@@ -138,7 +138,7 @@ MonoBehaviour:
   - key: HpBar
     gameObject: {fileID: 3724589372225703911}
   - key: HpText
-    gameObject: {fileID: 4101541264766275453}
+    gameObject: {fileID: 6760804934609349853}
 --- !u!1001 &515530576697964282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -225,9 +225,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 515530576697964282}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4101541264766275453 stripped
+--- !u!1 &6760804934609349853 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4597069520361699719, guid: 269b9d162e23ebb4889d8e3fc8dd9d50,
+  m_CorrespondingSourceObject: {fileID: 6554070166680246823, guid: 269b9d162e23ebb4889d8e3fc8dd9d50,
     type: 3}
   m_PrefabInstance: {fileID: 515530576697964282}
   m_PrefabAsset: {fileID: 0}

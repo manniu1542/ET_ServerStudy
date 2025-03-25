@@ -28,7 +28,7 @@ namespace LitJson
             {
                 return Type.GetType(s);
             });
-            
+        
             // 注册Vector2类型的Exporter
             Action<UnityEngine.Vector2, JsonWriter> writeVector2 = (v, w) =>
             {

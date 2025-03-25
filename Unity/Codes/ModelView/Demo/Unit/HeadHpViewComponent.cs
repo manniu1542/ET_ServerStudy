@@ -1,4 +1,4 @@
-using TMPro;
+
 using UnityEngine;
 
 namespace ET
@@ -8,7 +8,7 @@ namespace ET
     {
         public GameObject HpBarGroup = null;
         public SpriteRenderer HpBar = null;
-        public TextMeshPro HpText = null;
+        public TextMesh HpText = null;
     }
 
 }

@@ -28,12 +28,15 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("Sin", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, Sin_1);
+            args = new Type[]{typeof(System.Int32), typeof(System.Int32)};
+            method = type.GetMethod("Max", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Max_2);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("Sqrt", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Sqrt_2);
+            app.RegisterCLRMethodRedirection(method, Sqrt_3);
             args = new Type[]{typeof(System.Single)};
             method = type.GetMethod("Abs", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Abs_3);
+            app.RegisterCLRMethodRedirection(method, Abs_4);
 
             app.RegisterCLRCreateDefaultInstance(type, () => new UnityEngine.Mathf());
 
@@ -120,7 +123,27 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Sqrt_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Max_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Int32 @b = ptr_of_this_method->Value;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.Int32 @a = ptr_of_this_method->Value;
+
+
+            var result_of_this_method = UnityEngine.Mathf.Max(@a, @b);
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* Sqrt_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -137,7 +160,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Abs_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Abs_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

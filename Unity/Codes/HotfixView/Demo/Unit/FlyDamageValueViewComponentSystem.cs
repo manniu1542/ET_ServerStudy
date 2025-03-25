@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using TMPro;
 using UnityEditor.UI;
 using UnityEngine;
 
@@ -47,7 +46,7 @@ namespace ET
             self.FlyingDamageSet.Add(flyDamageValueGameObject);
             flyDamageValueGameObject.SetActive(true);
             
-            flyDamageValueGameObject.GetComponentInChildren<TextMeshPro>().text = DamageValue <= 0? "Miss" : $"-{DamageValue}";
+            flyDamageValueGameObject.GetComponentInChildren<TextMesh>().text = DamageValue <= 0? "Miss" : $"-{DamageValue}";
             flyDamageValueGameObject.transform.position =startPos;
             
             flyDamageValueGameObject.transform.DOMoveY(startPos.y + 1.5f, 0.8f).onComplete = () =>
