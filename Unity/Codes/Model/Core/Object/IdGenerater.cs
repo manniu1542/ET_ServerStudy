@@ -47,8 +47,8 @@ namespace ET
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct InstanceIdStruct
     {
-        public uint Time;   // 当年开始的tick 28bit
-        public int Process; // 18bit
+        public uint Time;   // 当前帧的时间-今年年初的 秒 28bit
+        public int Process; // 18bit zhen
         public uint Value;  // 18bit
 
         public long ToLong()
@@ -154,19 +154,39 @@ namespace ET
         public const int Mask18bit = 0x03ffff; 
         public static IdGenerater Instance = new IdGenerater();
 
-        public const int MaxZone = 1024;
-        
+        /// <summary>
+        /// 最大区数
+        /// </summary>
+        public const int MaxZone = 1024; 
+        /// <summary>
+        /// 2020-1971年之间走的总的秒数
+        /// </summary>
         private long epoch2020;
+        /// <summary>
+        /// 当同一个时间有其他 id生成了，这个值。就自增
+        /// </summary>
         private ushort value;
+        /// <summary>
+        /// 上一个id的时间
+        /// </summary>
         private uint lastIdTime;
 
-        
+        //今年到-1971年的秒数
         private long epochThisYear;
+        // 当同一个时间有其他 id生成了，这个值。就自增
         private uint instanceIdValue;
+        /// <summary>
+        /// 上一个生成Instanid的时间
+        /// </summary>
         private uint lastInstanceIdTime;
         
-        
+        /// <summary>
+        ///  当同一个时间有其他 id生成了，这个值。就自增
+        /// </summary>
         private ushort unitIdValue;
+        /// <summary>
+        /// 上一个生成UnitInstanid的时间
+        /// </summary>
         private uint lastUnitIdTime;
 
         public IdGenerater()
